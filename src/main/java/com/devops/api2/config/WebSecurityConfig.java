@@ -21,7 +21,7 @@ import org.springframework.web.filter.CorsFilter;
  * SpringSecurity 초기설정
  * SpringBoot 3.x 이상에서는 WebSecurityConfigurerAdapter를 사용할수없고, configure 세팅이 많이다름.
  * Boot 버전확인 필요.
- * sejin
+ * sejin307
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
