@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.5.14'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.devops'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+def lib = [
+        'database': [
+                'org.springframework:spring-jdbc',
+                //'com.zaxxer:HikariCP:3.3.1',
+                'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16',
+                'mysql:mysql-connector-java:8.0.15',
+        ]
+]
+
+dependencies {
+    implementation lib.database
+    implementation ('org.springframework.boot:spring-boot-starter-web'){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation("org.springframework.boot:spring-boot-starter-undertow")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation ("org.springframework.boot:spring-boot-starter-mail")
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation ("io.jsonwebtoken:jjwt-api:0.10.6")
+
+    //implementation ("javax.mail:javax.mail-api:1.4.0") SpringBoot Mail 로 대체
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.6'
+    runtimeOnly('io.jsonwebtoken:jjwt-jackson:0.10.6')
+
+    //runtimeOnly 'com.mysql:mysql-connector-j'
+    //runtimeOnly 'com.h2database:h2:1.4.200'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
