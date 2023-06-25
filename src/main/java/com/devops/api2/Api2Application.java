@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 시스템간 RESTAPI 인터페이스
  * 인증, API Proxy서버  api2
- * AUTHOR: sejinaa
+ * AUTHOR: sejin
  */
 @SpringBootApplication
 public class Api2Application {
