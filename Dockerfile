@@ -6,5 +6,5 @@ FROM amazoncorretto:17
 #ENV LANG=C.UTF-8
 #ENV LANGUAGE=C.UTF-8
 ARG JAR_FILE
-COPY /var/lib/jenkins/workspace/api2-auth/build/libs/api2-auth-0.0.1-SNAPSHOT.jar /api2-auth.jar
+COPY /api2-auth-0.0.1-SNAPSHOT.jar /api2-auth.jar
 ENTRYPOINT ["java", "-jar", "/api2-auth.jar"]
