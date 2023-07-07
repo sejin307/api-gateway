@@ -2,7 +2,7 @@
 server:
   servlet:
     context-path: /
-  port: 8080
+  port: 8090
 
 #db-properties:
 #  driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
@@ -33,7 +33,7 @@ crypt-key-prop:
 
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://api2.cdjarklny1yx.ap-northeast-2.rds.amazonaws.com:3306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
     username: api2
     password: api22023!@
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -54,11 +54,20 @@ spring:
   devtools:
     restart:
       enabled: true
-  rabbitmq:
-      host: 127.0.0.1
-      port: 5672
-      username: guest
-      password: guest
+  #rabbitmq:
+  #    host: 127.0.0.1
+  #    port: 5672
+  #    username: guest
+  #    password: guest
+  cloud:
+    gateway:
+      default-filters:
+        - JWTFilter
+      routes:
+        - id: hydra
+          uri: http://127.0.0.1:8080/api/authenticate/valid-token
+          predicates:
+            - Path=/api/**
 
 
 jwt:

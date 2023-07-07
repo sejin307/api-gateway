@@ -25,7 +25,7 @@ $(function () {
    }
 
    function doLogin(loginData) {
-      alert(JSON.stringify(loginData));
+      //alert(JSON.stringify(loginData));
       $.ajax({
          url: "/api/authenticate",
          type: "POST",

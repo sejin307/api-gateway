@@ -4,27 +4,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.util.pattern.PathPatternParser;
 
 /**
  * CORS설정 filter
  * sejin
  */
+
 @Configuration
 public class CorsConfig {
 
    @Bean
-   public CorsFilter corsFilter() {
-      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-      CorsConfiguration config = new CorsConfiguration();
-      config.setAllowCredentials(true);
-      config.addAllowedOrigin("*");
-      config.addAllowedHeader("*");
-      config.addAllowedMethod("*");
+   public CorsWebFilter corsWebFilter() {
+      CorsConfiguration corsConfig = new CorsConfiguration();
+      corsConfig.setAllowCredentials(true);
+      corsConfig.addAllowedOrigin("*");
+      corsConfig.addAllowedHeader("*");
+      corsConfig.addAllowedMethod("*");
 
-      source.registerCorsConfiguration("/api/**", config);
-      source.registerCorsConfiguration("/proxy/**",config);
-      return new CorsFilter(source);
+      org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource source =
+              new org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource();
+      source.registerCorsConfiguration("/api/**", corsConfig);
+      source.registerCorsConfiguration("/api2/**", corsConfig);
+      return new CorsWebFilter(source);
    }
-
 }

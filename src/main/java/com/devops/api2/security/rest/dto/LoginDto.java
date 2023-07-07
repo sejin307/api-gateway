@@ -1,7 +1,6 @@
 package com.devops.api2.security.rest.dto;
 
-import org.wildfly.common.annotation.NotNull;
-
+import javax.validation.constraints.NotNull;
 
 
 /**

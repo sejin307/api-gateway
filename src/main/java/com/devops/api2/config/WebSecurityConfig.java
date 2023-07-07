@@ -2,45 +2,49 @@ package com.devops.api2.config;
 
 import com.devops.api2.security.JwtAccessDeniedHandler;
 import com.devops.api2.security.JwtAuthenticationEntryPoint;
+import com.devops.api2.security.UserModelDetailsService;
 import com.devops.api2.security.jwt.JWTConfigurer;
 import com.devops.api2.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
+import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.rsocket.EnableRSocketSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.cors.reactive.CorsWebFilter;
 
 /**
  * SpringSecurity 초기설정
  * SpringBoot 3.x 이상에서는 WebSecurityConfigurerAdapter를 사용할수없고, configure 세팅이 많이다름.
  * Boot 버전확인 필요.
  */
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//@EnableWebSecurity
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)  //전역 메소드보안
+@EnableRSocketSecurity
+@EnableReactiveMethodSecurity
+public class WebSecurityConfig{
 
    private final TokenProvider tokenProvider;
-   private final CorsFilter corsFilter;
+   private final CorsWebFilter corsWebFilter;
    private final JwtAuthenticationEntryPoint authenticationErrorHandler;
    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+   private final UserModelDetailsService userDetailsService;
+
+
    public WebSecurityConfig(
       TokenProvider tokenProvider,
-      CorsFilter corsFilter,
+      CorsWebFilter corsWebFilter,
       JwtAuthenticationEntryPoint authenticationErrorHandler,
-      JwtAccessDeniedHandler jwtAccessDeniedHandler
-   ) {
+      JwtAccessDeniedHandler jwtAccessDeniedHandler,
+      UserModelDetailsService userDetailsService) {
       this.tokenProvider = tokenProvider;
-      this.corsFilter = corsFilter;
+      this.corsWebFilter = corsWebFilter;
       this.authenticationErrorHandler = authenticationErrorHandler;
       this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
+      this.userDetailsService = userDetailsService;
    }
 
 
@@ -49,66 +53,46 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       return new BCryptPasswordEncoder();
    }
 
-   /**
-    * static pass
-    * @param web
-    */
-   @Override
-   public void configure(WebSecurity web) {
-      web.ignoring()
-         .antMatchers(HttpMethod.OPTIONS, "/**")
 
-         // allow anonymous resource requests
-         .antMatchers(
-            "/",
-            "/*.html",
-            "/favicon.ico",
-            "/**/*.html",
-            "/**/*.css",
-            "/**/*.js"
-            //"/h2-console/**"   H2 > MYSQL 변경 / application.yml h2 enable true 로 변경해야함.
-         );
-   }
 
    // security 초기설정
-   @Override
-   protected void configure(HttpSecurity httpSecurity) throws Exception {
-      httpSecurity
-         .csrf().disable()//JWTtoken으로 관리하므로 설정X
+   /*
+   public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+      http.csrf().disable()
 
-         .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+      // Since `addFilterBefore` isn't available, you need to find another way to add the corsFilter.
+      // .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+      .exceptionHandling()
+      .authenticationEntryPoint(authenticationErrorHandler)
+      .accessDeniedHandler(jwtAccessDeniedHandler)
+      // session management is stateless by default in webflux
+      // .and()
+      // .sessionManagement()
+      // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      .and()
+      .authorizeExchange()
+      .pathMatchers("/api/authenticate", "/api/authenticateUrl", "/api/authenticate/valid-token").permitAll()
+      .pathMatchers("/api/person").hasRole("USER") // 일반권한만 접근
+      .pathMatchers("/api/hiddenmessage").hasRole("ADMIN") // 관리자권한만 접근
+      .anyExchange().authenticated()
 
-         .exceptionHandling()
-         .authenticationEntryPoint(authenticationErrorHandler)
-         .accessDeniedHandler(jwtAccessDeniedHandler)
+      // apply method is not available in WebFlux, you might want to integrate JWT authentication differently
+      // .and()
+      // .apply(securityConfigurerAdapter());
+      ;
 
-         .and()
-         .headers()
-         .frameOptions()
-         .sameOrigin()
+      return http.build();
+   }*/
 
-         // create no session
-         .and()
-         .sessionManagement()
-         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //세션정책 설정. 상태X
-
-         .and()
-         .authorizeRequests()
-         .antMatchers("/api/authenticate").permitAll()//LOGIN FORM인증
-         .antMatchers("/api/authenticateUrl/{data}").permitAll()//URL인증
-         .antMatchers("/api/authenticate/valid-token").permitAll()//JWT검증
-         .antMatchers("/proxy/send").permitAll()//RabbitMQ 테스트
-
-         .antMatchers("/api/person").hasAuthority("ROLE_USER") //일반권한만 접근
-         .antMatchers("/api/hiddenmessage").hasAuthority("ROLE_ADMIN") //관리자권한만 접근
-
-         .anyRequest().authenticated()
-
-         .and()
-         .apply(securityConfigurerAdapter());
+   @Bean
+   public ReactiveAuthenticationManager reactiveAuthenticationManager() {
+      UserDetailsRepositoryReactiveAuthenticationManager manager = new UserDetailsRepositoryReactiveAuthenticationManager(userDetailsService);
+      manager.setPasswordEncoder(new BCryptPasswordEncoder());
+      return manager;
    }
 
+
    private JWTConfigurer securityConfigurerAdapter() {
-      return new JWTConfigurer(tokenProvider);
+      return new JWTConfigurer(tokenProvider, authenticationErrorHandler, jwtAccessDeniedHandler);
    }
 }

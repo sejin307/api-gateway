@@ -7,6 +7,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.spec.AlgorithmParameterSpec;
 
 import javax.crypto.Cipher;
@@ -26,7 +28,6 @@ import javax.mail.internet.MimeUtility;
 public class CryptoUtils {
 
     protected static final String CRYPTO_LEGACY_KEY = "CengroupAPK20!@#";
-
     protected static final String CRYPTO_LEGACY_IV = "cenGroupAPV20#@!";
     protected static final byte[] key = new BigInteger(stringToHex(CRYPTO_LEGACY_KEY),16).toByteArray();
     protected static final byte[] iv  = new BigInteger(stringToHex(CRYPTO_LEGACY_IV),16).toByteArray();
@@ -38,8 +39,8 @@ public class CryptoUtils {
     public static String encrypt(String plainText) throws Exception{
         byte [] encData = null;
         try{
-            byte[] key 	= new BigInteger(stringToHex(CRYPTO_LEGACY_KEY),16).toByteArray();
-            byte[] iv 	= new BigInteger(stringToHex(CRYPTO_LEGACY_IV),16).toByteArray();
+            //byte[] key 	= new BigInteger(stringToHex(CRYPTO_LEGACY_KEY),16).toByteArray();
+            //byte[] iv 	= new BigInteger(stringToHex(CRYPTO_LEGACY_IV),16).toByteArray();
 
             SecretKey sk = new SecretKeySpec(key, "AES");
             AlgorithmParameterSpec paramSpec = new IvParameterSpec(iv);
@@ -60,8 +61,8 @@ public class CryptoUtils {
     public static String decrypt(String encryptedStr){
         String decryptedStr = "";
         try{
-            byte[] key 	= new BigInteger(stringToHex(CRYPTO_LEGACY_KEY),16).toByteArray();
-            byte[] iv 	= new BigInteger(stringToHex(CRYPTO_LEGACY_IV),16).toByteArray();
+            //byte[] key 	= new BigInteger(stringToHex(CRYPTO_LEGACY_KEY),16).toByteArray();
+            //byte[] iv 	= new BigInteger(stringToHex(CRYPTO_LEGACY_IV),16).toByteArray();
 
             SecretKey sk = new SecretKeySpec(key, "AES");
             AlgorithmParameterSpec paramSpec = new IvParameterSpec(iv);
@@ -110,19 +111,30 @@ public class CryptoUtils {
         return res;
     }
 
-/**
+
     public static void main(String[] args) {
         try{
-            //byte [] encData =  new BigInteger("394175264b8b3b19bcec6db34f3753da",16).toByteArray();
-            //String encryptedStr =  encrypt(plainStr);
-            // System.out.println(encryptedStr);
-            // String decStr = decrypt(encryptedStr);
-            // System.out.println(decStr);
+            //String plainStr = "centerr/CENTerr!@#4"; //CENTerr   ex) xrSG7vApBIiKkG%2BXh6wvPBh0y4owT5RnD7asS%2FeIX00%3D%0D%0A
+            String plainStr = "purchase/Purchase!@#4"; //구매   ex) gpVJeolUkIAnRyIRgxQ%2Bnw3ZA8clEMVEqjp0YCvvbfQ%3D%0D%0A
+
+            //xrSG7vApBIiKkG+Xh6wvPBh0y4owT5RnD7asS/eIX00=
+
+            //WZCIUhCsi5dqv9jFnOh7Mj+g7WKrLypZb/95GgQy4mA=
+            //String plainStr = "admin/admin";
+            //oJV99aVJL6iR+c5RqnlT7g==
+            String encryptedStr =  encrypt(plainStr);
+            String urlEncodedStr = URLEncoder.encode(encryptedStr);
+            String urlDecodedStr = URLDecoder.decode(urlEncodedStr);
+             System.out.println("~~~~~~~~~~~~> encryptedStr :" + encryptedStr);
+            System.out.println("~~~~~~~~~~~~> urlEncodedStr :" + urlEncodedStr);
+            System.out.println("~~~~~~~~~~~~> urlDecodedStr :" + urlDecodedStr);
+             String decryptedStr = decrypt(encryptedStr);
+             System.out.println("~~~~~~~~~~~~> decryptedStr :" + decryptedStr);
         }catch (Exception e) {
             // TODO: handle exception
         }
 
     }
- */
+
 }
 
