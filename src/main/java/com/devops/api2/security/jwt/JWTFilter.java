@@ -22,7 +22,7 @@ public class JWTFilter implements WebFilter {
 
    public static final String AUTHORIZATION_HEADER = "Authorization";
 
-   private TokenProvider tokenProvider;
+   private final TokenProvider tokenProvider;
 
    public JWTFilter(TokenProvider tokenProvider) {
       this.tokenProvider = tokenProvider;

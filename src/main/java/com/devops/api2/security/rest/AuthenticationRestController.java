@@ -5,19 +5,14 @@ import com.devops.api2.security.jwt.JWTFilter;
 import com.devops.api2.security.jwt.TokenProvider;
 import com.devops.api2.security.rest.dto.LoginDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
-import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,17 +31,19 @@ import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 @RequestMapping("/api")
 public class AuthenticationRestController {
 
-   private final TokenProvider tokenProvider;
    private final ReactiveAuthenticationManager authenticationManager;
+
    private final ReactiveUserDetailsService myReactiveUserDetailsService;
    public static final String AUTHORIZATION_HEADER = "Authorization";
 
+   private final TokenProvider tokenProvider;
+
    public AuthenticationRestController(TokenProvider tokenProvider,
                                        ReactiveAuthenticationManager authenticationManager,
-                                       ReactiveUserDetailsService myReactiveUserDetailsService) {
-      this.tokenProvider = tokenProvider;
+                                       ReactiveUserDetailsService myReactiveUserDetailsService1) {
       this.authenticationManager = authenticationManager;
-      this.myReactiveUserDetailsService = myReactiveUserDetailsService;
+      this.tokenProvider = tokenProvider;
+      this.myReactiveUserDetailsService = myReactiveUserDetailsService1;
    }
 
    /**

@@ -3,8 +3,9 @@ package com.devops.api2.security.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

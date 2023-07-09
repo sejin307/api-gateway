@@ -37,6 +37,12 @@ spring:
     username: api2
     password: api22023!@
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5      #TODO: prod조정
+      minimum-idle: 2           #TODO: prod조정
+      connection-timeout: 30000 #30초
+      idle-timeout: 600000      #10분
+      max-lifetime: 1800000     #30분
 
   application:
     name: api2
@@ -48,26 +54,14 @@ spring:
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
+  #초기개발 h2db
   #h2:
   #  console:
   #    enabled: false
   devtools:
     restart:
       enabled: true
-  #rabbitmq:
-  #    host: 127.0.0.1
-  #    port: 5672
-  #    username: guest
-  #    password: guest
-  cloud:
-    gateway:
-      default-filters:
-        - JWTFilter
-      routes:
-        - id: hydra
-          uri: http://127.0.0.1:8080/api/authenticate/valid-token
-          predicates:
-            - Path=/api/**
+
 
 
 jwt:
@@ -85,4 +79,5 @@ jwt:
 
 logging:
   level:
-    com.devops.api2.security: DEBUG
+    com.devops.api2: DEBUG
+

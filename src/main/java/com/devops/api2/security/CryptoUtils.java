@@ -1,5 +1,6 @@
 package com.devops.api2.security;
 
+import jakarta.mail.internet.MimeUtility;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.ByteArrayInputStream;
@@ -15,7 +16,7 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import javax.mail.internet.MimeUtility;
+
 
 /**
  * 아이티센그룹 암복호화 모듈

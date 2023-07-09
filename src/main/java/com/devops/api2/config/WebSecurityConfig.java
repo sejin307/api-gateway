@@ -2,12 +2,9 @@ package com.devops.api2.config;
 
 import com.devops.api2.security.JwtAccessDeniedHandler;
 import com.devops.api2.security.JwtAuthenticationEntryPoint;
-import com.devops.api2.security.UserModelDetailsService;
 import com.devops.api2.security.jwt.JWTConfigurer;
 import com.devops.api2.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.ReactiveAuthenticationManager;
-import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.rsocket.EnableRSocketSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +13,7 @@ import org.springframework.web.cors.reactive.CorsWebFilter;
 
 /**
  * SpringSecurity 초기설정
- * SpringBoot 3.x 이상에서는 WebSecurityConfigurerAdapter를 사용할수없고, configure 세팅이 많이다름.
+ * SpringBoot 3.x 이상에서는 WebSecurityConfigurerAdapter 를 사용할수없고, configure 세팅이 많이다름.
  * Boot 버전확인 필요.
  */
 //@EnableWebSecurity
@@ -31,20 +28,15 @@ public class WebSecurityConfig{
    private final JwtAuthenticationEntryPoint authenticationErrorHandler;
    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-   private final UserModelDetailsService userDetailsService;
-
-
    public WebSecurityConfig(
       TokenProvider tokenProvider,
       CorsWebFilter corsWebFilter,
       JwtAuthenticationEntryPoint authenticationErrorHandler,
-      JwtAccessDeniedHandler jwtAccessDeniedHandler,
-      UserModelDetailsService userDetailsService) {
+      JwtAccessDeniedHandler jwtAccessDeniedHandler) {
       this.tokenProvider = tokenProvider;
       this.corsWebFilter = corsWebFilter;
       this.authenticationErrorHandler = authenticationErrorHandler;
       this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-      this.userDetailsService = userDetailsService;
    }
 
 
@@ -53,10 +45,7 @@ public class WebSecurityConfig{
       return new BCryptPasswordEncoder();
    }
 
-
-
-   // security 초기설정
-   /*
+   /* security 초기설정 >> JWTConfigurer 로 변경
    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
       http.csrf().disable()
 
@@ -73,7 +62,7 @@ public class WebSecurityConfig{
       .authorizeExchange()
       .pathMatchers("/api/authenticate", "/api/authenticateUrl", "/api/authenticate/valid-token").permitAll()
       .pathMatchers("/api/person").hasRole("USER") // 일반권한만 접근
-      .pathMatchers("/api/hiddenmessage").hasRole("ADMIN") // 관리자권한만 접근
+      .pathMatchers("/api/hidden message").hasRole("ADMIN") // 관리자권한만 접근
       .anyExchange().authenticated()
 
       // apply method is not available in WebFlux, you might want to integrate JWT authentication differently
@@ -84,15 +73,10 @@ public class WebSecurityConfig{
       return http.build();
    }*/
 
-   @Bean
-   public ReactiveAuthenticationManager reactiveAuthenticationManager() {
-      UserDetailsRepositoryReactiveAuthenticationManager manager = new UserDetailsRepositoryReactiveAuthenticationManager(userDetailsService);
-      manager.setPasswordEncoder(new BCryptPasswordEncoder());
-      return manager;
-   }
 
 
-   private JWTConfigurer securityConfigurerAdapter() {
-      return new JWTConfigurer(tokenProvider, authenticationErrorHandler, jwtAccessDeniedHandler);
-   }
+
+   /*private JWTConfigurer securityConfigurerAdapter() {
+      return new JWTConfigurer(tokenProvider, authenticationErrorHandler, jwtAccessDeniedHandler, userDetailsService);
+   }*/
 }

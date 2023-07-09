@@ -1,6 +1,6 @@
 package com.devops.api2.security.rest.dto;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 
 /**

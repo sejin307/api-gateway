@@ -1,8 +1,10 @@
 package com.devops.api2.security.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "authority")
