@@ -9,11 +9,26 @@ spring:
           uri: http://127.0.0.1:8080/ifroute/api/hydra
           predicates:
             - Path=/ifroute/api/hydra
+          filters:
+            - name: CustomCircuitBreaker
+              args:
+                name: commonCircuitBreaker
+                fallbackUri: forward:/fallbackURI
         - id: overload
           uri: http://127.0.0.1:8080/ifroute/api/overload
           predicates:
             - Path=/ifroute/api/overload
+          filters:
+            - name: CustomCircuitBreaker
+              args:
+                name: commonCircuitBreaker
+                fallbackUri: forward:/fallbackURI
         - id: ultra
           uri: http://127.0.0.1:8080/ifroute/api/ultra
           predicates:
             - Path=/ifroute/api/ultra
+          filters:
+            - name: CustomCircuitBreaker
+              args:
+                name: commonCircuitBreaker
+                fallbackUri: forward:/fallbackURI

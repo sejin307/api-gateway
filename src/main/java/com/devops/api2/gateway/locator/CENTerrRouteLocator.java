@@ -2,6 +2,7 @@ package com.devops.api2.gateway.locator;
 
 
 import com.devops.api2.gateway.config.YamlPropertySourceFactory;
+import com.devops.api2.gateway.locator.definition.Api2RouteLocator;
 import com.devops.api2.gateway.locator.definition.RouteDefinition;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -12,12 +13,17 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource(value = "classpath:external-routes-centerr.yml", factory = YamlPropertySourceFactory.class)
 @EnableConfigurationProperties(RouteDefinition.class)
-public class CENTerrRouteLocator {
+public class CENTerrRouteLocator implements Api2RouteLocator {
 
     private final RouteDefinition routeProperties;
 
     public CENTerrRouteLocator(RouteDefinition routeProperties) {
         this.routeProperties = routeProperties;
+    }
+
+    @Override
+    public RouteLocator CenERPRouteLocator(RouteLocatorBuilder builder) {
+        return null;
     }
 
     public RouteLocator CENTerrRouteLocator(RouteLocatorBuilder builder) {
@@ -26,5 +32,10 @@ public class CENTerrRouteLocator {
             routesBuilder.route(route.getId(), r -> r.path(route.getPredicates().get(0)).uri(route.getUri()));
         }
         return routesBuilder.build();
+    }
+
+    @Override
+    public RouteLocator PurchaseRouteLocator(RouteLocatorBuilder builder) {
+        return null;
     }
 }

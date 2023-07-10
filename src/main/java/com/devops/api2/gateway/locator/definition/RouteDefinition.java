@@ -5,15 +5,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+
+/**
+ * id,path,uri,predicates 등 external-routes-xxxx.yml 에 필요한 설정 추가
+ * https://cloud.spring.io/spring-cloud-gateway/reference/html/
+ * 공식 스펙 참고
+ */
 @ConfigurationProperties(prefix = "routes")
 public class RouteDefinition {
 
-    /**
-     * id,path,uri,predicates 등 external-routes-xxxx.yml 에 필요한 설정 추가
-     * https://cloud.spring.io/spring-cloud-gateway/reference/html/
-     * 공식 스펙 참고
-     */
     private List<Route> routes = new ArrayList<>();
 
     public static class Route {
@@ -22,6 +24,16 @@ public class RouteDefinition {
         private URI uri;
         private List<String> predicates;
         private List<String> defaultFilters;
+
+        private List<Filter> filters;
+
+        public List<Filter> getFilters() {
+            return filters;
+        }
+
+        public void setFilters(List<Filter> filters) {
+            this.filters = filters;
+        }
 
         public String getId() {
             return id;
@@ -63,6 +75,28 @@ public class RouteDefinition {
             this.defaultFilters = defaultFilters;
         }
     }
+
+    public static class Filter {
+        private String name;
+        private Map<String, String> args;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Map<String, String> getArgs() {
+            return args;
+        }
+
+        public void setArgs(Map<String, String> args) {
+            this.args = args;
+        }
+    }
+
 
     public List<Route> getRoutes() {
         return routes;
