@@ -4,11 +4,11 @@ server:
     context-path: /
   port: 8090
 
-#db-properties:
-#  driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#  driver-url: jdbc:log4jdbc:mysql://127.0.0.1:3306/api2?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-#  username: api2
-#  password: api22023!@
+  #db-properties:
+  #  driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  #  driver-url: jdbc:log4jdbc:mysql://127.0.0.1:3306/api2?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+  #  username: api2
+  #  password: api22023!@
   # HikariPool config
   #driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   #maximumPoolSize: 5   # io-threads*(2-1)+1
@@ -20,13 +20,13 @@ crypt-key-prop:
   CRYPTO_LEGACY_KEY: CengroupAPK20!@#
   CRYPTO_LEGACY_IV: cenGroupAPV20#@!
 
-#jpa:
-#  show-sql: true
-#  hibernate:
-#    ddl-auto: create-drop
-#    naming:
-#      physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-#      implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  #jpa:
+  #  show-sql: true
+  #  hibernate:
+  #    ddl-auto: create-drop
+  #    naming:
+  #      physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+  #      implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
   #properties:
   #  hibernate:
   #    dialect: org.hibernate.dialect.MySQL8Dialect
@@ -61,7 +61,20 @@ spring:
   devtools:
     restart:
       enabled: true
-
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        circuitBreaker:
+          instances:
+            commonCircuitBreaker:
+              slidingWindowSize: 10
+              permittedNumberOfCallsInHalfOpenState: 3
+              slowCallRateThreshold: 50
+              slowCallDurationThreshold: 5s
+              minimumNumberOfCalls: 20
+              waitDurationInOpenState: 1m
+              failureRateThreshold: 50
+              eventConsumerBufferSize: 10
 
 
 jwt:
@@ -76,27 +89,6 @@ jwt:
     authentication:
       path: auth
       refresh: refresh
-
-resilience4j:
-  circuitbreaker:
-    configs:
-      default:
-        registerHealthIndicator: true
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 10
-        permittedNumberOfCallsInHalfOpenState: 3
-        automaticTransitionFromOpenToHalfOpenEnabled: true
-        waitDurationInOpenState: 5s
-        failureRateThreshold: 50
-        eventConsumerBufferSize: 10
-        recordExceptions:
-          - org.springframework.web.server.ResponseStatusException
-    instances:
-      backendA:
-        baseConfig: default
-      backendB:
-        baseConfig: default
-
 
 logging:
   level:
