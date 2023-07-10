@@ -12,8 +12,10 @@ spring:
           filters:
             - name: CustomCircuitBreaker
               args:
-                name: commonCircuitBreaker
+                name: hydraCircuitBreaker
                 fallbackUri: forward:/fallbackURI
+
+
         - id: overload
           uri: http://127.0.0.1:8080/ifroute/api/overload
           predicates:
@@ -21,7 +23,7 @@ spring:
           filters:
             - name: CustomCircuitBreaker
               args:
-                name: commonCircuitBreaker
+                name: overloadCircuitBreaker
                 fallbackUri: forward:/fallbackURI
         - id: ultra
           uri: http://127.0.0.1:8080/ifroute/api/ultra
@@ -30,5 +32,5 @@ spring:
           filters:
             - name: CustomCircuitBreaker
               args:
-                name: commonCircuitBreaker
+                name: ultraCircuitBreaker
                 fallbackUri: forward:/fallbackURI
