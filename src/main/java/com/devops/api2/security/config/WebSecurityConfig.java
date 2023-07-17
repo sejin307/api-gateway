@@ -1,4 +1,4 @@
-package com.devops.api2.config;
+package com.devops.api2.security.config;
 
 import com.devops.api2.security.JwtAccessDeniedHandler;
 import com.devops.api2.security.JwtAuthenticationEntryPoint;
@@ -44,39 +44,4 @@ public class WebSecurityConfig{
    public PasswordEncoder passwordEncoder() {
       return new BCryptPasswordEncoder();
    }
-
-   /* security 초기설정 >> JWTConfigurer 로 변경
-   public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-      http.csrf().disable()
-
-      // Since `addFilterBefore` isn't available, you need to find another way to add the corsFilter.
-      // .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-      .exceptionHandling()
-      .authenticationEntryPoint(authenticationErrorHandler)
-      .accessDeniedHandler(jwtAccessDeniedHandler)
-      // session management is stateless by default in webflux
-      // .and()
-      // .sessionManagement()
-      // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and()
-      .authorizeExchange()
-      .pathMatchers("/api/authenticate", "/api/authenticateUrl", "/api/authenticate/valid-token").permitAll()
-      .pathMatchers("/api/person").hasRole("USER") // 일반권한만 접근
-      .pathMatchers("/api/hidden message").hasRole("ADMIN") // 관리자권한만 접근
-      .anyExchange().authenticated()
-
-      // apply method is not available in WebFlux, you might want to integrate JWT authentication differently
-      // .and()
-      // .apply(securityConfigurerAdapter());
-      ;
-
-      return http.build();
-   }*/
-
-
-
-
-   /*private JWTConfigurer securityConfigurerAdapter() {
-      return new JWTConfigurer(tokenProvider, authenticationErrorHandler, jwtAccessDeniedHandler, userDetailsService);
-   }*/
 }

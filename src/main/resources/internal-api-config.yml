@@ -1,5 +1,7 @@
+#이게 왜있냐면.. 서킷브레이커는 비즈니스로직에 적용가능
+# EX) CENTerr > (gateway > gateway(서비스로직) 포워딩) > Routelocator > CENERP
 api:
-  baseUrl: http://127.0.0.1:8090
-  hydraPath: /ifroute/api/hydra
-  overloadPath: /ifroute/api/overload
-  ultraPath: /ifroute/api/ultra
+  baseUrl: http://127.0.0.1:9000
+  erpPath: /cenerp/openapi/baseinfo
+  centerrPath:
+  prPath:

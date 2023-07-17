@@ -40,34 +40,23 @@ public class JWTConfigurer {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         JWTFilter jwtFilter = new JWTFilter(tokenProvider);
-
         http.addFilterAt(jwtFilter, SecurityWebFiltersOrder.HTTP_BASIC);
-
-        // Add additional http security configurations as needed
         http.csrf(csrf -> csrf.disable())
-        // Since `addFilterBefore` isn't available, you need to find another way to add the corsFilter.
-        // .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling(exceptionHandling ->
                               exceptionHandling
                                       .authenticationEntryPoint(authenticationErrorHandler)
                                       .accessDeniedHandler(jwtAccessDeniedHandler))
-        // session management is stateless by default in webflux
-        // .and()
-        // .sessionManagement()
-        // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .authorizeExchange(authorizeExchange ->
             authorizeExchange
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                .pathMatchers("/", "/*.html","/*.css","/*.js","/h2-console/**", "/favicon.ico").permitAll()
-                .pathMatchers("/api/authenticate", "/api/authenticateUrl", "/api/authenticate/valid-token").permitAll()
+                .pathMatchers("/", "/*.html","/*.css","/*.js","/h2-console/**", "/favicon.ico").permitAll() //STATIC 파일 패싱
+                .pathMatchers("/api/authenticate", "/api/authenticateUrl", "/api/authenticate/valid-token").permitAll() //JWT관련 URI
+                    .pathMatchers("/api2/**","/cenerp/**","/ifroute/**").permitAll() //현재 게이트웨이서버가 호출하는 인터널API 호출시 토큰없이 패싱
+                    .pathMatchers("/actuator/**").permitAll()
                 .pathMatchers("/api/person").hasRole("USER")
                 .pathMatchers("/api/hiddenmessage").hasRole("ADMIN")
                 .anyExchange()
                 .authenticated());
-
-        // apply method is not available in WebFlux, you might want to integrate JWT authentication differently
-        // .and()
-        // .apply(securityConfigurerAdapter());
         return http.build();
     }
 

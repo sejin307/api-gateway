@@ -1,21 +1,18 @@
 package com.devops.api2;
 
+import com.devops.api2.gateway.locator.definition.GatewayPropertiesPOJO;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cloud.gateway.route.RouteLocator;
-import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
 
 /**
  * 시스템간 RESTAPI 인터페이스
- * 인증, API Proxy서버  api2
+ * 인증, API Gateway모듈
  * AUTHOR: sejin
  */
 @SpringBootApplication
+@EnableConfigurationProperties(GatewayPropertiesPOJO.class)
 public class Api2Application {
 
 	public static void main(String[] args) {

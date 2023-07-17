@@ -2,9 +2,12 @@ package com.devops.api2.gateway.service;
 
 import com.devops.api2.gateway.service.definition.Api2Definition;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -18,49 +21,49 @@ public class RestRequestService {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
-    @Value("${api.baseUrl}")
-    private String baseUrl;
+    @CircuitBreaker(name = "erpServiceCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getBaseInfoData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2Definition.getErpPath());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
-    @Value("${api.hydraPath}")
-    private String hydraPath;
-
-    @Value("${api.overloadPath}")
-    private String overloadPath;
-
-    @Value("${api.ultraPath}")
-    private String ultraPath;
-
-    @CircuitBreaker(name = "hydraCircuitBreaker", fallbackMethod = "fallbackHydra")
-    public Mono<String> getHydra() {
-        return this.webClient.get().uri(api2Definition.getHydraPath()).retrieve().bodyToMono(String.class);
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
     }
 
-    @CircuitBreaker(name = "overloadCircuitBreaker", fallbackMethod = "fallbackOverload")
-    public Mono<String> getOverload() {
-        return this.webClient.get().uri(api2Definition.getOverloadPath()).retrieve().bodyToMono(String.class);
+    @CircuitBreaker(name = "centerrServiceCircuitBreaker", fallbackMethod = "fallbackCENTerr")
+    public Mono<String> getCENTerrData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2Definition.getCENTerrPath());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
     }
 
-    @CircuitBreaker(name = "ultraCircuitBreaker", fallbackMethod = "fallbackUltra")
-    public Mono<String> getUltra() {
-        return this.webClient.get().uri(api2Definition.getUltraPath()).retrieve().bodyToMono(String.class);
+    @CircuitBreaker(name = "prServiceCircuitBreaker", fallbackMethod = "fallbackUltra")
+    public Mono<String> getPrData(MultiValueMap<String, String > queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2Definition.getPrPath());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
     }
 
-
-    /**
-     * Fallback
-     * @param
-     * @return
-     */
-    public Mono<String> fallbackHydra(Throwable t) {
-        return Mono.just("Fallback for hydra");
+    public Mono<String> fallbackERP(MultiValueMap<String, String> queryParams, Throwable t) {
+        return Mono.just("Target Service CenERP Unavailable. Please try again later.");
     }
 
     public Mono<String> fallbackOverload(Throwable t) {
-        return Mono.just("Fallback for overload");
+        return Mono.just("Target Service CENTerr Unavailable. Please try again later.");
     }
 
     public Mono<String> fallbackUltra(Throwable t) {
-        return Mono.just("Fallback for ultra");
+        return Mono.just("Target Service Purchase Unavailable. Please try again later.");
     }
 }
 

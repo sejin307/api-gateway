@@ -13,10 +13,17 @@ import java.util.Map;
  * https://cloud.spring.io/spring-cloud-gateway/reference/html/
  * 공식 스펙 참고
  */
-@ConfigurationProperties(prefix = "routes")
+//@ConfigurationProperties(prefix = "custom")
 public class RouteDefinition {
-
     private List<Route> routes = new ArrayList<>();
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
 
     public static class Route {
         private String id;
@@ -24,16 +31,7 @@ public class RouteDefinition {
         private URI uri;
         private List<String> predicates;
         private List<String> defaultFilters;
-
         private List<Filter> filters;
-
-        public List<Filter> getFilters() {
-            return filters;
-        }
-
-        public void setFilters(List<Filter> filters) {
-            this.filters = filters;
-        }
 
         public String getId() {
             return id;
@@ -74,6 +72,14 @@ public class RouteDefinition {
         public void setDefaultFilters(List<String> defaultFilters) {
             this.defaultFilters = defaultFilters;
         }
+
+        public List<Filter> getFilters() {
+            return filters;
+        }
+
+        public void setFilters(List<Filter> filters) {
+            this.filters = filters;
+        }
     }
 
     public static class Filter {
@@ -95,15 +101,6 @@ public class RouteDefinition {
         public void setArgs(Map<String, String> args) {
             this.args = args;
         }
-    }
-
-
-    public List<Route> getRoutes() {
-        return routes;
-    }
-
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
     }
 }
 

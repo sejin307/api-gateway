@@ -1,4 +1,4 @@
-package com.devops.api2.rest;
+package com.devops.api2.security.rest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

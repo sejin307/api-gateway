@@ -1,1 +1,25 @@
-#From CenERP to Target System
+#spring:
+#  cloud:
+#    gateway:
+#      default-filters:
+#        - name: CustomFilter
+#custom:
+#  routes:
+#    - id: baseinfo
+#      uri: http://127.0.0.1:8080
+#      predicates:
+#        - Path=/cenerp/openapi/baseinfo
+#      filters:
+#        - name: CustomCircuitBreaker
+#          args:
+#            name: baseinfoCircuitBreaker
+#            fallbackUri: forward:/fallbackBaseInfo
+#    - id: dept
+#      uri: http://127.0.0.1:8080
+#      predicates:
+#        - Path=/cenerp/openapi/dept
+#      filters:
+#        - name: CustomCircuitBreaker
+#          args:
+#            name: deptCircuitBreaker
+#            fallbackUri: forward:/fallbackDept

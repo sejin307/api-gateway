@@ -45,6 +45,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.security:spring-security-rsocket:5.5.0'
     implementation 'org.springframework.boot:spring-boot-starter-rsocket'
+    //implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    //implementation 'io.micrometer:micrometer-registry-prometheus'
 
 
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.6'

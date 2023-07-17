@@ -3,7 +3,7 @@ package com.devops.api2.security;
 import org.springframework.security.core.AuthenticationException;
 
 /**
- * This exception is thrown in case of a not activated user trying to authenticate.
+ * 비활성화된 유저가 인증을 시도할때 exception
  */
 public class UserNotActivatedException extends AuthenticationException {
 

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class FallbackController {
+public class GatewayFallback {
 
-    @RequestMapping("/fallbackURI")
+    @RequestMapping("/GatewayServiceFallback")
     public ResponseEntity<String> returnFallbackMessage() {
-        return new ResponseEntity<>("Target Service is down. Please try again later.", HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>("API2 Gateway Service Unavailable. Please try again later.", HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

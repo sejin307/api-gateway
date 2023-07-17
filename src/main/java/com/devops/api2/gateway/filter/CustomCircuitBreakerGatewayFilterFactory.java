@@ -7,7 +7,6 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class CustomCircuitBreakerGatewayFilterFactory
         extends AbstractGatewayFilterFactory<CustomCircuitBreakerGatewayFilterFactory.Config> {
@@ -22,12 +21,9 @@ public class CustomCircuitBreakerGatewayFilterFactory
     @Override
     public GatewayFilter apply(Config config) {
         CircuitBreaker circuitBreaker = circuitBreakerRegistry.circuitBreaker(config.getName());
-
         return (exchange, chain) -> chain.filter(exchange)
                 .transform(CircuitBreakerOperator.of(circuitBreaker));
     }
-
-
 
     public static class Config {
         private String name;
@@ -36,9 +32,8 @@ public class CustomCircuitBreakerGatewayFilterFactory
             return name;
         }
 
-        public Config setName(String name) {
+        public void setName(String name) {
             this.name = name;
-            return this;
         }
     }
 }

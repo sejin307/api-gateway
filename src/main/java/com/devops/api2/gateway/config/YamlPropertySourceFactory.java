@@ -13,9 +13,8 @@ import org.springframework.core.io.support.PropertySourceFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * external-routes-xxxxxx.yml
- * internal-api-config.yml
- * 파일 로딩
+ * env yml파일 로딩
+ * sejin
  */
 public class YamlPropertySourceFactory implements PropertySourceFactory {
 

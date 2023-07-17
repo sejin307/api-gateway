@@ -1,31 +1,22 @@
 package com.devops.api2.gateway.filter;
 
-import org.reactivestreams.Publisher;
-import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * TODO:Retry 설정 Cache에서 기존 요청정보를 가져와서 call하면 성능향상, 필요에따라 구현
+ */
 @Component
 public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Config> {
 
-
-    private final CacheManager cacheManager;
-
-    public CustomFilter(CacheManager cacheManager) {
+    public CustomFilter() {
         super(Config.class);
-        this.cacheManager = cacheManager;
     }
 
     /**
@@ -34,23 +25,19 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
      * @return
      */
     @Override
-    public GatewayFilter apply(Config config) {
-        // Add your custom logic here
+    public GatewayFilter apply(Config config) {//before-processing
 
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~> CUSTOM FILTER <~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" );
-        return (exchange, chain) -> {
-            // pre-processing
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~> CUSTOM FILTER <~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" );
+        return (exchange, chain) -> {//pre-processing
+
             return chain.filter(exchange)
-                    .then(Mono.fromRunnable(() -> {
-                        // post-processing
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~> CUSTOM FILTER <~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" );
+                    .then(Mono.fromRunnable(() -> { //post-processing
+
                     }));
         };
     }
 
     public static class Config {
-        // Add configuration properties here
+        //Config 설정
     }
 }
 

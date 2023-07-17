@@ -10,11 +10,10 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = "classpath:internal-api-config.yml", factory = YamlPropertySourceFactory.class)
 @ConfigurationProperties(prefix = "api")
 public class Api2Definition {
-
     private String baseUrl;
-    private String hydraPath;
-    private String overloadPath;
-    private String ultraPath;
+    private String erpPath;
+    private String centerrPath;
+    private String prPath;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -24,27 +23,27 @@ public class Api2Definition {
         this.baseUrl = baseUrl;
     }
 
-    public String getHydraPath() {
-        return hydraPath;
+    public String getErpPath() {
+        return erpPath;
     }
 
-    public void setHydraPath(String hydraPath) {
-        this.hydraPath = hydraPath;
+    public void setErpPath(String hydraPath) {
+        this.erpPath = hydraPath;
     }
 
-    public String getOverloadPath() {
-        return overloadPath;
+    public String getCENTerrPath() {
+        return centerrPath;
     }
 
-    public void setOverloadPath(String overloadPath) {
-        this.overloadPath = overloadPath;
+    public void setCENTerrPath(String overloadPath) {
+        this.centerrPath = overloadPath;
     }
 
-    public String getUltraPath() {
-        return ultraPath;
+    public String getPrPath() {
+        return prPath;
     }
 
-    public void setUltraPath(String ultraPath) {
-        this.ultraPath = ultraPath;
+    public void setPrPath(String ultraPath) {
+        this.prPath = ultraPath;
     }
 }

@@ -17,9 +17,7 @@ import java.util.List;
 
 /**
  * URI 필터링
- * 시스템 전반에 걸친 필터이므로 Filterchain
- * TODO: 1개의 필터만 실행되는것을 보장하기위해서는 OncePerRequestFilter 상속받아 구현
- * seijn
+ * 시스템 전반에 걸친 필터
  */
 public class JWTFilter implements WebFilter {
 
@@ -41,31 +39,33 @@ public class JWTFilter implements WebFilter {
       HttpMethod requestMethod = exchange.getRequest().getMethod();
 
       // 내부에서만 사용하는 경로를 리스트로 관리
-      List<String> internalPaths = Arrays.asList("/ifroute/api/hydra", "/ifroute/api/overload", "/ifroute/api/ultra");
+      List<String> internalPaths = Arrays.asList("/actuator/metrics/hydraCircuitBreaker");
 
       // 내부 IP 주소 체크
       InetAddress remoteAddress = exchange.getRequest().getRemoteAddress().getAddress();
-      boolean isInternalIp = ((InetAddress) remoteAddress).isLoopbackAddress();
+      boolean isInternalIp = remoteAddress.isLoopbackAddress();
       boolean isContainURI = internalPaths.contains(requestURIPath);
       if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
          Authentication authentication = this.tokenProvider.getAuthentication(jwt);
          exchange.getAttributes().put("authentication", authentication);
 
-         LOG.debug("set Authentication to security context for '{}', uri: {}", authentication.getName(), requestURI);
+         LOG.debug("set Authentication context '{}', uri: {}", authentication.getName(), requestURI);
 
          return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
       } else if (isContainURI && HttpMethod.GET.equals(requestMethod) && isInternalIp) {
-         // 내부에서만 사용되는 경로이고, 메서드가 GET이며, 요청 IP가 내부 IP인 경우에는 인증 없이 진행
-         //
-         LOG.debug("Internal route and IP detected, no valid JWT token required, uri: {}", requestURI);
+         LOG.debug("Internal Route and IP Dectected / Do not authorize  OR System Call URI: {}", requestURI);
          return chain.filter(exchange);
       } else if ("/api/authenticateUrl".equals(requestURIPath)){
-         LOG.debug("Request Authenticate URL Call, uri: {}", requestURI);
+         LOG.debug("Request JWT Authenticate URL Call, uri: {}", requestURI);
+         return chain.filter(exchange);
+      } else if("/actuator".equals(requestURIPath)){
+         LOG.debug("Actuator Call", requestURI);
          return chain.filter(exchange);
       }else {
-         LOG.debug("no valid JWT token found, uri: {}", requestURI);
-         // 인증 실패 시, 에러 처리 (여기에는 알맞는 에러 처리 로직을 넣으세요)
-         throw new RuntimeException("Invalid token");
+         return chain.filter(exchange);
+         /*LOG.debug("No valid JWT OR JWT is Null, uri: {}", requestURI);
+         // 인증 실패 시, 에러 처리
+         throw new RuntimeException("Invalid token");*/
       }
    }
 

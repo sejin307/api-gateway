@@ -1,4 +1,4 @@
-package com.devops.api2.config;
+package com.devops.api2.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,6 @@ public class CorsConfig {
       org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource source =
               new org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource();
       source.registerCorsConfiguration("/api/**", corsConfig);
-      source.registerCorsConfiguration("/api2/**", corsConfig);
       return new CorsWebFilter(source);
    }
 }
