@@ -116,7 +116,8 @@ public class CryptoUtils {
     public static void main(String[] args) {
         try{
             //String plainStr = "centerr/CENTerr!@#4"; //CENTerr   ex) xrSG7vApBIiKkG%2BXh6wvPBh0y4owT5RnD7asS%2FeIX00%3D%0D%0A
-            String plainStr = "purchase/Purchase!@#4"; //구매   ex) gpVJeolUkIAnRyIRgxQ%2Bnw3ZA8clEMVEqjp0YCvvbfQ%3D%0D%0A
+            //String plainStr = "purchase/Purchase!@#4"; //구매   ex) gpVJeolUkIAnRyIRgxQ%2Bnw3ZA8clEMVEqjp0YCvvbfQ%3D%0D%0A
+            String plainStr = "userId=hjo0045@sicc.co.kr&cdCorp=SS";
 
             //xrSG7vApBIiKkG+Xh6wvPBh0y4owT5RnD7asS/eIX00=
 
