@@ -5,6 +5,7 @@ import com.devops.api2.gateway.filter.CustomFilter;
 import com.devops.api2.gateway.locator.definition.GatewayPropertiesPOJO;
 import com.devops.api2.gateway.locator.provider.CustomCircuitBreakerConfigProvider;
 import com.devops.api2.gateway.locator.provider.FilterListProvider;
+import jakarta.annotation.Nullable;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
@@ -44,8 +45,15 @@ public class CENTerrRouteLocator {
 
         return builder.routes()
                 .route("IFPMSERP01", r -> r.path("/api/pms/inf/act-plan-activity-hnfs")
-                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter, IFPMSERP01Config).toArray(new GatewayFilter[0])))
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                getFilterConfig("CENTerrServiceIF-PMSERP-01CircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
                         .uri("http://inf-centerrstg.cengroup.co.kr"))
                 .build();
+    }
+
+    private CustomCircuitBreakerGatewayFilterFactory.Config getFilterConfig(@Nullable String filterName){
+        CustomCircuitBreakerGatewayFilterFactory.Config filterConfig = customCircuitBreakerConfigProvider.getConfig(filterName);
+        return filterConfig;
     }
 }

@@ -27,7 +27,9 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
 
             return chain.filter(exchange)
                     .then(Mono.fromRunnable(() -> { //post-processing
-
+                        /**
+                         * TODO:FALLBACK 발생시 여기서 로깅 처리
+                         */
                     }));
         };
     }

@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * id,path,uri,predicates 등 external-routes-xxxx.yml 에 필요한 설정 추가
+ * XXX RouteLocator 에서 라우팅설정을 동적으로 생성하기위한 클래스
+ * TODO:RouteLocator에서 yml설정 동적할당
  */
 //@ConfigurationProperties(prefix = "custom")
 public class RouteDefinition {
