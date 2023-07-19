@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * System 기동시 CustomFilter를 주입하기위함
+ * System 기동시 defaultfilter (CustomFilter) 를 주입하기 위함
  */
 @Component
 @ConfigurationProperties(prefix = "spring.cloud.gateway")

@@ -51,7 +51,7 @@ public class JWTConfigurer {
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers("/", "/*.html","/*.css","/*.js","/h2-console/**", "/favicon.ico").permitAll() //STATIC 파일 패싱
                 .pathMatchers("/api/authenticate", "/api/authenticateUrl", "/api/authenticate/valid-token").permitAll() //JWT관련 URI
-                    .pathMatchers("/api2/**","/cenerp/**","/ifroute/**").permitAll() //현재 게이트웨이서버가 호출하는 인터널API 호출시 토큰없이 패싱
+                    .pathMatchers("/api2/**","/cenerp/**","/ifroute/**","/api/**").permitAll() //현재 게이트웨이서버가 호출하는 인터널API 호출시 토큰없이 패싱
                     .pathMatchers("/actuator/**").permitAll()
                 .pathMatchers("/api/person").hasRole("USER")
                 .pathMatchers("/api/hiddenmessage").hasRole("ADMIN")

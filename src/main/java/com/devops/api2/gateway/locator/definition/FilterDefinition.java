@@ -1,7 +1,7 @@
 package com.devops.api2.gateway.locator.definition;
 
 /**
- * System 기동시 CustomFilter를 주입하기위함
+ * System 기동시 defaultfilter (CustomFilter) 를 주입하기 위함
  */
 public class FilterDefinition {
 

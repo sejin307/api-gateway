@@ -10,8 +10,6 @@ import java.util.Map;
 
 /**
  * id,path,uri,predicates 등 external-routes-xxxx.yml 에 필요한 설정 추가
- * https://cloud.spring.io/spring-cloud-gateway/reference/html/
- * 공식 스펙 참고
  */
 //@ConfigurationProperties(prefix = "custom")
 public class RouteDefinition {

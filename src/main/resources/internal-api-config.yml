@@ -1,7 +1,13 @@
 #이게 왜있냐면.. 서킷브레이커는 비즈니스로직에 적용가능
 # EX) CENTerr > (gateway > gateway(서비스로직) 포워딩) > Routelocator > CENERP
-api:
+definition:
   baseUrl: http://127.0.0.1:9000
-  erpPath: /cenerp/openapi/baseinfo
-  centerrPath:
-  prPath:
+api:
+  erp:
+    baseInfo: /cenerp/openapi/baseInfo
+    dept: /cenerp/openapi/dept
+    company: /cenerp/openapi/company
+  centerr:
+    IFPMSERP01: /api/pms/inf/act-plan-activity-hnfs
+
+
