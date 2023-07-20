@@ -36,24 +36,17 @@ public class JWTFilter implements WebFilter {
       String jwt = resolveToken(exchange);
       String requestURI = exchange.getRequest().getURI().toString();
       String requestURIPath = exchange.getRequest().getPath().toString();
-      HttpMethod requestMethod = exchange.getRequest().getMethod();
 
-      // 내부에서만 사용하는 경로를 리스트로 관리
-      List<String> internalPaths = Arrays.asList("/actuator/metrics/hydraCircuitBreaker");
-
-      // 내부 IP 주소 체크
       InetAddress remoteAddress = exchange.getRequest().getRemoteAddress().getAddress();
       boolean isInternalIp = remoteAddress.isLoopbackAddress();
-      boolean isContainURI = internalPaths.contains(requestURIPath);
       if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
          Authentication authentication = this.tokenProvider.getAuthentication(jwt);
          exchange.getAttributes().put("authentication", authentication);
 
          LOG.debug("set Authentication context '{}', uri: {}", authentication.getName(), requestURI);
-
          return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
-      } else if (isContainURI && HttpMethod.GET.equals(requestMethod) && isInternalIp) {
-         LOG.debug("Internal Route and IP Dectected / Do not authorize  OR System Call URI: {}", requestURI);
+      } else if (isInternalIp) {
+         LOG.debug("Internal Route and IP Dectected", requestURI);
          return chain.filter(exchange);
       } else if ("/api/authenticateUrl".equals(requestURIPath)){
          LOG.debug("Request JWT Authenticate URL Call, uri: {}", requestURI);
@@ -62,10 +55,10 @@ public class JWTFilter implements WebFilter {
          LOG.debug("Actuator Call", requestURI);
          return chain.filter(exchange);
       }else {
-         return chain.filter(exchange);
-         /*LOG.debug("No valid JWT OR JWT is Null, uri: {}", requestURI);
+         //return chain.filter(exchange);
+         LOG.debug("No valid JWT OR JWT is Null, uri: {}", requestURI);
          // 인증 실패 시, 에러 처리
-         throw new RuntimeException("Invalid token");*/
+         throw new RuntimeException("Invalid token");
       }
    }
 
