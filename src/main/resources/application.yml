@@ -2,7 +2,7 @@
 server:
   servlet:
     context-path: /
-  port: 9000
+  port: 8080
 
 #파라미터 암호화 키,벡터 값
 crypt-key-prop:
