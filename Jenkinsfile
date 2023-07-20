@@ -30,7 +30,7 @@ node {
             def executionRoleArn = "arn:aws:iam::036240822918:role/ecsTaskExecutionRole"
             def cpu = "512"
             def memory = "1024"
-            def containerName = "api2-auth-gateway-container"
+            def containerName = "api2-auth-gateway-taskgrp-container"
             def image = "036240822918.dkr.ecr.ap-northeast-2.amazonaws.com/api2-auth:" + env.BUILD_NUMBER
             def logGroup = "/ecs/api2-auth-gateway"
             def region = "ap-northeast-2"
