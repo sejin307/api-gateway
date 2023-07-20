@@ -66,8 +66,8 @@ public class AuthenticationRestController {
                          });
               })
               .map(securityContext -> {
-                 boolean rememberMe = (loginDto.isRememberMe() == null) ? false : loginDto.isRememberMe();
-                 String jwt = tokenProvider.createToken(securityContext.getAuthentication(), rememberMe);
+
+                 String jwt = tokenProvider.createToken(securityContext.getAuthentication());
                  HttpHeaders httpHeaders = new HttpHeaders();
                  httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
                  return ResponseEntity.ok().headers(httpHeaders).body(new JWTToken(jwt, HttpStatus.OK));
@@ -93,9 +93,7 @@ public class AuthenticationRestController {
       return this.authenticationManager.authenticate(authenticationToken)
               .flatMap(authentication -> {
                  SecurityContextHolder.getContext().setAuthentication(authentication);
-                 boolean rememberMe = false;
-                 String jwt = tokenProvider.createToken(authentication, rememberMe);
-
+                 String jwt = tokenProvider.createToken(authentication);
                  HttpHeaders httpHeaders = new HttpHeaders();
                  httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
                  return Mono.just(new ResponseEntity<>(new JWTToken(jwt,HttpStatus.OK), httpHeaders, HttpStatus.OK));

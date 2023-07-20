@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 
 /**
+ * https://cloud.spring.io/spring-cloud-gateway/reference/html/
  * 시스템간 RESTAPI 인터페이스
  * 인증, API Gateway모듈
  * AUTHOR: sejin

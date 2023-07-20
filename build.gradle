@@ -50,6 +50,8 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.6'
     runtimeOnly('io.jsonwebtoken:jjwt-jackson:0.10.6')
 
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
     /*runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'com.h2database:h2:1.4.200'*/
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
