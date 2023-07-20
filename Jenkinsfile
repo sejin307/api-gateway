@@ -28,11 +28,11 @@ node {
             // Register a new revision of Task Definition with the updated Docker image
             //def taskdef = sh(script: 'aws ecs register-task-definition --family "container-task" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "arn:aws:iam::036240822918:role/ecsTaskExecutionRole" --cpu "256" --memory "512" --container-definitions "[{\\"name\\": \\"container-task\\",\\"image\\": \\"036240822918.dkr.ecr.ap-northeast-2.amazonaws.com/api2-auth:' + env.BUILD_NUMBER + '\\",\\"cpu\\": 256,\\"memory\\": 512,\\"essential\\": true, \\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"/ecs/api2-auth\\", \\"awslogs-region\\": \\"ap-northeast-2\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"', returnStdout: true)
             def executionRoleArn = "arn:aws:iam::036240822918:role/ecsTaskExecutionRole"
-            def cpu = "256"
-            def memory = "512"
-            def containerName = "container-task"
+            def cpu = "512"
+            def memory = "1024"
+            def containerName = "api2-auth-gateway-task"
             def image = "036240822918.dkr.ecr.ap-northeast-2.amazonaws.com/api2-auth:" + env.BUILD_NUMBER
-            def logGroup = "/ecs/api2-auth"
+            def logGroup = "/ecs/api2-auth-gateway"
             def region = "ap-northeast-2"
 
             def taskdef = sh(script: """
@@ -47,9 +47,9 @@ node {
             // Update the ECS service with the new Task Definition
             //sh 'aws ecs update-service --cluster "api-auth-dev-cluster" --service "api2-auth-dev-service" --task-definition "container-task:' + newRevision + '"'
 
-            def clusterName = "api-auth-dev-cluster"
-            def serviceName = "api2-auth-dev-service"
-            def taskDefinition = "container-task:" + newRevision
+            def clusterName = "api2-auth-gateway-cluster"
+            def serviceName = "api2-auth-gateway-service"
+            def taskDefinition = "api2-auth-gateway-task:" + newRevision
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\""
 
