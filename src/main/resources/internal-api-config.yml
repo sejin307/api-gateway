@@ -7,6 +7,13 @@ api:
     baseInfo: /cenerp/openapi/baseInfo
     dept: /cenerp/openapi/dept
     company: /cenerp/openapi/company
+    acntinfo: /cenerp/openapi/acntinfo
+    acnts-map: /cenerp/openapi/acnts-map
+    ar-collects: /cenerp/openapi/ar-collects
+    vendor-bonds: /cenerp/openapi/vendor-bonds
+    slipinfos: /cenerp/openapi/slipinfos
+    vendors: /cenerp/openapi/vendors
+    vendors-charges: /cenerp/openapi/vendors-charges
   centerr:
     IFPMSERP01: /api/pms/inf/act-plan-activity-hnfs
 
