@@ -47,7 +47,7 @@ public class CenERPRouteLocator {
                 .route("baseinfo", r -> r.path("/cenerp/openapi/baseInfo")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                 getFilterConfig("erpServiceBaseInfoCircuitBreaker")).toArray(new GatewayFilter[0])))
-                        .uri("http://192.168.63.71:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("dept", r -> r.path("/cenerp/openapi/dept")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                 getFilterConfig("erpServiceDeptCircuitBreaker"))
