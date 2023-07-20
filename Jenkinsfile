@@ -30,7 +30,7 @@ node {
             def executionRoleArn = "arn:aws:iam::036240822918:role/ecsTaskExecutionRole"
             def cpu = "512"
             def memory = "1024"
-            def containerName = "api2-auth-gateway-taskgrp-container"
+            def containerName = "api2-container"
             def image = "036240822918.dkr.ecr.ap-northeast-2.amazonaws.com/api2-auth:" + env.BUILD_NUMBER
             def logGroup = "/ecs/api2-auth-gateway"
             def region = "ap-northeast-2"
@@ -47,9 +47,9 @@ node {
             // Update the ECS service with the new Task Definition
             //sh 'aws ecs update-service --cluster "api-auth-dev-cluster" --service "api2-auth-dev-service" --task-definition "container-task:' + newRevision + '"'
 
-            def clusterName = "api2-auth-gateway-cluster"
-            def serviceName = "api2-auth-gateway-service"
-            def taskDefinition = "api2-auth-gateway-taskgrp:" + newRevision
+            def clusterName = "api2-cluster"
+            def serviceName = "api2-service"
+            def taskDefinition = "api2-task:" + newRevision
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\""
 
