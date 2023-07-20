@@ -49,7 +49,7 @@ node {
 
             def clusterName = "api2-cluster"
             def serviceName = "api2-service"
-            def taskDefinition = "api2-container:" + newRevision
+            def taskDefinition = "api2-container:" + newRevision //이게 왜 컨테이너명인지..?????
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\""
 
