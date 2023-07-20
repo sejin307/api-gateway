@@ -13,6 +13,14 @@ public class Api2ErpDefinition {
     private String baseInfo;
     private String dept;
     private String company;
+    private String acntinfo;
+    private String acntsmap;
+    private String arcollects;
+    private String vendorbonds ;
+    private String slipinfos;
+    private String vendors;
+    private String vendorscharges;
+
 
     public String getBaseUrl() {
         return baseUrl;
@@ -44,5 +52,61 @@ public class Api2ErpDefinition {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public String getAcntinfo() {
+        return acntinfo;
+    }
+
+    public void setAcntinfo(String acntinfo) {
+        this.acntinfo = acntinfo;
+    }
+
+    public String getAcntsmap() {
+        return acntsmap;
+    }
+
+    public void setAcntsmap(String acntsmap) {
+        this.acntsmap = acntsmap;
+    }
+
+    public String getArcollects() {
+        return arcollects;
+    }
+
+    public void setArcollects(String arcollects) {
+        this.arcollects = arcollects;
+    }
+
+    public String getVendorbonds() {
+        return vendorbonds;
+    }
+
+    public void setVendorbonds(String vendorbonds) {
+        this.vendorbonds = vendorbonds;
+    }
+
+    public String getSlipinfos() {
+        return slipinfos;
+    }
+
+    public void setSlipinfos(String slipinfos) {
+        this.slipinfos = slipinfos;
+    }
+
+    public String getVendors() {
+        return vendors;
+    }
+
+    public void setVendors(String vendors) {
+        this.vendors = vendors;
+    }
+
+    public String getVendorscharges() {
+        return vendorscharges;
+    }
+
+    public void setVendorscharges(String vendorscharges) {
+        this.vendorscharges = vendorscharges;
     }
 }

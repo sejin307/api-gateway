@@ -55,7 +55,7 @@ public class RestRequestCenERPService {
 
     @CircuitBreaker(name = "erpServiceAcntinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getAcntinfoData(MultiValueMap<String, String> queryParams) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getAcntinfo());
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
         return this.webClient.get()
@@ -67,7 +67,7 @@ public class RestRequestCenERPService {
 
     @CircuitBreaker(name = "erpServiceAcntsmapCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getAcntsmapData(MultiValueMap<String, String> queryParams) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getAcntsmap());
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
         return this.webClient.get()
@@ -80,7 +80,7 @@ public class RestRequestCenERPService {
 
     @CircuitBreaker(name = "erpServiceArcollectsCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getArcollectsData(MultiValueMap<String, String> queryParams) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getArcollects());
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
         return this.webClient.get()
@@ -91,7 +91,7 @@ public class RestRequestCenERPService {
 
     @CircuitBreaker(name = "erpServiceVendorbondsCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getVendorbondsData(MultiValueMap<String, String> queryParams) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getVendorbonds());
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
         return this.webClient.get()
@@ -102,7 +102,7 @@ public class RestRequestCenERPService {
 
     @CircuitBreaker(name = "erpServiceSlipinfosCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getSlipinfosData(MultiValueMap<String, String> queryParams) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getSlipinfos());
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
         return this.webClient.get()
@@ -113,7 +113,7 @@ public class RestRequestCenERPService {
 
     @CircuitBreaker(name = "erpServiceVendorsCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getVendorsData(MultiValueMap<String, String> queryParams) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getVendors());
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
         return this.webClient.get()
@@ -124,7 +124,7 @@ public class RestRequestCenERPService {
 
     @CircuitBreaker(name = "erpServiceVendorschargesCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getVendorschargesData(MultiValueMap<String, String> queryParams) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getVendorscharges());
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
         return this.webClient.get()
