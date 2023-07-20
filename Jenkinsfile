@@ -49,7 +49,7 @@ node {
 
             def clusterName = "api2-auth-gateway-cluster"
             def serviceName = "api2-auth-gateway-service"
-            def taskDefinition = "api2-auth-gateway-task:" + newRevision
+            def taskDefinition = "api2-auth-gateway-taskgrp:" + newRevision
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\""
 
