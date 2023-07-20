@@ -32,6 +32,41 @@ public class Api2ErpController {
     public Mono<String> getCompanyData(@RequestParam MultiValueMap<String, String> queryParams) {
         return restRequestCenERPService.getCompanyData(queryParams);
     }
+
+    @GetMapping("/openapi/acntinfo")
+    public Mono<String> getAcntinfoData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getAcntinfoData(queryParams);
+    }
+
+    @GetMapping("/openapi/acnts-map")
+    public Mono<String> getAcntsmapData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getAcntsmapData(queryParams);
+    }
+
+    @GetMapping("/openapi/ar-collects")
+    public Mono<String> getArcollectsData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getArcollectsData(queryParams);
+    }
+
+    @GetMapping("/openapi/vendor-bonds")
+    public Mono<String> getVendorbondsData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getVendorbondsData(queryParams);
+    }
+
+    @GetMapping("/openapi/slipinfos")
+    public Mono<String> getSlipinfosData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getSlipinfosData(queryParams);
+    }
+
+    @GetMapping("/openapi/vendors")
+    public Mono<String> getVendorsData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getVendorsData(queryParams);
+    }
+
+    @GetMapping("/openapi/vendors-charges")
+    public Mono<String> getVendorschargesData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getVendorschargesData(queryParams);
+    }
 }
 
 

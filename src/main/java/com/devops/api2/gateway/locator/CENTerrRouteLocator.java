@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * cloud gateway 의 설정을 동적으로 가져와야하는데 코드가 매우복잡하고,
+ * TODO:cloud gateway 의 설정을 동적으로 가져와야함.
  * 왠만한 gateway에서 제공하는 메소드 사용법의 이해도가 없다면 코드작성이 매우 어려움.
- * 위의 이유로 Rocator는 yml설정을 Java에서 동적생성 보다  Rocator에서 직접세팅
+ * 위의 이유로 Rocator는 yml설정을 Java에서 동적생성 보다  Locator에서 직접세팅
  *
  * CENTerr에서 제공하는 API를 정의
  */

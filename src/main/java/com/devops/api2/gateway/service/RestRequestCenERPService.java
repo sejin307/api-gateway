@@ -42,9 +42,88 @@ public class RestRequestCenERPService {
                 .bodyToMono(String.class);
     }
 
-
     @CircuitBreaker(name = "erpServiceCompanyCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getCompanyData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getDept());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
+    }
+
+    @CircuitBreaker(name = "erpServiceAcntinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getAcntinfoData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
+    }
+
+
+    @CircuitBreaker(name = "erpServiceAcntsmapCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getAcntsmapData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
+    }
+
+
+
+    @CircuitBreaker(name = "erpServiceArcollectsCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getArcollectsData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
+    }
+
+    @CircuitBreaker(name = "erpServiceVendorbondsCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getVendorbondsData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
+    }
+
+    @CircuitBreaker(name = "erpServiceSlipinfosCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getSlipinfosData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
+    }
+
+    @CircuitBreaker(name = "erpServiceVendorsCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getVendorsData(MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
+        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+
+        return this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .retrieve()
+                .bodyToMono(String.class);
+    }
+
+    @CircuitBreaker(name = "erpServiceVendorschargesCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getVendorschargesData(MultiValueMap<String, String> queryParams) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(api2ErpDefinition.getCompany());
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
