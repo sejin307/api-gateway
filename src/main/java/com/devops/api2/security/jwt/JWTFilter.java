@@ -52,6 +52,7 @@ public class JWTFilter implements WebFilter {
          LOG.debug("Request JWT Authenticate URL Call, uri: {}", requestURI);
          return chain.filter(exchange);
       }else{
+         //return chain.filter(exchange);
          LOG.debug("No valid JWT OR JWT is Null, uri: {}", requestURI);
          // 인증 실패 시, 에러 처리
          throw new RuntimeException("Invalid token");
