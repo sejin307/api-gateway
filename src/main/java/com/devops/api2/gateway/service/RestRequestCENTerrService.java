@@ -15,8 +15,14 @@ public class RestRequestCENTerrService {
     private final WebClient webClient;
     private final Api2CENTerrDefinition api2CENTerrDefinition;
 
+    //10MB까지 허용, 반환하는 데이터의 Buffer size 가 이 옵션보다 작아야함!
+    private final int byteCnt = 10240 * 1024;
+
     public RestRequestCENTerrService(WebClient.Builder webClientBuilder, @Value("${definition.baseUrl}") String baseUrl, Api2CENTerrDefinition api2CENTerrDefinition) {
-        this.webClient = webClientBuilder.baseUrl(baseUrl).build();
+        this.webClient = webClientBuilder
+                         .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(byteCnt))
+                         .baseUrl(baseUrl)
+                         .build();
         this.api2CENTerrDefinition = api2CENTerrDefinition;
     }
 
