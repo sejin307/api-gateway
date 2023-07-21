@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gateway에서 사용할 default-filter 세팅
+ *
+ */
 @Component
 public class FilterListProvider {
 

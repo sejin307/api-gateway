@@ -48,14 +48,10 @@ public class JWTFilter implements WebFilter {
       } else if (isInternalIp) {
          LOG.debug("Internal Route and IP Dectected", requestURI);
          return chain.filter(exchange);
-      } else if ("/api/authenticateUrl".equals(requestURIPath)){
+      } else if ("/api/authenticateUrl".equals(requestURIPath) || "/actuator".equals(requestURIPath) || "/".equals(requestURIPath)){
          LOG.debug("Request JWT Authenticate URL Call, uri: {}", requestURI);
          return chain.filter(exchange);
-      } else if("/actuator".equals(requestURIPath)){
-         LOG.debug("Actuator Call", requestURI);
-         return chain.filter(exchange);
-      }else {
-         //return chain.filter(exchange);
+      }else{
          LOG.debug("No valid JWT OR JWT is Null, uri: {}", requestURI);
          // 인증 실패 시, 에러 처리
          throw new RuntimeException("Invalid token");
