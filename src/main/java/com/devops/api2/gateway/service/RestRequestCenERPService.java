@@ -18,7 +18,6 @@ import java.security.cert.CertPathBuilder;
 
 @Service
 public class RestRequestCenERPService {
-
     private static final Logger log = LoggerFactory.getLogger(RestRequestCenERPService.class);
 
     //10MB까지 허용, 반환하는 데이터의 Buffer size 가 이 옵션보다 작아야함!

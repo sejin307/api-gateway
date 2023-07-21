@@ -43,6 +43,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.security:spring-security-rsocket:5.5.0'
     implementation 'org.springframework.boot:spring-boot-starter-rsocket'
+
+    implementation 'org.slf4j:slf4j-api:2.0.3'
+    implementation 'ch.qos.logback:logback-classic:1.4.1'
+
     //implementation 'org.springframework.boot:spring-boot-starter-actuator'
     //implementation 'io.micrometer:micrometer-registry-prometheus'
 
@@ -70,4 +74,8 @@ tasks.named('test') {
 bootJar {
     archiveBaseName = 'api2-auth'
     mainClass.set("com.devops.api2.Api2Application")
+}
+
+bootRun {
+    jvmArgs = ['-Xmx1024m', '-Xms512m']
 }
