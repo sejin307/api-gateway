@@ -93,6 +93,11 @@ public class CenERPRouteLocator {
                                  getFilterConfig("erpServiceVendorschargesCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
                         .uri("http://121.138.156.45:8080"))
+                .route("magaminfo-cenerp", r -> r.path("/cenerp/openapi/magaminfo-cenerp")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceVendorschargesCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri("http://121.138.156.45:8080"))
                 .build();
     }
 

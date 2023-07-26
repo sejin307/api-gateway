@@ -84,12 +84,20 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getVendorscharges(), queryParams);
     }
 
+    @CircuitBreaker(name = "erpServiceMagaminfoCenerpCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getMagaminfoCenerpData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getMagaminfocenerp(), queryParams);
+    }
+
+
+
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 
         return this.webClient.get()
                 .uri(uriBuilder.build().toUriString())
+                .header("Internal-Route-Request","true")
                 .retrieve()
                 .bodyToMono(String.class)
                 .doOnNext(response -> {
@@ -102,6 +110,12 @@ public class RestRequestCenERPService {
                 });
     }
 
+    /**
+     * 여기서 Route의 결과에 대한 exception처리는 여기서 하도록함.
+     * @param queryParams
+     * @param t
+     * @return
+     */
     public Mono<String> fallbackERP(MultiValueMap<String, String> queryParams, Throwable t) {
         return Mono.just("Target Service CenERP Unavailable. Please try again later.");
     }

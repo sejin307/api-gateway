@@ -20,6 +20,7 @@ public class Api2ErpDefinition {
     private String slipinfos;
     private String vendors;
     private String vendorscharges;
+    private String magaminfocenerp;
 
 
     public String getBaseUrl() {
@@ -108,5 +109,13 @@ public class Api2ErpDefinition {
 
     public void setVendorscharges(String vendorscharges) {
         this.vendorscharges = vendorscharges;
+    }
+
+    public String getMagaminfocenerp() {
+        return magaminfocenerp;
+    }
+
+    public void setMagaminfocenerp(String magaminfocenerp) {
+        this.magaminfocenerp = magaminfocenerp;
     }
 }
