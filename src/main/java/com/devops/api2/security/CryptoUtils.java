@@ -117,20 +117,20 @@ public class CryptoUtils {
         try{
             //String plainStr = "centerr/CENTerr!@#4"; //CENTerr   ex) xrSG7vApBIiKkG%2BXh6wvPBh0y4owT5RnD7asS%2FeIX00%3D%0D%0A
             //String plainStr = "purchase/Purchase!@#4"; //구매   ex) gpVJeolUkIAnRyIRgxQ%2Bnw3ZA8clEMVEqjp0YCvvbfQ%3D%0D%0A
-            String plainStr = "userId=hjo0045@sicc.co.kr&cdCorp=SS";
+            //String plainStr = "Jx6n3ZKtfEvvZCso3PHPgN+uIX5HxhEh7QqVMQf3dKGjZ8bwo588giP6Y+XwX4Y9";
 
             //xrSG7vApBIiKkG+Xh6wvPBh0y4owT5RnD7asS/eIX00=
 
             //WZCIUhCsi5dqv9jFnOh7Mj+g7WKrLypZb/95GgQy4mA=
             //String plainStr = "admin/admin";
             //oJV99aVJL6iR+c5RqnlT7g==
-            String encryptedStr =  encrypt(plainStr);
-            String urlEncodedStr = URLEncoder.encode(encryptedStr);
-            String urlDecodedStr = URLDecoder.decode(urlEncodedStr);
-             System.out.println("~~~~~~~~~~~~> encryptedStr :" + encryptedStr);
-            System.out.println("~~~~~~~~~~~~> urlEncodedStr :" + urlEncodedStr);
-            System.out.println("~~~~~~~~~~~~> urlDecodedStr :" + urlDecodedStr);
-             String decryptedStr = decrypt(encryptedStr);
+            //String encryptedStr =  encrypt(plainStr);
+            //String urlEncodedStr = URLEncoder.encode(encryptedStr);
+            //String urlDecodedStr = URLDecoder.decode(urlEncodedStr);
+            // System.out.println("~~~~~~~~~~~~> encryptedStr :" + encryptedStr);
+            //System.out.println("~~~~~~~~~~~~> urlEncodedStr :" + urlEncodedStr);
+            //System.out.println("~~~~~~~~~~~~> urlDecodedStr :" + urlDecodedStr);
+             String decryptedStr = decrypt("Jx6n3ZKtfEvvZCso3PHPgN+uIX5HxhEh7QqVMQf3dKGjZ8bwo588giP6Y+XwX4Y9");
              System.out.println("~~~~~~~~~~~~> decryptedStr :" + decryptedStr);
         }catch (Exception e) {
             // TODO: handle exception
