@@ -44,12 +44,15 @@ spring:
       default-filters:
         - name: CustomFilter
 
+  #codec:
+  #  max-in-memory-size: 20MB
+
 #Resilience4J 설정
 resilience4j.circuitbreaker:
   configs:
     default:
       slidingWindowSize: 10                               #서킷 상태가 CLOSED 일때 요청결과를 기록하기위한 SLIDING WINDOW 설정
-      permittedNumberOfCallsInHalfOpenState: 3            #서킷 상태가 HALF-OPEN 일때 받아들일 요청의 갯수
+      permittedNumberOfCallsInHalfOpenState: 50            #서킷 상태가 HALF-OPEN 일때 받아들일 요청의 갯수
       waitDurationInOpenState: 20000                      #서킷 이 OPEN 에서 HALF-OPEN으로 전환하기 전 대기 시간 (ms) 1000ms = 1초
       automaticTransitionFromOpenToHalfOpenEnabled: true  #서킷 상태가 OPEN에서 HALF-OPEN으로 자동전환 설정
       failureRateThreshold: 50                            #실패 비율 THRESHOLD 설정, 해당 값보다 같거나 클 경우 서킷을 OPEN함.
@@ -99,5 +102,7 @@ jwt:
 #시스템 패키지 로그레벨 설정
 logging:
   level:
-    com.devops.api2: DEBUG
-     #root: TRACE
+    #com.devops.api2: DEBUG
+    #root: TRACE
+    io.netty: debug
+    reactor.netty: debug
