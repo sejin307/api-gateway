@@ -72,7 +72,7 @@ tasks.named('test') {
 }
 
 bootJar {
-    archiveBaseName = 'api2-auth'
+    archiveBaseName = 'api-gw'
     mainClass.set("com.devops.api2.Api2Application")
 }
 
