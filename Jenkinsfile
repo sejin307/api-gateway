@@ -44,9 +44,6 @@ node {
             def taskdefJson = readJSON text: taskdef
             def newRevision = taskdefJson.taskDefinition.revision
 
-            // Update the ECS service with the new Task Definition
-            //sh 'aws ecs update-service --cluster "api-auth-dev-cluster" --service "api2-auth-dev-service" --task-definition "container-task:' + newRevision + '"'
-
             def clusterName = "api2-cluster"
             def serviceName = "api2-service"
             def taskDefinition = "api2-container:" + newRevision //이게 왜 컨테이너명인지..?????
