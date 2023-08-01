@@ -9,7 +9,7 @@ node {
   }
 
   stage('========== Build Image ==========') {
-    app = docker.build("api2-auth", ".")
+    app = docker.build("api-gw", ".")
   }
 
   stage('========== Push Image ==========') {
