@@ -2,12 +2,54 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <title>api2-auth-gateway</title>
+   <title>API2</title>
+   <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <script src="/js/main.js"></script>
+   <style>
+      body {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         background: #f5f5f5;
+         font-family: Arial, sans-serif;
+      }
+      form {
+         background: white;
+         padding: 20px;
+         border-radius: 8px;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+      input {
+         display: block;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+         padding: 10px;
+         width: 200px;
+         margin-bottom: 10px;
+      }
+      button {
+         padding: 10px 20px;
+         background: #007BFF;
+         color: white;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+      }
+      button:hover {
+         background: #0056b3;
+      }
+   </style>
 </head>
 <body>
-<div>
-   <h1>api2-auth-gateway</h1>
+<div id="app">
+   <form @submit.prevent="submitForm">
+      <input id="username" v-model="id" placeholder="아이디" type="text" required>
+      <input id="password" v-model="password" placeholder="비밀번호" type="text" required>
+      <button type="submit">Login</button>
+   </form>
 </div>
-</body>
 
+</body>
 </html>
