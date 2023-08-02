@@ -13,9 +13,9 @@ crypt-key-prop:
 spring:
   #데이터베이스 설정 과 커넥션풀 설정
   datasource:
-    url: jdbc:mysql://api2.cdjarklny1yx.ap-northeast-2.rds.amazonaws.com:3306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
-    username: api2
-    password: api22023!@
+    url: jdbc:mysql://api-gw.cwj6ritwovqw.ap-northeast-2.rds.amazonaws.com:3306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    username: admin
+    password: itcen202312#
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 5      #TODO: prod조정
