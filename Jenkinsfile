@@ -45,7 +45,7 @@ node {
             def newRevision = taskdefJson.taskDefinition.revision
 
             def clusterName = "API-GW-CLUSTER"
-            def serviceName = "API-GW-SERVICE"
+            def serviceName = "API-GW-CONTAINER"
             def taskDefinition = "API-GW-CONTAINER:" + newRevision //이게 왜 컨테이너명인지..?????
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\""
