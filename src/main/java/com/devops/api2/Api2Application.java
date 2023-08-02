@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import java.lang.management.ManagementFactory;
+
 
 /**
  * https://cloud.spring.io/spring-cloud-gateway/reference/html/
@@ -18,7 +20,9 @@ public class Api2Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Api2Application.class, args);
+		System.out.println("JVM Options : " + ManagementFactory.getRuntimeMXBean().getInputArguments());
 	}
+}
 
 	/**
 	 * 2023.07.03
@@ -36,5 +40,3 @@ public class Api2Application {
 	 *      4. 빌드배포테스트      o
 	 *      5. ecs 고정ip 연결  o     / 도메인 부여  ing
 	 */
-
-}
