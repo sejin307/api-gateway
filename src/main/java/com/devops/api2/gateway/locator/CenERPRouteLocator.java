@@ -47,57 +47,57 @@ public class CenERPRouteLocator {
                 .route("baseinfo", r -> r.path("/cenerp/openapi/baseInfo")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                 getFilterConfig("erpServiceBaseInfoCircuitBreaker")).toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("dept", r -> r.path("/cenerp/openapi/dept")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                 getFilterConfig("erpServiceDeptCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("company", r -> r.path("/cenerp/openapi/company")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                 getFilterConfig("erpServiceCompanyCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("acntinfo", r -> r.path("/cenerp/openapi/acntinfo")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                 getFilterConfig("erpServiceAcntinfoCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("acnts-map", r -> r.path("/cenerp/openapi/acnts-map")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                  getFilterConfig("erpServiceAcntsmapCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("ar-collects", r -> r.path("/cenerp/openapi/ar-collects")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                  getFilterConfig("erpServiceArcollectsCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("vendor-bonds", r -> r.path("/cenerp/openapi/vendor-bonds")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                  getFilterConfig("erpServiceVendorbondsCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("slipinfos", r -> r.path("/cenerp/openapi/slipinfos")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                  getFilterConfig("erpServiceSlipinfosCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("vendors", r -> r.path("/cenerp/openapi/vendors")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                  getFilterConfig("erpServiceVendorsCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("vendors-charges", r -> r.path("/cenerp/openapi/vendors-charges")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                  getFilterConfig("erpServiceVendorschargesCircuitBreaker"))
                                     .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .route("magaminfo-cenerp", r -> r.path("/cenerp/openapi/magaminfo-cenerp")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                         getFilterConfig("erpServiceVendorschargesCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
-                        .uri("http://121.138.156.45:8080"))
+                        .uri("https://ep.cengroup.co.kr"))
                 .build();
     }
 
