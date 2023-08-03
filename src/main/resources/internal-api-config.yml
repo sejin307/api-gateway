@@ -17,6 +17,9 @@ api:
     magaminfo-cenerp: /cenerp/openapi/magaminfo-cenerp
     magam-vendor-bonds: /cenerp/openapi/magam-vendor-bonds
     orderDeptMove: /cenerp/openapi/orderDeptMove
+    dirct_persexp: /cenerp/openapi/dirct_persexp
+    dept-acnt-info: /cenerp/openapi/dept-acnt-info
+    magaminfo-final-cenerp: /cenerp/openapi/magaminfo-final-cenerp
   centerr:
     IFPMSERP01: /api/pms/inf/act-plan-activity-hnfs
 

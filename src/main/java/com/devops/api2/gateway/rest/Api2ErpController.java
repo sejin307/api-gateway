@@ -82,6 +82,21 @@ public class Api2ErpController {
     public Mono<String> getOrderdeptmoveData(@RequestParam MultiValueMap<String, String> queryParams) {
         return restRequestCenERPService.getOrderdeptmoveData(queryParams);
     }
+
+    @GetMapping("/openapi/dirct_persexp")
+    public Mono<String> getDirctPersExpData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getDirctPersExpData(queryParams);
+    }
+
+    @GetMapping("/openapi/dept-acnt-info")
+    public Mono<String> getDeptAcntInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getDeptAcntInfoData(queryParams);
+    }
+
+    @GetMapping("/openapi/magaminfo-final-cenerp")
+    public Mono<String> getMagamInfoFinalCenerpData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getMagamInfoFinalCenerpData(queryParams);
+    }
 }
 
 

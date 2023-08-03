@@ -24,6 +24,11 @@ public class Api2ErpDefinition {
     private String magamvendorbonds;
     private String orderdeptmove;
 
+    private String dirctpersexp;
+    private String deptacntinfo;
+    private String magaminfofinalcenerp;
+
+
 
     public String getBaseUrl() {
         return baseUrl;
@@ -135,5 +140,29 @@ public class Api2ErpDefinition {
 
     public void setOrderdeptmove(String orderdeptmove) {
         this.orderdeptmove = orderdeptmove;
+    }
+
+    public String getDirctpersexp() {
+        return dirctpersexp;
+    }
+
+    public void setDirctpersexp(String dirctpersexp) {
+        this.dirctpersexp = dirctpersexp;
+    }
+
+    public String getDeptacntinfo() {
+        return deptacntinfo;
+    }
+
+    public void setDeptacntinfo(String deptacntinfo) {
+        this.deptacntinfo = deptacntinfo;
+    }
+
+    public String getMagaminfofinalcenerp() {
+        return magaminfofinalcenerp;
+    }
+
+    public void setMagaminfofinalcenerp(String magaminfofinalcenerp) {
+        this.magaminfofinalcenerp = magaminfofinalcenerp;
     }
 }

@@ -99,6 +99,19 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getOrderdeptmove(), queryParams);
     }
 
+    @CircuitBreaker(name = "erpServiceDirctPersExpCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getDirctPersExpData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getDirctpersexp(), queryParams);
+    }
+    @CircuitBreaker(name = "erpServiceDeptAcntInfoCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getDeptAcntInfoData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getDeptacntinfo(), queryParams);
+    }
+    @CircuitBreaker(name = "erpServiceMagamInfoFinalCenerpCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getMagamInfoFinalCenerpData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getMagaminfofinalcenerp(), queryParams);
+    }
+
 
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
