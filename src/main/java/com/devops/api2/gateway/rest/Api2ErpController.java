@@ -72,6 +72,16 @@ public class Api2ErpController {
     public Mono<String> getMagaminfoCenerpData(@RequestParam MultiValueMap<String, String> queryParams) {
         return restRequestCenERPService.getMagaminfoCenerpData(queryParams);
     }
+
+    @GetMapping("/openapi/magam-vendor-bonds")
+    public Mono<String> getMagamVendorBondsData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getMagamVendorBondsData(queryParams);
+    }
+
+    @GetMapping("/openapi/orderDeptMove")
+    public Mono<String> getOrderdeptmoveData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getOrderdeptmoveData(queryParams);
+    }
 }
 
 

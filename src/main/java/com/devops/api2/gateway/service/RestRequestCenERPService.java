@@ -89,6 +89,16 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getMagaminfocenerp(), queryParams);
     }
 
+    @CircuitBreaker(name = "erpServiceMagamVendorBondsCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getMagamVendorBondsData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getMagamvendorbonds(), queryParams);
+    }
+
+    @CircuitBreaker(name = "erpServiceorderDeptMoveCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getOrderdeptmoveData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getOrderdeptmove(), queryParams);
+    }
+
 
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {

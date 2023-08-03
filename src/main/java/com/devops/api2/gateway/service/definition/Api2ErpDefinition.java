@@ -21,6 +21,8 @@ public class Api2ErpDefinition {
     private String vendors;
     private String vendorscharges;
     private String magaminfocenerp;
+    private String magamvendorbonds;
+    private String orderdeptmove;
 
 
     public String getBaseUrl() {
@@ -117,5 +119,21 @@ public class Api2ErpDefinition {
 
     public void setMagaminfocenerp(String magaminfocenerp) {
         this.magaminfocenerp = magaminfocenerp;
+    }
+
+    public String getMagamvendorbonds() {
+        return magamvendorbonds;
+    }
+
+    public void setMagamvendorbonds(String magamvendorbonds) {
+        this.magamvendorbonds = magamvendorbonds;
+    }
+
+    public String getOrderdeptmove() {
+        return orderdeptmove;
+    }
+
+    public void setOrderdeptmove(String orderdeptmove) {
+        this.orderdeptmove = orderdeptmove;
     }
 }
