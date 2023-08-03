@@ -28,18 +28,15 @@ node {
             // Register a new revision of Task Definition with the updated Docker image
             //def taskdef = sh(script: 'aws ecs register-task-definition --family "container-task" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "arn:aws:iam::036240822918:role/ecsTaskExecutionRole" --cpu "256" --memory "512" --container-definitions "[{\\"name\\": \\"container-task\\",\\"image\\": \\"036240822918.dkr.ecr.ap-northeast-2.amazonaws.com/api2-auth:' + env.BUILD_NUMBER + '\\",\\"cpu\\": 256,\\"memory\\": 512,\\"essential\\": true, \\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"/ecs/api2-auth\\", \\"awslogs-region\\": \\"ap-northeast-2\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"', returnStdout: true)
             def executionRoleArn = "arn:aws:iam::025272456049:role/ecsTaskExecutionRole"
-            def cpu = "1024"
-            def memory = "3072"
+            def cpu = "2048"
+            def memory = "4096"
             def containerName = "API-GW-CONTAINER"
             def image = "025272456049.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw:" + env.BUILD_NUMBER
             def logGroup = "/ecs/api-gw"
             def region = "ap-northeast-2"
 
-            def imagePullBehavior = "prefer-cached" // 이미지 풀 동작을 prefer-cached로 설정
-            def deregistrationTimeout = 5 // 5초
-
             def taskdef = sh(script: """
-                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}, \\"imagePullBehavior\\": \\"${imagePullBehavior}\\", \\"deregistration_delay\\": { \\"timeout_seconds\\": ${deregistrationTimeout} }}]"
+                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"
             """, returnStdout: true)
 
 
