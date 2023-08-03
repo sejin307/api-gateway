@@ -43,6 +43,10 @@ node {
             // Parse the output JSON to get the new revision number
             def taskdefJson = readJSON text: taskdef
             def newRevision = taskdefJson.taskDefinition.revision
+            def taskDefinitionArn = taskdefJson.taskDefinition.taskDefinitionArn
+
+            // Add tag to the task definition
+            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --tags key=Service,value=API-GW"
 
             def clusterName = "API-GW-CLUSTER"
             def serviceName = "CONTAINER-SERVICE"
