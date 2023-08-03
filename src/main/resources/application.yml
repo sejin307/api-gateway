@@ -102,7 +102,7 @@ jwt:
 #시스템 패키지 로그레벨 설정
 logging:
   level:
-    #com.devops.api2: DEBUG
+    com.devops.api2: DEBUG
     #root: TRACE
-    io.netty: debug
-    reactor.netty: debug
+    #io.netty: trace
+    #reactor.netty: trace
