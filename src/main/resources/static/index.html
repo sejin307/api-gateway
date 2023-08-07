@@ -3,9 +3,7 @@
 <head>
    <meta charset="UTF-8">
    <title>API2</title>
-   <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-   <script src="/js/main.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <style>
       body {
          display: flex;
@@ -43,13 +41,13 @@
    </style>
 </head>
 <body>
+<script src="js/main.js"></script>
 <div id="app">
-   <form @submit.prevent="submitForm">
-      <input id="username" v-model="id" placeholder="아이디" type="text" required>
-      <input id="password" v-model="password" placeholder="비밀번호" type="text" required>
+   <form id="loginForm">
+      <input id="username" name="username" type="text" placeholder="아이디" type="text" required>
+      <input id="password" name="password" type="password" placeholder="비밀번호" type="text" required>
       <button type="submit">Login</button>
    </form>
 </div>
-
 </body>
 </html>
