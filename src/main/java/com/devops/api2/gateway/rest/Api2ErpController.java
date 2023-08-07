@@ -97,6 +97,11 @@ public class Api2ErpController {
     public Mono<String> getMagamInfoFinalCenerpData(@RequestParam MultiValueMap<String, String> queryParams) {
         return restRequestCenERPService.getMagamInfoFinalCenerpData(queryParams);
     }
+
+    @GetMapping("/openapi/project-amt-info")
+    public Mono<String> getProjectamtinfoData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getProjectamtinfoData(queryParams);
+    }
 }
 
 

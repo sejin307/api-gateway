@@ -21,7 +21,7 @@ public class RestRequestCenERPService {
     private static final Logger log = LoggerFactory.getLogger(RestRequestCenERPService.class);
 
     //50MB까지 허용, 반환하는 데이터의 Buffer size 가 이 옵션보다 작아야함!
-    private final int byteCnt = 51200 * 1024;
+    private final int byteCnt = 30720 * 1024;
 
     private final WebClient webClient;
     private final Api2ErpDefinition api2ErpDefinition;
@@ -110,6 +110,11 @@ public class RestRequestCenERPService {
     @CircuitBreaker(name = "erpServiceMagamInfoFinalCenerpCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getMagamInfoFinalCenerpData(MultiValueMap<String, String> queryParams) {
         return fetchData(api2ErpDefinition.getMagaminfofinalcenerp(), queryParams);
+    }
+
+    @CircuitBreaker(name = "erpServiceProjectamtinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getProjectamtinfoData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getProjectamtinfo(), queryParams);
     }
 
 

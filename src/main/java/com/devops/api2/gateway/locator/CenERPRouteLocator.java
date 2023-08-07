@@ -108,7 +108,6 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceorderDeptMoveCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri("http://121.138.156.45:8080"))
-
                 .route("dirct_persexp", r -> r.path("/cenerp/openapi/dirct_persexp")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                         getFilterConfig("erpServiceDirctPersExpCircuitBreaker"))
@@ -122,6 +121,11 @@ public class CenERPRouteLocator {
                 .route("magaminfo-final-cenerp", r -> r.path("/cenerp/openapi/magaminfo-final-cenerp")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                         getFilterConfig("erpServiceMagamInfoFinalCenerpCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri("http://121.138.156.45:8080"))
+                .route("project-amt-info", r -> r.path("/cenerp/openapi/project-amt-info")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceProjectamtinfoCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri("http://121.138.156.45:8080"))
                 .build();

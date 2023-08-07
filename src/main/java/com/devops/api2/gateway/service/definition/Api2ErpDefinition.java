@@ -27,6 +27,7 @@ public class Api2ErpDefinition {
     private String dirctpersexp;
     private String deptacntinfo;
     private String magaminfofinalcenerp;
+    private String projectamtinfo;
 
 
 
@@ -164,5 +165,13 @@ public class Api2ErpDefinition {
 
     public void setMagaminfofinalcenerp(String magaminfofinalcenerp) {
         this.magaminfofinalcenerp = magaminfofinalcenerp;
+    }
+
+    public String getProjectamtinfo() {
+        return projectamtinfo;
+    }
+
+    public void setProjectamtinfo(String projectamtinfo) {
+        this.projectamtinfo = projectamtinfo;
     }
 }
