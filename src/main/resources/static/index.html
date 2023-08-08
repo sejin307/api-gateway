@@ -3,9 +3,6 @@
 <head>
    <meta charset="UTF-8">
    <title>API2</title>
-   <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-   <script src="/js/main.js"></script>
    <style>
       body {
          display: flex;
@@ -43,13 +40,54 @@
    </style>
 </head>
 <body>
+
 <div id="app">
-   <form @submit.prevent="submitForm">
-      <input id="username" v-model="id" placeholder="아이디" type="text" required>
-      <input id="password" v-model="password" placeholder="비밀번호" type="text" required>
+   <form id="loginForm">
+      <input id="username" type="text" placeholder="아이디" type="text" required>
+      <input id="password" type="password" placeholder="비밀번호" type="text" required>
       <button type="submit">Login</button>
    </form>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--<script src="js/main.js"></script>-->
 
+<script type="text/javascript">
+   var TOKEN_KEY = "jwtToken"
+
+   function setJwtToken(token) {
+      localStorage.setItem(TOKEN_KEY, token);
+   }
+
+   function doLogin(loginData) {
+      $.ajax({
+         url: "/api/authenticate",
+         type: "POST",
+         data: JSON.stringify(loginData),
+         contentType: "application/json; charset=utf-8",
+         dataType: "json",
+         success: function (data, textStatus, jqXHR) {
+            setJwtToken(data.id_token);
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 401) {
+
+            } else {
+               throw new Error("an unexpected error occured: " + errorThrown);
+            }
+         }
+      });
+   }
+
+   $("#loginForm").submit(function (event) {
+      event.preventDefault();
+      var $form = $(this);
+      var formData = {
+         username: $form.find('input[id="username"]').val(),
+         password: $form.find('input[id="password"]').val()
+      };
+      doLogin(formData);
+   });
+
+</script>
 </body>
 </html>
