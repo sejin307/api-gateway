@@ -46,8 +46,9 @@ public class JWTFilter implements WebFilter {
       }else if (StringUtils.hasText(internalHeader) && isInternalIp) {
          LOG.debug("Internal Route and IP Dectected", requestURI);
          return chain.filter(exchange);
-      } else if ("/api/authenticateUrl".equals(requestURIPath) || "/actuator".equals(requestURIPath) || "/".equals(requestURIPath)){
-         LOG.debug("Request JWT Authenticate URL Call, uri: {}", requestURI);
+      } else if (requestURIPath.matches("/.*\\.js") || requestURIPath.matches("/.*\\.html") ||
+              "/api/authenticateUrl".equals(requestURIPath) || "/actuator".equals(requestURIPath) || "/api/authenticate".equals(requestURIPath) ||
+              "/".equals(requestURIPath) || "/favicon.ico".equals(requestURIPath)) {
          return chain.filter(exchange);
       }else{
          //return chain.filter(exchange);
