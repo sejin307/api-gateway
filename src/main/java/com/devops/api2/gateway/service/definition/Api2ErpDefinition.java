@@ -29,6 +29,9 @@ public class Api2ErpDefinition {
     private String magaminfofinalcenerp;
     private String projectamtinfo;
 
+    private String magaminfocenpcs;
+    private String taxes;
+
 
 
     public String getBaseUrl() {
@@ -173,5 +176,21 @@ public class Api2ErpDefinition {
 
     public void setProjectamtinfo(String projectamtinfo) {
         this.projectamtinfo = projectamtinfo;
+    }
+
+    public String getMagaminfocenpcs() {
+        return magaminfocenpcs;
+    }
+
+    public void setMagaminfocenpcs(String magaminfocenpcs) {
+        this.magaminfocenpcs = magaminfocenpcs;
+    }
+
+    public String getTaxes() {
+        return taxes;
+    }
+
+    public void setTaxes(String taxes) {
+        this.taxes = taxes;
     }
 }

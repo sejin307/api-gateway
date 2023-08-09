@@ -4,6 +4,7 @@ definition:
   baseUrl: http://127.0.0.1:8080
 api:
   erp:
+    #CENTerr
     baseInfo: /cenerp/openapi/baseInfo
     dept: /cenerp/openapi/dept
     company: /cenerp/openapi/company
@@ -21,6 +22,9 @@ api:
     dept-acnt-info: /cenerp/openapi/dept-acnt-info
     magaminfo-final-cenerp: /cenerp/openapi/magaminfo-final-cenerp
     project-amt-info: /cenerp/openapi/project-amt-info
+    #구매포탈
+    magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs
+    taxes: /cenerp/openapi/taxes
   centerr:
     IFPMSERP01: /api/pms/inf/act-plan-activity-hnfs
 

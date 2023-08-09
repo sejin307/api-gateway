@@ -117,6 +117,16 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getProjectamtinfo(), queryParams);
     }
 
+    @CircuitBreaker(name = "erpServiceMagaminfocenpcsCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getMagaminfocenpcsData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getMagaminfocenpcs(), queryParams);
+    }
+
+    @CircuitBreaker(name = "erpServiceTaxesCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getTaxesData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getTaxes(), queryParams);
+    }
+
 
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
