@@ -1,6 +1,8 @@
 package com.devops.api2.gateway.service;
 
 import com.devops.api2.gateway.service.definition.Api2ErpDefinition;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
@@ -138,6 +140,11 @@ public class RestRequestCenERPService {
                 .header("Internal-Route-Request","true")
                 .retrieve()
                 .bodyToMono(String.class)
+                .map(response -> {
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    Object json = gson.fromJson(response, Object.class);
+                    return gson.toJson(json); // Pretty-printed JSON string
+                })
                 .doOnNext(response -> {
                     String methodName = new Throwable().getStackTrace()[1].getMethodName();
                     log.debug("Method " + methodName + " - Successful response received!");
