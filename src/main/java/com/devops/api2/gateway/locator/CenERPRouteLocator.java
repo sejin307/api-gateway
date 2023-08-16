@@ -6,7 +6,6 @@ import com.devops.api2.gateway.locator.definition.GatewayPropertiesPOJO;
 import com.devops.api2.gateway.locator.provider.CustomCircuitBreakerConfigProvider;
 import com.devops.api2.gateway.locator.provider.FilterListProvider;
 import jakarta.annotation.Nullable;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
@@ -141,6 +140,11 @@ public class CenERPRouteLocator {
                 .route("taxes", r -> r.path("/cenerp/openapi/taxes")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                         getFilterConfig("erpServiceTaxesCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(publicDevUrl))
+                .route("magam-pl-bonds", r -> r.path("/cenerp/openapi/magam-pl-bonds")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceMagamplbondsCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(publicDevUrl))
                 .build();

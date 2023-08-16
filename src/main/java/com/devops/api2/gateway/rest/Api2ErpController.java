@@ -112,6 +112,12 @@ public class Api2ErpController {
     public Mono<String> getTaxesData(@RequestParam MultiValueMap<String, String> queryParams) {
         return restRequestCenERPService.getTaxesData(queryParams);
     }
+
+    @GetMapping("/openapi/magam-pl-bonds")
+    public Mono<String> getMagamplbonds(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getMagamplbondsData(queryParams);
+    }
+
 }
 
 

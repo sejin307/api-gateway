@@ -31,6 +31,7 @@ public class Api2ErpDefinition {
 
     private String magaminfocenpcs;
     private String taxes;
+    private String magamplbonds;
 
 
 
@@ -192,5 +193,13 @@ public class Api2ErpDefinition {
 
     public void setTaxes(String taxes) {
         this.taxes = taxes;
+    }
+
+    public String getMagamplbonds() {
+        return magamplbonds;
+    }
+
+    public void setMagamplbonds(String magamplbonds) {
+        this.magamplbonds = magamplbonds;
     }
 }

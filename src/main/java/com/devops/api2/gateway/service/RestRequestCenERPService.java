@@ -129,6 +129,11 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getTaxes(), queryParams);
     }
 
+    @CircuitBreaker(name = "erpServiceMagamplbondsCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getMagamplbondsData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getMagamplbonds(), queryParams);
+    }
+
 
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
