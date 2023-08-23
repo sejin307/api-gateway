@@ -2,7 +2,6 @@ package com.devops.api2.gateway.service;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.*;
-import com.google.gson.stream.*;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -10,7 +9,7 @@ import java.util.*;
 /**
  * GSON INT > Double로 바꾸는 현상 수정
  */
-public class CustomNumberDeserializer implements JsonDeserializer<Map<String, Object>> {
+public class GsonDeserializer implements JsonDeserializer<Map<String, Object>> {
 
     @Override
     @SuppressWarnings("unchecked")

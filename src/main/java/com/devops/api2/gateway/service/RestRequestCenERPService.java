@@ -3,22 +3,17 @@ package com.devops.api2.gateway.service;
 import com.devops.api2.gateway.service.definition.Api2ErpDefinition;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.LongSerializationPolicy;
 import com.google.gson.reflect.TypeToken;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
-import java.security.cert.CertPathBuilder;
 import java.util.Map;
 
 @Service
@@ -153,7 +148,7 @@ public class RestRequestCenERPService {
                      * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
                      */
                     Gson gson = new GsonBuilder()
-                            .registerTypeAdapter(Map.class, new CustomNumberDeserializer())
+                            .registerTypeAdapter(Map.class, new GsonDeserializer())
                             .serializeNulls()
                             .setPrettyPrinting()
                             .create();
