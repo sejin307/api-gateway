@@ -3,6 +3,8 @@ package com.devops.api2.gateway.service;
 import com.devops.api2.gateway.service.definition.Api2ErpDefinition;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.LongSerializationPolicy;
+import com.google.gson.reflect.TypeToken;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
 import java.security.cert.CertPathBuilder;
+import java.util.Map;
 
 @Service
 public class RestRequestCenERPService {
@@ -146,9 +149,13 @@ public class RestRequestCenERPService {
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(response -> {
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    Object json = gson.fromJson(response, Object.class);
-                    return gson.toJson(json); // Pretty-printed JSON string
+                    Gson gson = new GsonBuilder()
+                            .registerTypeAdapter(Map.class, new CustomNumberDeserializer())
+                            .serializeNulls()
+                            .setPrettyPrinting()
+                            .create();
+                    Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
+                    return gson.toJson(resultMap);
                 })
                 .doOnNext(response -> {
                     String methodName = new Throwable().getStackTrace()[1].getMethodName();
