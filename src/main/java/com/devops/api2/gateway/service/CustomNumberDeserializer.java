@@ -7,6 +7,9 @@ import com.google.gson.stream.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
+/**
+ * GSON INT > Double로 바꾸는 현상 수정
+ */
 public class CustomNumberDeserializer implements JsonDeserializer<Map<String, Object>> {
 
     @Override

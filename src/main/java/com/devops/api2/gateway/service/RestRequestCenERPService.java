@@ -149,6 +149,9 @@ public class RestRequestCenERPService {
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(response -> {
+                    /**
+                     * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
+                     */
                     Gson gson = new GsonBuilder()
                             .registerTypeAdapter(Map.class, new CustomNumberDeserializer())
                             .serializeNulls()
