@@ -32,6 +32,7 @@ public class Api2ErpDefinition {
     private String magaminfocenpcs;
     private String taxes;
     private String magamplbonds;
+    private String hometaxstatus;
 
 
 
@@ -201,5 +202,13 @@ public class Api2ErpDefinition {
 
     public void setMagamplbonds(String magamplbonds) {
         this.magamplbonds = magamplbonds;
+    }
+
+    public String getHometaxstatus() {
+        return hometaxstatus;
+    }
+
+    public void setHometaxstatus(String hometaxstatus) {
+        this.hometaxstatus = hometaxstatus;
     }
 }

@@ -3,7 +3,7 @@ package com.devops.api2.gateway.locator.provider;
 import com.devops.api2.gateway.filter.CustomCircuitBreakerGatewayFilterFactory;
 import com.devops.api2.gateway.filter.CustomFilter;
 import com.devops.api2.gateway.locator.definition.FilterDefinition;
-import com.devops.api2.gateway.locator.definition.GatewayPropertiesPOJO;
+import com.devops.api2.gateway.locator.definition.BaseGatewayProperties;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.stereotype.Component;
 
@@ -17,15 +17,15 @@ import java.util.List;
 @Component
 public class FilterListProvider {
 
-    private final GatewayPropertiesPOJO gatewayPropertiesPOJO;
+    private final BaseGatewayProperties baseGatewayProperties;
 
-    public FilterListProvider(GatewayPropertiesPOJO gatewayPropertiesPOJO) {
-        this.gatewayPropertiesPOJO = gatewayPropertiesPOJO;
+    public FilterListProvider(BaseGatewayProperties baseGatewayProperties) {
+        this.baseGatewayProperties = baseGatewayProperties;
     }
 
     public List<GatewayFilter> getFilters(CustomCircuitBreakerGatewayFilterFactory customCircuitBreakerFilterFactory, CustomFilter customFilter, CustomCircuitBreakerGatewayFilterFactory.Config config) {
         List<GatewayFilter> filters = new ArrayList<>();
-        List<FilterDefinition> defaultFilters = gatewayPropertiesPOJO.getDefaultFilters();
+        List<FilterDefinition> defaultFilters = baseGatewayProperties.getDefaultFilters();
 
         if (defaultFilters != null) {
             for (FilterDefinition filterName : defaultFilters){

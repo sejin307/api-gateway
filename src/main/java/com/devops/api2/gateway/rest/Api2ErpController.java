@@ -118,6 +118,11 @@ public class Api2ErpController {
         return restRequestCenERPService.getMagamplbondsData(queryParams);
     }
 
+    @GetMapping("/openapi/hometax-status")
+    public Mono<String> getHometaxstatus(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getHometaxstatusData(queryParams);
+    }
+
 }
 
 

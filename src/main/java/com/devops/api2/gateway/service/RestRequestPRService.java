@@ -10,7 +10,7 @@ public class RestRequestPRService {
     private final WebClient webClient;
     private final Api2PRDefinition api2PRDefinition;
     //10MB까지 허용, 반환하는 데이터의 Buffer size 가 이 옵션보다 작아야함!
-    private final int byteCnt = 10240 * 1024;
+    private final int byteCnt = 30720 * 1024;
 
     public RestRequestPRService(WebClient.Builder webClientBuilder, @Value("${definition.baseUrl}") String baseUrl, Api2PRDefinition api2PRDefinition) {
         this.webClient = webClientBuilder

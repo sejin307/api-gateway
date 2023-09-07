@@ -2,7 +2,7 @@ package com.devops.api2.gateway.locator;
 
 import com.devops.api2.gateway.filter.CustomCircuitBreakerGatewayFilterFactory;
 import com.devops.api2.gateway.filter.CustomFilter;
-import com.devops.api2.gateway.locator.definition.GatewayPropertiesPOJO;
+import com.devops.api2.gateway.locator.definition.BaseGatewayProperties;
 import com.devops.api2.gateway.locator.provider.CustomCircuitBreakerConfigProvider;
 import com.devops.api2.gateway.locator.provider.FilterListProvider;
 import jakarta.annotation.Nullable;
@@ -25,15 +25,15 @@ public class PRRouteLocator {
 
     private final CustomFilter customFilter;
 
-    private final GatewayPropertiesPOJO gatewayPropertiesPOJO;
+    private final BaseGatewayProperties baseGatewayProperties;
     private final CustomCircuitBreakerConfigProvider customCircuitBreakerConfigProvider;
 
     private final FilterListProvider filterListProvider;
 
-    public PRRouteLocator(CustomCircuitBreakerGatewayFilterFactory customCircuitBreakerFilterFactory, CustomFilter customFilter, GatewayPropertiesPOJO gatewayPropertiesPOJO, CustomCircuitBreakerConfigProvider customCircuitBreakerConfigProvider, FilterListProvider filterListProvider) {
+    public PRRouteLocator(CustomCircuitBreakerGatewayFilterFactory customCircuitBreakerFilterFactory, CustomFilter customFilter, BaseGatewayProperties baseGatewayProperties, CustomCircuitBreakerConfigProvider customCircuitBreakerConfigProvider, FilterListProvider filterListProvider) {
         this.customCircuitBreakerFilterFactory = customCircuitBreakerFilterFactory;
         this.customFilter = customFilter;
-        this.gatewayPropertiesPOJO = gatewayPropertiesPOJO;
+        this.baseGatewayProperties = baseGatewayProperties;
         this.customCircuitBreakerConfigProvider = customCircuitBreakerConfigProvider;
         this.filterListProvider = filterListProvider;
     }

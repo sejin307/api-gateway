@@ -2,7 +2,7 @@ package com.devops.api2.gateway.locator;
 
 import com.devops.api2.gateway.filter.CustomCircuitBreakerGatewayFilterFactory;
 import com.devops.api2.gateway.filter.CustomFilter;
-import com.devops.api2.gateway.locator.definition.GatewayPropertiesPOJO;
+import com.devops.api2.gateway.locator.definition.BaseGatewayProperties;
 import com.devops.api2.gateway.locator.provider.CustomCircuitBreakerConfigProvider;
 import com.devops.api2.gateway.locator.provider.FilterListProvider;
 import jakarta.annotation.Nullable;
@@ -27,7 +27,7 @@ public class CenERPRouteLocator {
 
     private final CustomFilter customFilter;
 
-    private final GatewayPropertiesPOJO gatewayPropertiesPOJO;
+    private final BaseGatewayProperties baseGatewayProperties;
 
     private final CustomCircuitBreakerConfigProvider customCircuitBreakerConfigProvider;
 
@@ -37,10 +37,10 @@ public class CenERPRouteLocator {
     private final String publicDevUrl = "http://121.138.156.45:8080";
     private final String publicProdUrl = "https://erp.cengroup.co.kr";
 
-    public CenERPRouteLocator(CustomCircuitBreakerGatewayFilterFactory customCircuitBreakerFilterFactory, CustomFilter customFilter, GatewayPropertiesPOJO gatewayPropertiesPOJO, CustomCircuitBreakerConfigProvider customCircuitBreakerConfigProvider, FilterListProvider filterListProvider) {
+    public CenERPRouteLocator(CustomCircuitBreakerGatewayFilterFactory customCircuitBreakerFilterFactory, CustomFilter customFilter, BaseGatewayProperties baseGatewayProperties, CustomCircuitBreakerConfigProvider customCircuitBreakerConfigProvider, FilterListProvider filterListProvider) {
         this.customCircuitBreakerFilterFactory = customCircuitBreakerFilterFactory;
         this.customFilter = customFilter;
-        this.gatewayPropertiesPOJO = gatewayPropertiesPOJO;
+        this.baseGatewayProperties = baseGatewayProperties;
         this.customCircuitBreakerConfigProvider = customCircuitBreakerConfigProvider;
         this.filterListProvider = filterListProvider;
     }
@@ -145,6 +145,12 @@ public class CenERPRouteLocator {
                 .route("magam-pl-bonds", r -> r.path("/cenerp/openapi/magam-pl-bonds")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                         getFilterConfig("erpServiceMagamplbondsCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(publicDevUrl))
+
+                .route("hometax-status", r -> r.path("/cenerp/openapi/hometax-status")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceHometaxstatusCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(publicDevUrl))
                 .build();

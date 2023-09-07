@@ -33,17 +33,17 @@ public class AuthenticationRestController {
 
    private final ReactiveAuthenticationManager authenticationManager;
 
-   private final ReactiveUserDetailsService myReactiveUserDetailsService;
+   private final ReactiveUserDetailsService reactiveUserDetailsService;
    public static final String AUTHORIZATION_HEADER = "Authorization";
 
    private final TokenProvider tokenProvider;
 
    public AuthenticationRestController(TokenProvider tokenProvider,
                                        ReactiveAuthenticationManager authenticationManager,
-                                       ReactiveUserDetailsService myReactiveUserDetailsService1) {
+                                       ReactiveUserDetailsService reactiveUserDetailsService) {
       this.authenticationManager = authenticationManager;
       this.tokenProvider = tokenProvider;
-      this.myReactiveUserDetailsService = myReactiveUserDetailsService1;
+      this.reactiveUserDetailsService = reactiveUserDetailsService;
    }
 
    /**
@@ -54,25 +54,7 @@ public class AuthenticationRestController {
    public Mono<ResponseEntity<JWTToken>> authorize(@Validated @RequestBody LoginDto loginDto) {
       UsernamePasswordAuthenticationToken authenticationToken =
               new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
-
-      return authenticationManager.authenticate(authenticationToken)
-              .flatMap(authentication -> {
-                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-                 securityContext.setAuthentication(authentication);
-                 return ReactiveSecurityContextHolder.getContext()
-                         .flatMap(context -> {
-                            context.setAuthentication(authentication);
-                            return Mono.just(securityContext);
-                         });
-              })
-              .map(securityContext -> {
-
-                 String jwt = tokenProvider.createToken(securityContext.getAuthentication());
-                 HttpHeaders httpHeaders = new HttpHeaders();
-                 httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-                 return ResponseEntity.ok().headers(httpHeaders).body(new JWTToken(jwt, HttpStatus.OK));
-              })
-              .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()));
+      return fetchAuthorize(authenticationToken);
    }
 
 
@@ -90,7 +72,16 @@ public class AuthenticationRestController {
       UsernamePasswordAuthenticationToken authenticationToken =
               new UsernamePasswordAuthenticationToken(parts1, parts2);
 
-      return this.authenticationManager.authenticate(authenticationToken)
+      return fetchAuthorize(authenticationToken);
+   }
+
+   /**
+    * url,form authentication
+    * @param usernamePasswordAuthenticationToken
+    * @return
+    */
+   public Mono<ResponseEntity<JWTToken>> fetchAuthorize(UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken){
+      return this.authenticationManager.authenticate(usernamePasswordAuthenticationToken)
               .flatMap(authentication -> {
                  SecurityContextHolder.getContext().setAuthentication(authentication);
                  String jwt = tokenProvider.createToken(authentication);

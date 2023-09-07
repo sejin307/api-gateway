@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Component
 @ConfigurationProperties(prefix = "spring.cloud.gateway")
-public class GatewayPropertiesPOJO {
+public class BaseGatewayProperties {
 
     private List<FilterDefinition> defaultFilters;
 

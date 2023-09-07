@@ -1,10 +1,9 @@
 package com.devops.api2;
 
-import com.devops.api2.gateway.locator.definition.GatewayPropertiesPOJO;
+import com.devops.api2.gateway.locator.definition.BaseGatewayProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
 
 /**
  * https://cloud.spring.io/spring-cloud-gateway/reference/html/
@@ -13,9 +12,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * AUTHOR: sejin
  */
 @SpringBootApplication
-@EnableConfigurationProperties(GatewayPropertiesPOJO.class)
+@EnableConfigurationProperties(BaseGatewayProperties.class)
 public class Api2Application {
-
 	public static void main(String[] args) {
 		SpringApplication.run(Api2Application.class, args);
 	}
@@ -26,8 +24,8 @@ public class Api2Application {
 	 * TODO: (개발)
 	 * 		1.DB변경(H2 > MySQL)								o
 	 *      2.토큰 갱신										o
-	 *      3. REST API 핸들링 (DB스키마 설계,네트워크,서버구성)
-	 *          WebFlux , Spring Cloud Gateway, Resillience4j  ING
+	 *      3. REST API 핸들링 (DB스키마 설계,네트워크,서버구성)	o
+	 *       WebFlux , Spring Cloud Gateway, Resillience4j  o
 	 *
 	 *
 	 * TODO: (devOps)

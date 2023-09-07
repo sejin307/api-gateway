@@ -20,7 +20,7 @@ import java.util.Map;
 public class RestRequestCenERPService {
     private static final Logger log = LoggerFactory.getLogger(RestRequestCenERPService.class);
 
-    //50MB까지 허용, 반환하는 데이터의 Buffer size 가 이 옵션보다 작아야함!
+    //30MB까지 허용, 반환하는 데이터의 Buffer size 가 이 옵션보다 작아야함!
     private final int byteCnt = 30720 * 1024;
 
     private final WebClient webClient;
@@ -132,6 +132,11 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getMagamplbonds(), queryParams);
     }
 
+    @CircuitBreaker(name = "erpServiceHometaxstatusCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getHometaxstatusData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getHometaxstatus(), queryParams);
+    }
+
 
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
@@ -152,6 +157,7 @@ public class RestRequestCenERPService {
                             .serializeNulls()
                             .setPrettyPrinting()
                             .create();
+
                     Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
                     return gson.toJson(resultMap);
                 })
