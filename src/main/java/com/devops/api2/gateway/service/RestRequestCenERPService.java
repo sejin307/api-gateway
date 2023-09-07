@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
@@ -133,16 +134,20 @@ public class RestRequestCenERPService {
     }
 
     @CircuitBreaker(name = "erpServiceHometaxstatusCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getHometaxstatusData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getHometaxstatus(), queryParams);
+    public Mono<String> getHometaxstatusData(Map<String, Object> requestBody) {
+        return fetchDataPost(api2ErpDefinition.getHometaxstatus(), requestBody);
     }
 
 
-
+    /**
+     * GET호출
+     * @param apiPath
+     * @param queryParams
+     * @return
+     */
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
         queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
-
         return this.webClient.get()
                 .uri(uriBuilder.build().toUriString())
                 .header("Internal-Route-Request","true")
@@ -170,6 +175,44 @@ public class RestRequestCenERPService {
                     log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
                 });
     }
+
+    /**
+     * POST호출
+     * @param apiPath
+     * @param requestBody
+     * @return
+     */
+    private Mono<String> fetchDataPost(String apiPath, Map<String, Object> requestBody) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
+        return this.webClient.post()
+                .uri(uriBuilder.build().toUriString())
+                .header("Internal-Route-Request","true")
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(response -> {
+                    /**
+                     * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
+                     */
+                    Gson gson = new GsonBuilder()
+                            .registerTypeAdapter(Map.class, new GsonDeserializer())
+                            .serializeNulls()
+                            .setPrettyPrinting()
+                            .create();
+
+                    Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
+                    return gson.toJson(resultMap);
+                })
+                .doOnNext(response -> {
+                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
+                    log.debug("Method " + methodName + " - Successful response received!");
+                })
+                .doOnError(error -> {
+                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
+                    log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
+                });
+    }
+
 
     /**
      * 여기서 Route의 결과에 대한 exception처리는 여기서 하도록함.

@@ -5,6 +5,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api2")
 public class Api2ErpController {
@@ -115,11 +117,15 @@ public class Api2ErpController {
         return restRequestCenERPService.getMagamplbondsData(queryParams);
     }
 
-    @PostMapping("/openapi/hometax-status")
-    public Mono<String> getHometaxstatus(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getHometaxstatusData(queryParams);
-    }
+//    @PostMapping("/openapi/hometax-status")
+//    public Mono<String> getHometaxstatus(@RequestParam MultiValueMap<String, String> queryParams) {
+//        return restRequestCenERPService.getHometaxstatusData(queryParams);
+//    }
 
+    @PostMapping("/openapi/hometax-status")
+    public Mono<String> getHometaxstatus(@RequestBody Map<String, Object> requestBody) {
+        return restRequestCenERPService.getHometaxstatusData(requestBody);
+    }
 }
 
 
