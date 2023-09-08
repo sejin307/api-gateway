@@ -133,7 +133,7 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getMagamplbonds(), queryParams);
     }
 
-    @CircuitBreaker(name = "erpServiceHometaxstatusCircuitBreaker", fallbackMethod = "fallbackERP" )
+    @CircuitBreaker(name = "erpServiceHometaxstatusCircuitBreaker", fallbackMethod = "fallbackPostERP" )
     public Mono<String> getHometaxstatusData(Map<String, Object> requestBody) {
         return fetchDataPost(api2ErpDefinition.getHometaxstatus(), requestBody);
     }
@@ -145,61 +145,133 @@ public class RestRequestCenERPService {
      * @param queryParams
      * @return
      */
-    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
-        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
-        return this.webClient.get()
-                .uri(uriBuilder.build().toUriString())
-                .header("Internal-Route-Request","true")
-                .retrieve()
-                .bodyToMono(String.class)
-                .map(response -> {
-                    /**
-                     * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
-                     */
-                    Gson gson = new GsonBuilder()
-                            .registerTypeAdapter(Map.class, new GsonDeserializer())
-                            .serializeNulls()
-                            .setPrettyPrinting()
-                            .create();
+//    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
+//        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
+//        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+//        return this.webClient.get()
+//                .uri(uriBuilder.build().toUriString())
+//                .header("Internal-Route-Request","true")
+//                .retrieve()
+//                .bodyToMono(String.class)
+//                .map(response -> {
+//                    /**
+//                     * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
+//                     */
+//                    Gson gson = new GsonBuilder()
+//                            .registerTypeAdapter(Map.class, new GsonDeserializer())
+//                            .serializeNulls()
+//                            .setPrettyPrinting()
+//                            .create();
+//
+//                    Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
+//                    return gson.toJson(resultMap);
+//                })
+//                .doOnNext(response -> {
+//                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
+//                    log.debug("Method " + methodName + " - Successful response received!");
+//                })
+//                .doOnError(error -> {
+//                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
+//                    log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
+//                });
+//    }
+//
+//    /**
+//     * POST호출
+//     * @param apiPath
+//     * @param requestBody
+//     * @return
+//     */
+//    private Mono<String> fetchDataPost(String apiPath, Map<String, Object> requestBody) {
+//        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
+//        return this.webClient.post()
+//                .uri(uriBuilder.build().toUriString())
+//                .header("Internal-Route-Request","true")
+//                .bodyValue(requestBody)
+//                .retrieve()
+//                .bodyToMono(String.class)
+//                .map(response -> {
+//                    /**
+//                     * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
+//                     */
+//                    Gson gson = new GsonBuilder()
+//                            .registerTypeAdapter(Map.class, new GsonDeserializer())
+//                            .serializeNulls()
+//                            .setPrettyPrinting()
+//                            .create();
+//
+//                    Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
+//                    return gson.toJson(resultMap);
+//                })
+//                .doOnNext(response -> {
+//                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
+//                    log.debug("Method " + methodName + " - Successful response received!");
+//                })
+//                .doOnError(error -> {
+//                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
+//                    log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
+//                });
+//    }
 
-                    Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
-                    return gson.toJson(resultMap);
-                })
-                .doOnNext(response -> {
-                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
-                    log.debug("Method " + methodName + " - Successful response received!");
-                })
-                .doOnError(error -> {
-                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
-                    log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
-                });
+    /**
+     * WebClient > HTTPRequest METHOD "GET"
+     * @param apiPath
+     * @param queryParams
+     * @return
+     */
+    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);
+        Mono<String> responseMono = this.webClient.get()
+                .uri(uriBuilder.build().toUriString())
+                .header("Internal-Route-Request", "true")
+                .retrieve()
+                .bodyToMono(String.class);
+        return processResponse(responseMono);
     }
 
     /**
-     * POST호출
+     * WebClient > HTTPRequest METHOD "POST"
      * @param apiPath
      * @param requestBody
      * @return
      */
     private Mono<String> fetchDataPost(String apiPath, Map<String, Object> requestBody) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
-        return this.webClient.post()
+        UriComponentsBuilder uriBuilder = buildUri(apiPath, null);
+        Mono<String> responseMono = this.webClient.post()
                 .uri(uriBuilder.build().toUriString())
-                .header("Internal-Route-Request","true")
+                .header("Internal-Route-Request", "true")
                 .bodyValue(requestBody)
                 .retrieve()
-                .bodyToMono(String.class)
-                .map(response -> {
-                    /**
-                     * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
-                     */
+                .bodyToMono(String.class);
+        return processResponse(responseMono);
+    }
+
+    /**
+     * URI Path 빌드
+     * @param apiPath
+     * @param queryParams
+     * @return
+     */
+    private UriComponentsBuilder buildUri(String apiPath, MultiValueMap<String, String> queryParams) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
+        if (queryParams != null) {
+            queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
+        }
+        return uriBuilder;
+    }
+
+    /**
+     * Data 반환
+     * @param responseMono
+     * @return
+     */
+    private Mono<String> processResponse(Mono<String> responseMono) {
+        return responseMono.map(response -> {
                     Gson gson = new GsonBuilder()
                             .registerTypeAdapter(Map.class, new GsonDeserializer())
                             .serializeNulls()
                             .setPrettyPrinting()
                             .create();
-
                     Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
                     return gson.toJson(resultMap);
                 })
@@ -212,7 +284,6 @@ public class RestRequestCenERPService {
                     log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
                 });
     }
-
 
     /**
      * 여기서 Route의 결과에 대한 exception처리는 여기서 하도록함.
@@ -221,6 +292,10 @@ public class RestRequestCenERPService {
      * @return
      */
     public Mono<String> fallbackERP(MultiValueMap<String, String> queryParams, Throwable t) {
+        return Mono.just("Target Service CenERP Unavailable. Please try again later.");
+    }
+
+    public Mono<String> fallbackPostERP(Map<String, Object> requestBody, Throwable t) {
         return Mono.just("Target Service CenERP Unavailable. Please try again later.");
     }
 }
