@@ -139,8 +139,8 @@ public class RestRequestCenERPService {
     }
 
     @CircuitBreaker(name = "erpServiceCostprojectinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getCostProjectInfoData(Map<String, Object> requestBody) {
-        return fetchDataPost(api2ErpDefinition.getCostprojectinfo(), requestBody);
+    public Mono<String> getCostProjectInfoData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getCostprojectinfo(), queryParams);
     }
 
 

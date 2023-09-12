@@ -124,8 +124,8 @@ public class Api2ErpController {
     }
 
     @GetMapping("/openapi/cost-project-info")
-    public Mono<String> getCostProjectInfo(@RequestBody Map<String, Object> requestBody) {
-        return restRequestCenERPService.getCostProjectInfoData(requestBody);
+    public Mono<String> getCostProjectInfo(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getCostProjectInfoData(queryParams);
     }
 
 }
