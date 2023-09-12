@@ -24,6 +24,7 @@ api:
     project-amt-info: /cenerp/openapi/project-amt-info
     magam-pl-bonds: /cenerp/openapi/magam-pl-bonds
     hometax-status: /cenerp/openapi/hometax-status
+    cost-project-info: /cenerp/openapi/cost-project-info
 
     #구매포탈
     magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs

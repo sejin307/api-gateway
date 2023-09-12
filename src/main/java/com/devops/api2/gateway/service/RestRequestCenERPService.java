@@ -138,6 +138,13 @@ public class RestRequestCenERPService {
         return fetchDataPost(api2ErpDefinition.getHometaxstatus(), requestBody);
     }
 
+    @CircuitBreaker(name = "erpServiceCostprojectinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getCostProjectInfoData(Map<String, Object> requestBody) {
+        return fetchDataPost(api2ErpDefinition.getCostprojectinfo(), requestBody);
+    }
+
+
+
 
     /**
      * GET호출

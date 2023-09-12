@@ -153,6 +153,11 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceHometaxstatusCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(publicDevUrl))
+                .route("cost-project-info", r -> r.path("/cenerp/openapi/cost-project-info")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceHometaxstatusCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(publicDevUrl))
                 .build();
     }
 

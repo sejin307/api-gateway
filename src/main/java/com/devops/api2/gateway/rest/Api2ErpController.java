@@ -2,6 +2,7 @@ package com.devops.api2.gateway.rest;
 
 import com.devops.api2.gateway.service.RestRequestCenERPService;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -117,15 +118,16 @@ public class Api2ErpController {
         return restRequestCenERPService.getMagamplbondsData(queryParams);
     }
 
-//    @PostMapping("/openapi/hometax-status")
-//    public Mono<String> getHometaxstatus(@RequestParam MultiValueMap<String, String> queryParams) {
-//        return restRequestCenERPService.getHometaxstatusData(queryParams);
-//    }
-
     @PostMapping("/openapi/hometax-status")
     public Mono<String> getHometaxstatus(@RequestBody Map<String, Object> requestBody) {
         return restRequestCenERPService.getHometaxstatusData(requestBody);
     }
+
+    @GetMapping("/openapi/cost-project-info")
+    public Mono<String> getCostProjectInfo(@RequestBody Map<String, Object> requestBody) {
+        return restRequestCenERPService.getCostProjectInfoData(requestBody);
+    }
+
 }
 
 

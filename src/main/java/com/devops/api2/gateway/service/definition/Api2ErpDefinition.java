@@ -34,6 +34,8 @@ public class Api2ErpDefinition {
     private String magamplbonds;
     private String hometaxstatus;
 
+    private String costprojectinfo;
+
 
 
     public String getBaseUrl() {
@@ -210,5 +212,13 @@ public class Api2ErpDefinition {
 
     public void setHometaxstatus(String hometaxstatus) {
         this.hometaxstatus = hometaxstatus;
+    }
+
+    public String getCostprojectinfo() {
+        return costprojectinfo;
+    }
+
+    public void setCostprojectinfo(String costprojectinfo) {
+        this.costprojectinfo = costprojectinfo;
     }
 }
