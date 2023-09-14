@@ -99,7 +99,7 @@ public class CenERPRouteLocator {
                         .uri(publicDevUrl))
                 .route("magaminfo-cenerp", r -> r.path("/cenerp/openapi/magaminfo-cenerp")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
-                                        getFilterConfig("erpServiceVendorschargesCircuitBreaker"))
+                                        getFilterConfig("erpServiceMagaminfoCenerpCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(publicDevUrl))
                 .route("magam-vendor-bonds", r -> r.path("/cenerp/openapi/magam-vendor-bonds")
@@ -155,7 +155,7 @@ public class CenERPRouteLocator {
                         .uri(publicDevUrl))
                 .route("cost-project-info", r -> r.path("/cenerp/openapi/cost-project-info")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
-                                        getFilterConfig("erpServiceHometaxstatusCircuitBreaker"))
+                                        getFilterConfig("erpServiceCostprojectinfoCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(publicDevUrl))
                 .build();
