@@ -143,6 +143,11 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getCostprojectinfo(), queryParams);
     }
 
+    @CircuitBreaker(name = "erpServiceReversetaxesCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getReversetaxesData(MultiValueMap<String, String> queryParams) {
+        return fetchData(api2ErpDefinition.getReversetaxes(), queryParams);
+    }
+
     /**
      * WebClient > HTTPRequest METHOD "GET"
      * @param apiPath

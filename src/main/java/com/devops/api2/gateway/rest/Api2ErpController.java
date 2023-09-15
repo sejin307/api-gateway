@@ -128,6 +128,10 @@ public class Api2ErpController {
         return restRequestCenERPService.getCostProjectInfoData(queryParams);
     }
 
+    @GetMapping("/openapi/reverse-taxes")
+    public Mono<String> getReversetaxes(@RequestParam MultiValueMap<String, String> queryParams) {
+        return restRequestCenERPService.getReversetaxesData(queryParams);
+    }
 }
 
 

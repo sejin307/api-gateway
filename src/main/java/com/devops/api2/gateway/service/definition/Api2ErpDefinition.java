@@ -36,6 +36,8 @@ public class Api2ErpDefinition {
 
     private String costprojectinfo;
 
+    private String reversetaxes;
+
 
 
     public String getBaseUrl() {
@@ -220,5 +222,13 @@ public class Api2ErpDefinition {
 
     public void setCostprojectinfo(String costprojectinfo) {
         this.costprojectinfo = costprojectinfo;
+    }
+
+    public String getReversetaxes() {
+        return reversetaxes;
+    }
+
+    public void setReversetaxes(String reversetaxes) {
+        this.reversetaxes = reversetaxes;
     }
 }

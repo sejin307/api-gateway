@@ -29,6 +29,7 @@ api:
     #구매포탈
     magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs
     taxes: /cenerp/openapi/taxes
+    reverse-taxes: /cenerp/openapi/reverse-taxes
   centerr:
     IFPMSERP01: /api/pms/inf/act-plan-activity-hnfs
 
