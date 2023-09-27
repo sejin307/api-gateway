@@ -9,6 +9,14 @@ crypt-key-prop:
   CRYPTO_LEGACY_KEY: CengroupAPK20!@#
   CRYPTO_LEGACY_IV: cenGroupAPV20#@!
 
+#SCG Route Target URL Path
+#http://121.138.156.45:8080 (CENERP개발2 공인IP)
+#http://192.168.63.71:8080 (CENERP개발2 내부IP)
+#https://erp.cengroup.co.kr (CENERP 운영)
+targetPath: http://121.138.156.45:8080
+#targetPath: http://192.168.63.71:8080
+#targetPath: https://erp.cengroup.co.kr
+
 #SpringBoot 설정
 spring:
   #데이터베이스 설정 과 커넥션풀 설정
@@ -44,6 +52,7 @@ spring:
       default-filters:
         - name: CustomFilter
 
+
   #codec:
   #  max-in-memory-size: 20MB
 
@@ -53,7 +62,7 @@ resilience4j.circuitbreaker:
     default:
       slidingWindowSize: 10                               #서킷 상태가 CLOSED 일때 요청결과를 기록하기위한 SLIDING WINDOW 설정
       permittedNumberOfCallsInHalfOpenState: 50            #서킷 상태가 HALF-OPEN 일때 받아들일 요청의 갯수
-      waitDurationInOpenState: 20000                      #서킷 이 OPEN 에서 HALF-OPEN으로 전환하기 전 대기 시간 (ms) 1000ms = 1초
+      waitDurationInOpenState: 10000                      #서킷 이 OPEN 에서 HALF-OPEN으로 전환하기 전 대기 시간 (ms) 1000ms = 1초
       automaticTransitionFromOpenToHalfOpenEnabled: true  #서킷 상태가 OPEN에서 HALF-OPEN으로 자동전환 설정
       failureRateThreshold: 50                            #실패 비율 THRESHOLD 설정, 해당 값보다 같거나 클 경우 서킷을 OPEN함.
       eventConsumerBufferSize: 3                          #이벤트가 발행되면, 해당 버퍼에 저장되는데 그 크기를 지정함.
