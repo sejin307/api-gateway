@@ -2,13 +2,17 @@ package com.devops.api2.gateway.filter;
 
 import com.devops.api2.gateway.model.GatewayLog;
 import com.devops.api2.gateway.repository.GatewayLogRepository;
+import com.devops.api2.security.jwt.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -21,8 +25,19 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
 
     @Autowired
     private GatewayLogRepository gatewayLogRepository;
-    public CustomFilter() {
+
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+
+    private final TokenProvider tokenProvider;
+
+//    public JWTFilter(TokenProvider tokenProvider) {
+//        this.tokenProvider = tokenProvider;
+//    }
+
+
+    public CustomFilter(TokenProvider tokenProvider) {
         super(Config.class);
+        this.tokenProvider = tokenProvider;
     }
 
     /**
@@ -35,28 +50,33 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
         //before-processing (서비스 시작시 세팅)
         return (exchange, chain) -> {
             //pre-processing ( Route start 할때 )
-
             return chain.filter(exchange)
                     .then(Mono.fromRunnable(() -> {
                         // post-processing
+                        String jwt = resolveToken(exchange);
+                        String hostName = "";
+                        if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
+                            Authentication authentication = this.tokenProvider.getAuthentication(jwt);
+                            hostName = authentication.getName();
+                        }
+
                         String requestId = exchange.getRequest().getId();
-                        String requestPath = exchange.getRequest().getPath().toString();;
+                        String requestPath = exchange.getRequest().getPath().toString();
                         Integer responseStatus = exchange.getResponse().getStatusCode().value();
                         String remoteAddress = exchange.getRequest().getRemoteAddress().getAddress().toString();
-                        String remoteHostName = exchange.getRequest().getRemoteAddress().getHostName();
-                        String currentTime = getCurrentTime();
+                        //String currentTime = getCurrentTime();
 
-                        saveLogToDb(requestId, requestPath, responseStatus, remoteAddress, remoteHostName);
+                        saveLogToDb(requestId, requestPath, responseStatus, remoteAddress, hostName);
                     }));
         };
     }
 
-    public String getCurrentTime(){
-        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
-        String date2String = currentDate.format(cal.getTime());
-        return date2String;
-    }
+//    public String getCurrentTime(){
+//        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Calendar cal = Calendar.getInstance();
+//        String date2String = currentDate.format(cal.getTime());
+//        return date2String;
+//    }
 
     public static class Config {
         //Config 설정
@@ -71,6 +91,15 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
         gatewayLog.setHostName(hostName);
 
         gatewayLogRepository.save(gatewayLog);
+    }
+
+
+    private String resolveToken(ServerWebExchange exchange) {
+        String bearerToken = exchange.getRequest().getHeaders().getFirst(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 }
 

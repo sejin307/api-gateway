@@ -9,6 +9,7 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
+import reactor.util.context.Context;
 
 import java.net.InetAddress;
 
@@ -42,7 +43,10 @@ public class JWTFilter implements WebFilter {
          exchange.getAttributes().put("authentication", authentication);
 
          LOG.debug("set Authentication context '{}', uri: {}", authentication.getName(), requestURI);
-         return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
+         Context context = Context.of("sys-access-token", jwt)
+                 .putAll(ReactiveSecurityContextHolder.withAuthentication(authentication));
+         return chain.filter(exchange).contextWrite(context);
+         //return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
       }else if (StringUtils.hasText(internalHeader) && isInternalIp) {
          LOG.debug("Internal Route and IP Dectected", requestURI);
          return chain.filter(exchange);

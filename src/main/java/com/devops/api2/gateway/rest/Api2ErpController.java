@@ -20,118 +20,150 @@ public class Api2ErpController {
 
     @GetMapping("/openapi/baseInfo")
     public Mono<String> getBaseInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getBaseInfoData(queryParams);
+        return doExecute(restRequestCenERPService::getBaseInfoData,queryParams);
     }
 
     @GetMapping("/openapi/dept")
     public Mono<String> getDeptData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getDeptData(queryParams);
+        return doExecute(restRequestCenERPService::getDeptData,queryParams);
     }
 
     @GetMapping("/openapi/company")
     public Mono<String> getCompanyData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getCompanyData(queryParams);
+        return doExecute(restRequestCenERPService::getCompanyData,queryParams);
     }
 
     @GetMapping("/openapi/acntinfo")
     public Mono<String> getAcntinfoData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getAcntinfoData(queryParams);
+        return doExecute(restRequestCenERPService::getAcntinfoData,queryParams);
     }
 
     @GetMapping("/openapi/acnts-map")
     public Mono<String> getAcntsmapData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getAcntsmapData(queryParams);
+        return doExecute(restRequestCenERPService::getAcntsmapData,queryParams);
     }
 
     @GetMapping("/openapi/ar-collects")
     public Mono<String> getArcollectsData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getArcollectsData(queryParams);
+        return doExecute(restRequestCenERPService::getArcollectsData,queryParams);
     }
 
     @GetMapping("/openapi/vendor-bonds")
     public Mono<String> getVendorbondsData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getVendorbondsData(queryParams);
+        return doExecute(restRequestCenERPService::getVendorbondsData,queryParams);
     }
 
     @GetMapping("/openapi/slipinfos")
     public Mono<String> getSlipinfosData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getSlipinfosData(queryParams);
+        return doExecute(restRequestCenERPService::getSlipinfosData,queryParams);
     }
 
     @GetMapping("/openapi/vendors")
     public Mono<String> getVendorsData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getVendorsData(queryParams);
+        return doExecute(restRequestCenERPService::getVendorsData,queryParams);
     }
 
     @GetMapping("/openapi/vendors-charges")
     public Mono<String> getVendorschargesData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getVendorschargesData(queryParams);
+        return doExecute(restRequestCenERPService::getVendorschargesData,queryParams);
     }
 
     @GetMapping("/openapi/magaminfo-cenerp")
     public Mono<String> getMagaminfoCenerpData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getMagaminfoCenerpData(queryParams);
+        return doExecute(restRequestCenERPService::getMagaminfoCenerpData,queryParams);
     }
 
     @GetMapping("/openapi/magam-vendor-bonds")
     public Mono<String> getMagamVendorBondsData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getMagamVendorBondsData(queryParams);
+        return doExecute(restRequestCenERPService::getMagamVendorBondsData,queryParams);
     }
 
     @GetMapping("/openapi/orderDeptMove")
     public Mono<String> getOrderdeptmoveData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getOrderdeptmoveData(queryParams);
+        return doExecute(restRequestCenERPService::getOrderdeptmoveData,queryParams);
     }
 
     @GetMapping("/openapi/dirct_persexp")
     public Mono<String> getDirctPersExpData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getDirctPersExpData(queryParams);
+        return doExecute(restRequestCenERPService::getDirctPersExpData,queryParams);
     }
 
     @GetMapping("/openapi/dept-acnt-info")
     public Mono<String> getDeptAcntInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getDeptAcntInfoData(queryParams);
+        return doExecute(restRequestCenERPService::getDeptAcntInfoData,queryParams);
     }
 
     @GetMapping("/openapi/magaminfo-final-cenerp")
     public Mono<String> getMagamInfoFinalCenerpData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getMagamInfoFinalCenerpData(queryParams);
+        return doExecute(restRequestCenERPService::getMagamInfoFinalCenerpData,queryParams);
     }
 
     @GetMapping("/openapi/project-amt-info")
     public Mono<String> getProjectamtinfoData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getProjectamtinfoData(queryParams);
+        return doExecute(restRequestCenERPService::getProjectamtinfoData,queryParams);
     }
 
     @GetMapping("/openapi/magaminfo-cenpcs")
     public Mono<String> getMagaminfocenpcsData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getMagaminfocenpcsData(queryParams);
+        return doExecute(restRequestCenERPService::getMagaminfocenpcsData,queryParams);
     }
 
     @GetMapping("/openapi/taxes")
     public Mono<String> getTaxesData(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getTaxesData(queryParams);
+        return doExecute(restRequestCenERPService::getTaxesData,queryParams);
     }
 
     @GetMapping("/openapi/magam-pl-bonds")
     public Mono<String> getMagamplbonds(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getMagamplbondsData(queryParams);
+        return doExecute(restRequestCenERPService::getMagamplbondsData, queryParams);
     }
-
+    
     @PostMapping("/openapi/hometax-status")
     public Mono<String> getHometaxstatus(@RequestBody Map<String, Object> requestBody) {
-        return restRequestCenERPService.getHometaxstatusData(requestBody);
+        return doExecute(restRequestCenERPService::getHometaxstatusData, requestBody);
     }
 
     @GetMapping("/openapi/cost-project-info")
     public Mono<String> getCostProjectInfo(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getCostProjectInfoData(queryParams);
+        return doExecute(restRequestCenERPService::getCostProjectInfoData, queryParams);
     }
 
     @GetMapping("/openapi/reverse-taxes")
     public Mono<String> getReversetaxes(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCenERPService.getReversetaxesData(queryParams);
+        return doExecute(restRequestCenERPService::getReversetaxesData, queryParams);
     }
+
+    @FunctionalInterface
+    interface ServiceCallerMap {
+        Mono<String> call(Map<String, Object> param, String jwtToken);
+    }
+
+    @FunctionalInterface
+    interface ServiceCallerMultiValueMap {
+        Mono<String> call(MultiValueMap<String, String> param, String jwtToken);
+    }
+
+    private <T> Mono<String> doExecute(ServiceCallerMap serviceCaller, Map<String, Object> param) {
+        return extractJwtFromContext()
+                .flatMap(jwtToken -> serviceCaller.call(param, jwtToken));
+    }
+
+    private <T> Mono<String> doExecute(ServiceCallerMultiValueMap serviceCaller, MultiValueMap<String, String> param) {
+        return extractJwtFromContext()
+                .flatMap(jwtToken -> serviceCaller.call(param, jwtToken));
+    }
+
+    private Mono<String> extractJwtFromContext() {
+        return Mono.deferContextual(ctx -> {
+            String jwtToken = ctx.get("sys-access-token"); //JWTFilter에서 세팅한 context 네임
+            if (jwtToken != null) {
+                return Mono.just(jwtToken);
+            } else {
+                return Mono.error(new RuntimeException("JWT Token not found in context"));
+            }
+        });
+    }
+
 }
 
 

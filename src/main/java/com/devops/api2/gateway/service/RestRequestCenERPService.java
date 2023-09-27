@@ -36,116 +36,116 @@ public class RestRequestCenERPService {
     }
 
     @CircuitBreaker(name = "erpServiceBaseInfoCircuitBreaker", fallbackMethod = "fallbackERP")
-    public Mono<String> getBaseInfoData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getBaseInfo(), queryParams);
+    public Mono<String> getBaseInfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getBaseInfo(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceDeptCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getDeptData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getDept(), queryParams);
+    public Mono<String> getDeptData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getDept(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceCompanyCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getCompanyData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getCompany(), queryParams);
+    public Mono<String> getCompanyData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getCompany(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceAcntinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getAcntinfoData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getAcntinfo(), queryParams);
+    public Mono<String> getAcntinfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getAcntinfo(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceAcntsmapCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getAcntsmapData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getAcntsmap(), queryParams);
+    public Mono<String> getAcntsmapData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getAcntsmap(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceArcollectsCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getArcollectsData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getArcollects(), queryParams);
+    public Mono<String> getArcollectsData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getArcollects(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceVendorbondsCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getVendorbondsData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getVendorbonds(), queryParams);
+    public Mono<String> getVendorbondsData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getVendorbonds(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceSlipinfosCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getSlipinfosData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getSlipinfos(), queryParams);
+    public Mono<String> getSlipinfosData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getSlipinfos(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceVendorsCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getVendorsData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getVendors(), queryParams);
+    public Mono<String> getVendorsData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getVendors(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceVendorschargesCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getVendorschargesData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getVendorscharges(), queryParams);
+    public Mono<String> getVendorschargesData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getVendorscharges(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceMagaminfoCenerpCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getMagaminfoCenerpData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getMagaminfocenerp(), queryParams);
+    public Mono<String> getMagaminfoCenerpData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getMagaminfocenerp(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceMagamVendorBondsCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getMagamVendorBondsData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getMagamvendorbonds(), queryParams);
+    public Mono<String> getMagamVendorBondsData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getMagamvendorbonds(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceorderDeptMoveCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getOrderdeptmoveData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getOrderdeptmove(), queryParams);
+    public Mono<String> getOrderdeptmoveData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getOrderdeptmove(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceDirctPersExpCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getDirctPersExpData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getDirctpersexp(), queryParams);
+    public Mono<String> getDirctPersExpData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getDirctpersexp(), queryParams, jwtToken);
     }
     @CircuitBreaker(name = "erpServiceDeptAcntInfoCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getDeptAcntInfoData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getDeptacntinfo(), queryParams);
+    public Mono<String> getDeptAcntInfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getDeptacntinfo(), queryParams, jwtToken);
     }
     @CircuitBreaker(name = "erpServiceMagamInfoFinalCenerpCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getMagamInfoFinalCenerpData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getMagaminfofinalcenerp(), queryParams);
+    public Mono<String> getMagamInfoFinalCenerpData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getMagaminfofinalcenerp(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceProjectamtinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getProjectamtinfoData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getProjectamtinfo(), queryParams);
+    public Mono<String> getProjectamtinfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getProjectamtinfo(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceMagaminfocenpcsCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getMagaminfocenpcsData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getMagaminfocenpcs(), queryParams);
+    public Mono<String> getMagaminfocenpcsData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getMagaminfocenpcs(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceTaxesCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getTaxesData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getTaxes(), queryParams);
+    public Mono<String> getTaxesData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getTaxes(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceMagamplbondsCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getMagamplbondsData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getMagamplbonds(), queryParams);
+    public Mono<String> getMagamplbondsData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getMagamplbonds(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceHometaxstatusCircuitBreaker", fallbackMethod = "fallbackPostERP" )
-    public Mono<String> getHometaxstatusData(Map<String, Object> requestBody) {
-        return fetchDataPost(api2ErpDefinition.getHometaxstatus(), requestBody);
+    public Mono<String> getHometaxstatusData(Map<String, Object> requestBody, String jwtToken) {
+        return fetchDataPost(api2ErpDefinition.getHometaxstatus(), requestBody, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceCostprojectinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getCostProjectInfoData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getCostprojectinfo(), queryParams);
+    public Mono<String> getCostProjectInfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getCostprojectinfo(), queryParams, jwtToken);
     }
 
     @CircuitBreaker(name = "erpServiceReversetaxesCircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getReversetaxesData(MultiValueMap<String, String> queryParams) {
-        return fetchData(api2ErpDefinition.getReversetaxes(), queryParams);
+    public Mono<String> getReversetaxesData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getReversetaxes(), queryParams, jwtToken);
     }
 
     /**
@@ -154,15 +154,28 @@ public class RestRequestCenERPService {
      * @param queryParams
      * @return
      */
-    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
+//    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
+//        UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams, jwtToken);
+//        Mono<String> responseMono = this.webClient.get()
+//                .uri(uriBuilder.build().toUriString())
+//                .header("Internal-Route-Request", "true")
+//                .retrieve()
+//                .bodyToMono(String.class);
+//        return processResponse(responseMono);
+//    }
+
+
+    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);
         Mono<String> responseMono = this.webClient.get()
                 .uri(uriBuilder.build().toUriString())
                 .header("Internal-Route-Request", "true")
+                .header("Authorization", "Bearer " + jwtToken)
                 .retrieve()
                 .bodyToMono(String.class);
         return processResponse(responseMono);
     }
+
 
     /**
      * WebClient > HTTPRequest METHOD "POST"
@@ -170,11 +183,12 @@ public class RestRequestCenERPService {
      * @param requestBody
      * @return
      */
-    private Mono<String> fetchDataPost(String apiPath, Map<String, Object> requestBody) {
+    private Mono<String> fetchDataPost(String apiPath, Map<String, Object> requestBody, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, null);
         Mono<String> responseMono = this.webClient.post()
                 .uri(uriBuilder.build().toUriString())
                 .header("Internal-Route-Request", "true")
+                .header("Authorization", "Bearer " + jwtToken)
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class);
@@ -226,7 +240,7 @@ public class RestRequestCenERPService {
      * @param t
      * @return
      */
-    public Mono<String> fallbackERP(MultiValueMap<String, String> queryParams, Throwable t) {
+    public Mono<String> fallbackERP(MultiValueMap<String, String> queryParams, String jwtToken, Throwable t) {
         return Mono.just("Target Service CenERP Unavailable. Please try again later.");
     }
 
@@ -243,7 +257,7 @@ public class RestRequestCenERPService {
      * @param queryParams
      * @return
      */
-//    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams) {
+//    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
 //        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
 //        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
 //        return this.webClient.get()
@@ -309,6 +323,17 @@ public class RestRequestCenERPService {
 //                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
 //                    log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
 //                });
+//    }
+
+//    private Mono<String> fetchDataSample(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
+//        UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);
+//        Mono<String> responseMono = this.webClient.get()
+//                .uri(uriBuilder.build().toUriString())
+//                .header("Internal-Route-Request", "true")
+//                .header("Authorization", "Bearer " + jwtToken)
+//                .retrieve()
+//                .bodyToMono(String.class);
+//        return processResponse(responseMono);
 //    }
 }
 
