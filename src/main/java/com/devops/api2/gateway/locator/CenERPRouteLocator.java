@@ -163,6 +163,16 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceReversetaxesCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
+                .route("dept_persexp", r -> r.path("/cenerp/openapi/dept_persexp")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceDeptpersexpCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
+                .route("exchrate_info", r -> r.path("/cenerp/openapi/exchrate_info")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceExchrateinfoCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
                 .build();
     }
 
