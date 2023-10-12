@@ -38,6 +38,9 @@ public class Api2ErpDefinition {
 
     private String reversetaxes;
 
+    private String deptpersexp;
+    private String exchrateinfo;
+
 
 
     public String getBaseUrl() {
@@ -230,5 +233,21 @@ public class Api2ErpDefinition {
 
     public void setReversetaxes(String reversetaxes) {
         this.reversetaxes = reversetaxes;
+    }
+
+    public String getDeptpersexp() {
+        return deptpersexp;
+    }
+
+    public void setDeptpersexp(String deptpersexp) {
+        this.deptpersexp = deptpersexp;
+    }
+
+    public String getExchrateinfo() {
+        return exchrateinfo;
+    }
+
+    public void setExchrateinfo(String exchrateinfo) {
+        this.exchrateinfo = exchrateinfo;
     }
 }

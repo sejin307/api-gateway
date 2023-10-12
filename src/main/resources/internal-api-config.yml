@@ -25,6 +25,8 @@ api:
     magam-pl-bonds: /cenerp/openapi/magam-pl-bonds
     hometax-status: /cenerp/openapi/hometax-status
     cost-project-info: /cenerp/openapi/cost-project-info
+    dept_persexp: /cenerp/openapi/dept_persexp
+    exchrate_info: /cenerp/openapi/exchrate_info
 
     #구매포탈
     magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs

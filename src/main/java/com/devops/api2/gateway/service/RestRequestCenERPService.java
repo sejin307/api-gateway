@@ -148,6 +148,16 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getReversetaxes(), queryParams, jwtToken);
     }
 
+    @CircuitBreaker(name = "erpServiceDeptpersexpCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getDeptpersexpData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getDeptpersexp(), queryParams, jwtToken);
+    }
+
+    @CircuitBreaker(name = "erpServiceExchrateinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getExchrateinfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getExchrateinfo(), queryParams, jwtToken);
+    }
+
     /**
      * WebClient > HTTPRequest METHOD "GET"
      * @param apiPath

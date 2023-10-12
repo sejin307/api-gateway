@@ -18,10 +18,10 @@ public class Api2CENTerrController {
         this.restRequestCENTerrService = restRequestCENTerrService;
     }
 
-    @GetMapping("/api/pms/inf/act-plan-activity-hnfs")
-    public Mono<String> getIFPMSERP01Data(@RequestParam MultiValueMap<String, String> queryParams) {
-        return restRequestCENTerrService.getIFPMSERP01Data(queryParams);
-    }
+//    @GetMapping("/api/pms/inf/act-plan-activity-hnfs")
+//    public Mono<String> getIFPMSERP01Data(@RequestParam MultiValueMap<String, String> queryParams) {
+//        return restRequestCENTerrService.getIFPMSERP01Data(queryParams);
+//    }
 }
 
 

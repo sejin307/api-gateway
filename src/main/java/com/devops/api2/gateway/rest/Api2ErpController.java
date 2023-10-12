@@ -133,6 +133,16 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getReversetaxesData, queryParams);
     }
 
+    @GetMapping("/openapi/dept_persexp")
+    public Mono<String> getDeptpersexp(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getDeptpersexpData, queryParams);
+    }
+
+    @GetMapping("/openapi/exchrate_info")
+    public Mono<String> getExchrateinfo(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getExchrateinfoData, queryParams);
+    }
+
     @FunctionalInterface
     interface ServiceCallerMap {
         Mono<String> call(Map<String, Object> param, String jwtToken);
