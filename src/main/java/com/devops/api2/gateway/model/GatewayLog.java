@@ -18,6 +18,16 @@ public class GatewayLog {
     @Column(name = "request_path")
     private String requestPath;
 
+    @Column(name = "request_queryparam")
+    private String requestQueryParam;
+    @Column(name = "request_bodyparam")
+    private String requestBodyParam;
+    @Column(name = "request_method")
+    private String requestMethod;
+
+    @Column(name="request_header")
+    private String requestHeader;
+
     @Column(name = "response_status")
     private Integer responseStatus;
 
@@ -52,6 +62,39 @@ public class GatewayLog {
 
     public void setRequestPath(String requestPath) {
         this.requestPath = requestPath;
+    }
+
+
+    public String getRequestQueryParam() {
+        return requestQueryParam;
+    }
+
+    public void setRequestQueryParam(String requestQueryParam) {
+        this.requestQueryParam = requestQueryParam;
+    }
+
+    public String getRequestBodyParam() {
+        return requestBodyParam;
+    }
+
+    public void setRequestBodyParam(String requestBodyParam) {
+        this.requestBodyParam = requestBodyParam;
+    }
+
+    public String getRequestMethod() {
+        return requestMethod;
+    }
+
+    public void setRequestMethod(String requestMethod) {
+        this.requestMethod = requestMethod;
+    }
+
+    public String getRequestHeader() {
+        return requestHeader;
+    }
+
+    public void setRequestHeader(String requestHeader) {
+        this.requestHeader = requestHeader;
     }
 
     public Integer getResponseStatus() {

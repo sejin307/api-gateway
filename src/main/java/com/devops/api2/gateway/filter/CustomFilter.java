@@ -64,9 +64,14 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                         String requestPath = exchange.getRequest().getPath().toString();
                         Integer responseStatus = exchange.getResponse().getStatusCode().value();
                         String remoteAddress = exchange.getRequest().getRemoteAddress().getAddress().toString();
-                        //String currentTime = getCurrentTime();
 
-                        saveLogToDb(requestId, requestPath, responseStatus, remoteAddress, hostName);
+                        //231018 Request param, body, method 추가 sejin
+                        String requestQueryParam = exchange.getRequest().getQueryParams().toString();
+                        String requestBodyParam = exchange.getRequest().getBody().toString();
+                        String requestMethod = exchange.getRequest().getMethod().toString();
+                        String requestHeader = exchange.getRequest().getHeaders().toString();
+
+                        saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam, requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
                     }));
         };
     }
@@ -82,10 +87,15 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
         //Config 설정
     }
 
-    private void saveLogToDb(String requestId, String requestPath, Integer responseStatus, String remoteAddress, String hostName) {
+    private void saveLogToDb(String requestId, String requestPath,String requestQueryParam, String requestBodyParam,
+                             String requestMethod, String requestHeader, Integer responseStatus, String remoteAddress, String hostName) {
         GatewayLog gatewayLog = new GatewayLog();
         gatewayLog.setRequestId(requestId);
         gatewayLog.setRequestPath(requestPath);
+        gatewayLog.setRequestQueryParam(requestQueryParam);
+        gatewayLog.setRequestBodyParam(requestBodyParam);
+        gatewayLog.setRequestMethod(requestMethod);
+        gatewayLog.setRequestHeader(requestHeader);
         gatewayLog.setResponseStatus(responseStatus);
         gatewayLog.setRemoteAddress(remoteAddress);
         gatewayLog.setHostName(hostName);
