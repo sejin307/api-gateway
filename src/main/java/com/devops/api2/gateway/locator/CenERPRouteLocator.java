@@ -147,7 +147,6 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceMagamplbondsCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
-
                 .route("hometax-status", r -> r.path("/cenerp/openapi/hometax-status")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                         getFilterConfig("erpServiceHometaxstatusCircuitBreaker"))
@@ -171,6 +170,11 @@ public class CenERPRouteLocator {
                 .route("exchrate_info", r -> r.path("/cenerp/openapi/exchrate_info")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                         getFilterConfig("erpServiceExchrateinfoCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
+                .route("exchrate_info2", r -> r.path("/cenerp/openapi/exchrate_info2")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceExchrateinfo2CircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
                 .build();

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
@@ -158,6 +159,11 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getExchrateinfo(), queryParams, jwtToken);
     }
 
+    @CircuitBreaker(name = "erpServiceExchrateinfo2CircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getExchrateinfo2Data(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getExchrateinfo2(), queryParams, jwtToken);
+    }
+
     /**
      * WebClient > HTTPRequest METHOD "GET"
      * @param apiPath
@@ -195,10 +201,12 @@ public class RestRequestCenERPService {
      */
     private Mono<String> fetchDataPost(String apiPath, Map<String, Object> requestBody, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, null);
+
         Mono<String> responseMono = this.webClient.post()
                 .uri(uriBuilder.build().toUriString())
                 .header("Internal-Route-Request", "true")
                 .header("Authorization", "Bearer " + jwtToken)
+                .attribute("bodyParam",requestBody)
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class);
@@ -257,93 +265,5 @@ public class RestRequestCenERPService {
     public Mono<String> fallbackPostERP(Map<String, Object> requestBody, Throwable t) {
         return Mono.just("Target Service CenERP Unavailable. Please try again later.");
     }
-
-
-
-
-    /**
-     * GET호출
-     * @param apiPath
-     * @param queryParams
-     * @return
-     */
-//    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
-//        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
-//        queryParams.forEach((key, values) -> values.forEach(value -> uriBuilder.queryParam(key, value)));
-//        return this.webClient.get()
-//                .uri(uriBuilder.build().toUriString())
-//                .header("Internal-Route-Request","true")
-//                .retrieve()
-//                .bodyToMono(String.class)
-//                .map(response -> {
-//                    /**
-//                     * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
-//                     */
-//                    Gson gson = new GsonBuilder()
-//                            .registerTypeAdapter(Map.class, new GsonDeserializer())
-//                            .serializeNulls()
-//                            .setPrettyPrinting()
-//                            .create();
-//
-//                    Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
-//                    return gson.toJson(resultMap);
-//                })
-//                .doOnNext(response -> {
-//                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
-//                    log.debug("Method " + methodName + " - Successful response received!");
-//                })
-//                .doOnError(error -> {
-//                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
-//                    log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
-//                });
-//    }
-//
-//    /**
-//     * POST호출
-//     * @param apiPath
-//     * @param requestBody
-//     * @return
-//     */
-//    private Mono<String> fetchDataPost(String apiPath, Map<String, Object> requestBody) {
-//        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(apiPath);
-//        return this.webClient.post()
-//                .uri(uriBuilder.build().toUriString())
-//                .header("Internal-Route-Request","true")
-//                .bodyValue(requestBody)
-//                .retrieve()
-//                .bodyToMono(String.class)
-//                .map(response -> {
-//                    /**
-//                     * gson라이브러리 null무시, int>double로 바뀌는 현상 수정
-//                     */
-//                    Gson gson = new GsonBuilder()
-//                            .registerTypeAdapter(Map.class, new GsonDeserializer())
-//                            .serializeNulls()
-//                            .setPrettyPrinting()
-//                            .create();
-//
-//                    Map<String, Object> resultMap = gson.fromJson(response, new TypeToken<Map<String, Object>>() {}.getType());
-//                    return gson.toJson(resultMap);
-//                })
-//                .doOnNext(response -> {
-//                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
-//                    log.debug("Method " + methodName + " - Successful response received!");
-//                })
-//                .doOnError(error -> {
-//                    String methodName = new Throwable().getStackTrace()[1].getMethodName();
-//                    log.error("Method " + methodName + " - Failed to receive response: " + error.getMessage());
-//                });
-//    }
-
-//    private Mono<String> fetchDataSample(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
-//        UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);
-//        Mono<String> responseMono = this.webClient.get()
-//                .uri(uriBuilder.build().toUriString())
-//                .header("Internal-Route-Request", "true")
-//                .header("Authorization", "Bearer " + jwtToken)
-//                .retrieve()
-//                .bodyToMono(String.class);
-//        return processResponse(responseMono);
-//    }
 }
 

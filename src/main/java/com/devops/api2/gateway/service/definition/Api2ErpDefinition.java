@@ -41,6 +41,8 @@ public class Api2ErpDefinition {
     private String deptpersexp;
     private String exchrateinfo;
 
+    private String exchrateinfo2;
+
 
 
     public String getBaseUrl() {
@@ -250,4 +252,14 @@ public class Api2ErpDefinition {
     public void setExchrateinfo(String exchrateinfo) {
         this.exchrateinfo = exchrateinfo;
     }
+
+
+    public String getExchrateinfo2() {
+        return exchrateinfo2;
+    }
+
+    public void setExchrateinfo2(String exchrateinfo2) {
+        this.exchrateinfo2 = exchrateinfo2;
+    }
+
 }

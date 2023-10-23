@@ -143,6 +143,11 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getExchrateinfoData, queryParams);
     }
 
+    @GetMapping("/openapi/exchrate_info2")
+    public Mono<String> getExchrateinfo2(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getExchrateinfo2Data, queryParams);
+    }
+
     @FunctionalInterface
     interface ServiceCallerMap {
         Mono<String> call(Map<String, Object> param, String jwtToken);
