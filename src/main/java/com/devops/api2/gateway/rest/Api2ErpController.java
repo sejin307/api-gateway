@@ -4,6 +4,7 @@ import com.devops.api2.gateway.service.RestRequestCenERPService;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
@@ -117,11 +118,12 @@ public class Api2ErpController {
     public Mono<String> getMagamplbonds(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestCenERPService::getMagamplbondsData, queryParams);
     }
-    
+
     @PostMapping("/openapi/hometax-status")
     public Mono<String> getHometaxstatus(@RequestBody Map<String, Object> requestBody) {
         return doExecute(restRequestCenERPService::getHometaxstatusData, requestBody);
     }
+
 
     @GetMapping("/openapi/cost-project-info")
     public Mono<String> getCostProjectInfo(@RequestParam MultiValueMap<String, String> queryParams) {
@@ -143,15 +145,18 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getExchrateinfoData, queryParams);
     }
 
-    @GetMapping("/openapi/exchrate_info2")
-    public Mono<String> getExchrateinfo2(@RequestParam MultiValueMap<String, String> queryParams) {
-        return doExecute(restRequestCenERPService::getExchrateinfo2Data, queryParams);
+
+    @PostMapping("/openapi/slipinfos-post")
+    public Mono<String> getSlipinfosPostData(@RequestBody Map<String, Object> requestBody) {
+        return doExecute(restRequestCenERPService::getSlipinfosPostData, requestBody);
     }
 
+
     @FunctionalInterface
-    interface ServiceCallerMap {
+    public interface ServiceCallerMap {
         Mono<String> call(Map<String, Object> param, String jwtToken);
     }
+
 
     @FunctionalInterface
     interface ServiceCallerMultiValueMap {

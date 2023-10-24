@@ -139,6 +139,7 @@ public class RestRequestCenERPService {
         return fetchDataPost(api2ErpDefinition.getHometaxstatus(), requestBody, jwtToken);
     }
 
+
     @CircuitBreaker(name = "erpServiceCostprojectinfoCircuitBreaker", fallbackMethod = "fallbackERP" )
     public Mono<String> getCostProjectInfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
         return fetchData(api2ErpDefinition.getCostprojectinfo(), queryParams, jwtToken);
@@ -159,26 +160,10 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getExchrateinfo(), queryParams, jwtToken);
     }
 
-    @CircuitBreaker(name = "erpServiceExchrateinfo2CircuitBreaker", fallbackMethod = "fallbackERP" )
-    public Mono<String> getExchrateinfo2Data(MultiValueMap<String, String> queryParams, String jwtToken) {
-        return fetchData(api2ErpDefinition.getExchrateinfo2(), queryParams, jwtToken);
+    @CircuitBreaker(name = "erpServiceSlipinfosPostCircuitBreaker", fallbackMethod = "fallbackPostERP" )
+    public Mono<String> getSlipinfosPostData(Map<String, Object> requestBody, String jwtToken) {
+        return fetchDataPost(api2ErpDefinition.getSlipinfospost(), requestBody, jwtToken);
     }
-
-    /**
-     * WebClient > HTTPRequest METHOD "GET"
-     * @param apiPath
-     * @param queryParams
-     * @return
-     */
-//    private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
-//        UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams, jwtToken);
-//        Mono<String> responseMono = this.webClient.get()
-//                .uri(uriBuilder.build().toUriString())
-//                .header("Internal-Route-Request", "true")
-//                .retrieve()
-//                .bodyToMono(String.class);
-//        return processResponse(responseMono);
-//    }
 
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
@@ -191,7 +176,6 @@ public class RestRequestCenERPService {
                 .bodyToMono(String.class);
         return processResponse(responseMono);
     }
-
 
     /**
      * WebClient > HTTPRequest METHOD "POST"
@@ -206,7 +190,6 @@ public class RestRequestCenERPService {
                 .uri(uriBuilder.build().toUriString())
                 .header("Internal-Route-Request", "true")
                 .header("Authorization", "Bearer " + jwtToken)
-                .attribute("bodyParam",requestBody)
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class);
@@ -262,7 +245,7 @@ public class RestRequestCenERPService {
         return Mono.just("Target Service CenERP Unavailable. Please try again later.");
     }
 
-    public Mono<String> fallbackPostERP(Map<String, Object> requestBody, Throwable t) {
+    public Mono<String> fallbackPostERP(Map<String, Object> requestBody,String jwtToken, Throwable t) {
         return Mono.just("Target Service CenERP Unavailable. Please try again later.");
     }
 }

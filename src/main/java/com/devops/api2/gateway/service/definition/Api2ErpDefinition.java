@@ -41,7 +41,7 @@ public class Api2ErpDefinition {
     private String deptpersexp;
     private String exchrateinfo;
 
-    private String exchrateinfo2;
+    private String slipinfospost;
 
 
 
@@ -253,13 +253,11 @@ public class Api2ErpDefinition {
         this.exchrateinfo = exchrateinfo;
     }
 
-
-    public String getExchrateinfo2() {
-        return exchrateinfo2;
+    public String getSlipinfospost() {
+        return slipinfospost;
     }
 
-    public void setExchrateinfo2(String exchrateinfo2) {
-        this.exchrateinfo2 = exchrateinfo2;
+    public void setSlipinfospost(String slipinfospost) {
+        this.slipinfospost = slipinfospost;
     }
-
 }

@@ -172,9 +172,9 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceExchrateinfoCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
-                .route("exchrate_info2", r -> r.path("/cenerp/openapi/exchrate_info2")
+                .route("slipinfos-post", r -> r.path("/cenerp/openapi/slipinfos-post")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
-                                        getFilterConfig("erpServiceExchrateinfo2CircuitBreaker"))
+                                        getFilterConfig("erpServiceSlipinfosPostCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
                 .build();

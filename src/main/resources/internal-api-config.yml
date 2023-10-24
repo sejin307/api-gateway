@@ -27,7 +27,7 @@ api:
     cost-project-info: /cenerp/openapi/cost-project-info
     dept_persexp: /cenerp/openapi/dept_persexp
     exchrate_info: /cenerp/openapi/exchrate_info
-    exchrate_info2: /cenerp/openapi/exchrate_info2
+    slipinfos-post: /cenerp/openapi/slipinfos-post
 
     #구매포탈
     magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs
