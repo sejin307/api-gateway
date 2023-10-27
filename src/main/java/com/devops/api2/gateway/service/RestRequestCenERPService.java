@@ -165,6 +165,13 @@ public class RestRequestCenERPService {
         return fetchDataPost(api2ErpDefinition.getSlipinfospost(), requestBody, jwtToken);
     }
 
+    @CircuitBreaker(name = "erpServiceReverseTaxesPostCircuitBreaker", fallbackMethod = "fallbackPostERP" )
+    public Mono<String> getReverseTaxesPostData(Map<String, Object> requestBody, String jwtToken) {
+        return fetchDataPost(api2ErpDefinition.getReversetaxespost(), requestBody, jwtToken);
+    }
+
+
+
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);

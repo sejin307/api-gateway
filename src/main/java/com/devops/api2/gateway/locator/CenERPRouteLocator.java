@@ -177,6 +177,11 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceSlipinfosPostCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
+                .route("reverse-taxes-post", r -> r.path("/cenerp/openapi/reverse-taxes-post")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceReverseTaxesPostCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
                 .build();
     }
 

@@ -42,7 +42,7 @@ public class Api2ErpDefinition {
     private String exchrateinfo;
 
     private String slipinfospost;
-
+    private String reversetaxespost;
 
 
     public String getBaseUrl() {
@@ -259,5 +259,13 @@ public class Api2ErpDefinition {
 
     public void setSlipinfospost(String slipinfospost) {
         this.slipinfospost = slipinfospost;
+    }
+
+    public String getReversetaxespost() {
+        return reversetaxespost;
+    }
+
+    public void setReversetaxespost(String reversetaxespost) {
+        this.reversetaxespost = reversetaxespost;
     }
 }

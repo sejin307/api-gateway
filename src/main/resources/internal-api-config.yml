@@ -28,6 +28,7 @@ api:
     dept_persexp: /cenerp/openapi/dept_persexp
     exchrate_info: /cenerp/openapi/exchrate_info
     slipinfos-post: /cenerp/openapi/slipinfos-post
+    reverse-taxes-post: /cenerp/openapi/reverse-taxes-post
 
     #구매포탈
     magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs

@@ -151,6 +151,11 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getSlipinfosPostData, requestBody);
     }
 
+    @PostMapping("/openapi/reverse-taxes-post")
+    public Mono<String> getReverseTaxesPostData(@RequestBody Map<String, Object> requestBody) {
+        return doExecute(restRequestCenERPService::getReverseTaxesPostData, requestBody);
+    }
+
 
     @FunctionalInterface
     public interface ServiceCallerMap {
