@@ -11,7 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityPassword{
     public static void main(String[] args) {
         // 비밀번호 생성
-        String password = "Purchase!@#4";
+        //String password = "Purchase!@#4";
+
+        String gwPassword = "GroupWare!@#4";
 
         // BCryptPasswordEncoder 객체 생성
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -19,13 +21,13 @@ public class SecurityPassword{
         //$2a$10$5KlRVeKPcDYlPDQ30KZ5VOVwQcTIt3AZmIfkk2tpMP1QFVTDezRAC
 
         // 비밀번호 암호화 / 단방향 암호화
-        String hashedPassword = passwordEncoder.encode(password);
+        String hashedPassword = passwordEncoder.encode(gwPassword);
 
-        System.out.println("Original password: " + password);
+        System.out.println("Original password: " + gwPassword);
         System.out.println("Hashed password: " + hashedPassword);
 
         // 비밀번호 확인
-        boolean isMatch = passwordEncoder.matches(password, hashedPassword);
+        boolean isMatch = passwordEncoder.matches(gwPassword, hashedPassword);
         System.out.println("password match? " + isMatch);
     }
 }
