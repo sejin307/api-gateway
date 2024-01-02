@@ -6,15 +6,20 @@ import com.devops.api2.security.jwt.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * 라우팅 서비스에서 공통으로 활용하는 필터
@@ -29,11 +34,6 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
     private final TokenProvider tokenProvider;
-
-//    public JWTFilter(TokenProvider tokenProvider) {
-//        this.tokenProvider = tokenProvider;
-//    }
-
 
     public CustomFilter(TokenProvider tokenProvider) {
         super(Config.class);
@@ -64,10 +64,12 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                         String requestPath = exchange.getRequest().getPath().toString();
                         Integer responseStatus = exchange.getResponse().getStatusCode().value();
                         String remoteAddress = exchange.getRequest().getRemoteAddress().getAddress().toString();
+                        String requestBodyParam = (String) exchange.getAttributes().get("requestBodyParam");// TODO:이게안댐..
 
                         //231018 Request param, body, method 추가 sejin
                         String requestQueryParam = exchange.getRequest().getQueryParams().toString();
-                        String requestBodyParam = exchange.getRequest().getBody().toString();
+
+
                         String requestMethod = exchange.getRequest().getMethod().toString();
                         String requestHeader = exchange.getRequest().getHeaders().toString();
 
@@ -75,13 +77,6 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                     }));
         };
     }
-
-//    public String getCurrentTime(){
-//        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Calendar cal = Calendar.getInstance();
-//        String date2String = currentDate.format(cal.getTime());
-//        return date2String;
-//    }
 
     public static class Config {
         //Config 설정

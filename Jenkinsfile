@@ -12,7 +12,7 @@ node {
     app = docker.build("api-gw", ".")
   }
 
-  stage('========== Push Image ==========') {
+  stage('========== Push Image ==========') {a
     docker.withRegistry('https://025272456049.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw', 'ecr:ap-northeast-2:API-GW') {
       app.push("${env.BUILD_NUMBER}")
       app.push("latest")

@@ -2,6 +2,7 @@ package com.devops.api2.security.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
 
 import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
 
 /**
  * URI 필터링
@@ -34,7 +36,6 @@ public class JWTFilter implements WebFilter {
       String jwt = resolveToken(exchange);
       String requestURI = exchange.getRequest().getURI().toString();
       String requestURIPath = exchange.getRequest().getPath().toString();
-
       InetAddress remoteAddress = exchange.getRequest().getRemoteAddress().getAddress();
 	  String internalHeader = exchange.getRequest().getHeaders().getFirst("Internal-Route-Request");
       boolean isInternalIp = remoteAddress.isLoopbackAddress();
@@ -46,7 +47,6 @@ public class JWTFilter implements WebFilter {
          Context context = Context.of("sys-access-token", jwt)
                  .putAll(ReactiveSecurityContextHolder.withAuthentication(authentication));
          return chain.filter(exchange).contextWrite(context);
-         //return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
       }else if (StringUtils.hasText(internalHeader) && isInternalIp) {
          LOG.debug("Internal Route and IP Dectected", requestURI);
          return chain.filter(exchange);
