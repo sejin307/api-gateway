@@ -30,7 +30,7 @@ node {
             def executionRoleArn = "arn:aws:iam::269923429649:role/ecsTaskExecutionRole"
             def cpu = "2048"
             def memory = "4096"
-            def containerName = "CEN-APIGW-Task"
+            def containerName = "api-gw"
             def image = "269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw:" + env.BUILD_NUMBER
             def logGroup = "/ecs/api-gw"
             def region = "ap-northeast-2"
@@ -50,7 +50,7 @@ node {
 
             def clusterName = "Cengroup-APIGW-Cluster"
             def serviceName = "CEN_APIGW-Service"
-            def taskDefinition = "CEN-APIGW-Task:" + newRevision //이게 왜 컨테이너명인지..?????
+            def taskDefinition = "api-gw:" + newRevision //이게 왜 컨테이너명인지..?????
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\" --region \"${region}\""
 
