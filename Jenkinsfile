@@ -30,13 +30,14 @@ node {
             def executionRoleArn = "arn:aws:iam::269923429649:role/ecsTaskExecutionRole"
             def cpu = "2048"
             def memory = "4096"
-            def containerName = "api-gw"
+            def containerName = "CEN-APIGW-Task"
+            def containerDefName = "api-gw"
             def image = "269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw:" + env.BUILD_NUMBER
             def logGroup = "/ecs/api-gw"
             def region = "ap-northeast-2"
 
             def taskdef = sh(script: """
-                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --region "${region}" --tags key=Service,value=API_GW --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"
+                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --region "${region}" --tags key=Service,value=API_GW --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerDefName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"
             """, returnStdout: true)
 
 
@@ -50,7 +51,7 @@ node {
 
             def clusterName = "Cengroup-APIGW-Cluster"
             def serviceName = "CEN_APIGW-Service"
-            def taskDefinition = "api-gw:" + newRevision //이게 왜 컨테이너명인지..?????
+            def taskDefinition = "CEN-APIGW-Task:" + newRevision //이게 왜 컨테이너명인지..?????
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\" --region \"${region}\""
 
