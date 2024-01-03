@@ -50,7 +50,7 @@ node {
 
             def clusterName = "Cengroup-APIGW-Cluster"
             def serviceName = "CEN_APIGW-Service"
-            def taskDefinition = "api-gw:" + newRevision //이게 왜 컨테이너명인지..?????
+            def taskDefinition = "CEN-APIGW-Task:" + newRevision //이게 왜 컨테이너명인지..?????
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\" --region \"${region}\""
 
