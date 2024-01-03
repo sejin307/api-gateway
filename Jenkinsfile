@@ -46,7 +46,7 @@ node {
             def taskDefinitionArn = taskdefJson.taskDefinition.taskDefinitionArn
 
             // Add tag to the task definition
-            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --region "${region}" --tags key=Service,value=API_GW"
+            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --tags key=Service,value=API_GW --region \"${region}\" "
 
             def clusterName = "Cengroup-APIGW-Cluster"
             def serviceName = "CEN_APIGW-Service"
