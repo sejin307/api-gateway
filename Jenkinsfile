@@ -33,7 +33,7 @@ node {
             def containerName = "CEN-APIGW-Task"
             def containerDefName = "api-gw"
             def image = "269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw:" + env.BUILD_NUMBER
-            def logGroup = "/ecs/api-gw"
+            def logGroup = "	/ecs/CEN-APIGW-Task"
             def region = "ap-northeast-2"
 
             def taskdef = sh(script: """
