@@ -21,10 +21,10 @@ targetPath: https://erp.cengroup.co.kr
 spring:
   #데이터베이스 설정 과 커넥션풀 설정
   datasource:
-    #url: jdbc:mysql://api-gw.cwj6ritwovqw.ap-northeast-2.rds.amazonaws.com:3306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
-    url: jdbc:mysql://centerr-prod.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
-    username: api2
-    password: itcenapi202412#
+    url: jdbc:mysql://api-gw.cwj6ritwovqw.ap-northeast-2.rds.amazonaws.com:3306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    #url: jdbc:mysql://centerr-prod.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    username: admin
+    password: itcen202312#
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 5      #TODO: prod조정
