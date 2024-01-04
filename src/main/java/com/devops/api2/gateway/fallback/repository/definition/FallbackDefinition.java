@@ -1,5 +1,6 @@
 package com.devops.api2.gateway.fallback.repository.definition;
 
+import java.net.HttpURLConnection;
 import java.sql.Timestamp;
 import java.util.Date;
 

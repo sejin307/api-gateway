@@ -5,17 +5,17 @@ server:
   port: 8080
 
 #파라미터 암호화 키,벡터 값
-crypt-key-prop:
-  CRYPTO_LEGACY_KEY: CengroupAPK20!@#
-  CRYPTO_LEGACY_IV: cenGroupAPV20#@!
+
+CRYPTO_LEGACY_KEY: CengroupAPK20!@#
+CRYPTO_LEGACY_IV: cenGroupAPV20#@!
 
 #SCG Route Target URL Path
 #http://121.138.156.45:8080 (CENERP개발2 공인IP)
 #http://192.168.63.71:8080 (CENERP개발2 내부IP)
 #https://erp.cengroup.co.kr (CENERP 운영)
-targetPath: http://121.138.156.45:8080
+#targetPath: http://121.138.156.45:8080
 #targetPath: http://192.168.63.71:8080
-#targetPath: https://erp.cengroup.co.kr
+targetPath: https://erp.cengroup.co.kr
 
 #SpringBoot 설정
 spring:
@@ -111,7 +111,7 @@ jwt:
 #시스템 패키지 로그레벨 설정
 logging:
   level:
-    com.devops.api2: DEBUG
+    com.devops.api2: ERROR
     #root: TRACE
     #io.netty: trace
     #reactor.netty: trace
