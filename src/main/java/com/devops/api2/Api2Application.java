@@ -17,7 +17,8 @@ public class Api2Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Api2Application.class, args);
 	}
-}
+
+	}
 
 	/**
 	 * 2023.07.03
@@ -34,4 +35,23 @@ public class Api2Application {
 	 *      3. ecs(c),eks(t)    o
 	 *      4. 빌드배포테스트      o
 	 *      5. ecs 고정ip 연결  o     / 도메인 부여  ing
+	 *      #git token  >>         glpat-kApSyvMcKmYWyLYmj3VK
+	 *                             glpat-sYSZvGSkFy1vk4jyxEYx
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
 	 */
