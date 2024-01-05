@@ -182,7 +182,7 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceReverseTaxesPostCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
-                .route("contUsers.do", r -> r.path("/cenerp/openapi/contUsers.do")
+                .route("contUsers-do", r -> r.path("/api/contUsers.do")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                         getFilterConfig("erpServiceContUsersDoCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))

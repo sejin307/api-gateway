@@ -156,7 +156,7 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getReverseTaxesPostData, requestBody);
     }
 
-    @GetMapping("/openapi/contUsers.do")
+    @GetMapping("/openapi/contUsers-do")
     public Mono<String> getContUsersDo(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestCenERPService::getContUsersDoData, queryParams);
     }
