@@ -43,6 +43,7 @@ public class Api2ErpDefinition {
 
     private String slipinfospost;
     private String reversetaxespost;
+    private String contusersdo;
 
 
     public String getBaseUrl() {
@@ -267,5 +268,13 @@ public class Api2ErpDefinition {
 
     public void setReversetaxespost(String reversetaxespost) {
         this.reversetaxespost = reversetaxespost;
+    }
+
+    public String getContusersdo() {
+        return contusersdo;
+    }
+
+    public void setContusersdo(String contusersdo) {
+        this.contusersdo = contusersdo;
     }
 }

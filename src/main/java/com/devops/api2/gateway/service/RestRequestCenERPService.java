@@ -170,7 +170,10 @@ public class RestRequestCenERPService {
         return fetchDataPost(api2ErpDefinition.getReversetaxespost(), requestBody, jwtToken);
     }
 
-
+    @CircuitBreaker(name = "erpServiceContUsersDoCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getContUsersDoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getContusersdo(), queryParams, jwtToken);
+    }
 
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
