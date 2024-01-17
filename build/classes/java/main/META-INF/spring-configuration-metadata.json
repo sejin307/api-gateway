@@ -58,6 +58,11 @@
       "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
     },
     {
+      "name": "api.erp.contusersdo",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
       "name": "api.erp.costprojectinfo",
       "type": "java.lang.String",
       "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"

@@ -16,20 +16,21 @@ CRYPTO_LEGACY_IV: cenGroupAPV20#@!
 #targetPath: http://121.138.156.45:8080
 #targetPath: http://192.168.63.71:8080
 targetPath: https://erp.cengroup.co.kr
+targetPRPath: https://pr.cengroup.co.kr
 
 #SpringBoot 설정
 spring:
   #데이터베이스 설정 과 커넥션풀 설정
   datasource:
     #개발
-    #url: jdbc:mysql://api-gw.cwj6ritwovqw.ap-northeast-2.rds.amazonaws.com:3306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
-    #username: admin
-    #password: itcen202312#
+    url: jdbc:mysql://api-gw.cwj6ritwovqw.ap-northeast-2.rds.amazonaws.com:3306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    username: admin
+    password: itcen202312#
     #운영
-    url: jdbc:mysql://centerr-prod.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
-    username: api2
-    password: itcenapi202412#
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://centerr-prod.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    #username: api2
+    #password: itcenapi202412#
+    #driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 5      #TODO: prod조정
       minimum-idle: 2           #TODO: prod조정
@@ -93,6 +94,8 @@ management:
         enabled: true                   #액츄에이터의 종료 엔드포인트 사용 가능
       health:
         show-details: always            #액츄에이터의 헬스 엔드포인트에서 항상 상세정보 표기
+      web:
+        base: "/api2/actuator"
   health:
     circuitbreakers:
       enabled: true                     #헬스 엔드포인트에서 서킷 브레이커의 상태표기

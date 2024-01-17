@@ -49,10 +49,10 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
     public GatewayFilter apply(Config config) {
         //before-processing (서비스 시작시 세팅)
         return (exchange, chain) -> {
-            //pre-processing ( Route start 할때 )
+            //pre-processing (Route start 할때)
             return chain.filter(exchange)
                     .then(Mono.fromRunnable(() -> {
-                        // post-processing
+                        // post-processing (Route end 이후)
                         String jwt = resolveToken(exchange);
                         String hostName = "";
                         if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
