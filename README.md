@@ -1,4 +1,4 @@
-# api2-gateway
+# api-gw
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin http://ec2-3-39-156-80.ap-northeast-2.compute.amazonaws.com/root/api2-gateway.git
+git remote add origin http://gitlab-centerrstg.cengroup.co.kr/pms2022/api-gw.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](http://ec2-3-39-156-80.ap-northeast-2.compute.amazonaws.com/root/api2-gateway/-/settings/integrations)
+- [ ] [Set up project integrations](http://gitlab-centerrstg.cengroup.co.kr/pms2022/api-gw/-/settings/integrations)
 
 ## Collaborate with your team
 
@@ -30,7 +30,7 @@ git push -uf origin main
 - [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
 - [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
 - [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
 ## Test and Deploy
 
