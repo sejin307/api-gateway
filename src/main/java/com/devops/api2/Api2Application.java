@@ -38,7 +38,8 @@ public class Api2Application {
 	 *      #git token  >>         glpat-kApSyvMcKmYWyLYmj3VK
 	 *                             glpat-sYSZvGSkFy1vk4jyxEYx
 	 *
-	 *
+	 *http://43.203.69.182:8080/api-gw/api-gw.git
+	 *glpat-uVRf8JJN3_ezastQox6i
 	 *
 	 *
 	 *
