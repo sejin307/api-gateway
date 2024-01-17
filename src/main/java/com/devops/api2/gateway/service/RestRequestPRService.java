@@ -81,7 +81,7 @@ public class RestRequestPRService {
         return fetchDataPost(api2PRDefinition.getProjectSave(), requestBody, jwtToken);
     }
 
-    @CircuitBreaker(name = "prServiceItemTaxonomyInfoCircuitBreaker", fallbackMethod = "fallbackPR" )
+    @CircuitBreaker(name = "prServiceGetItemTaxonomyInfoCircuitBreaker", fallbackMethod = "fallbackPR" )
     public Mono<String> getItemTaxonomyInfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
         return fetchData(api2PRDefinition.getGetItemTaxonomyInfo(), queryParams, jwtToken);
     }
