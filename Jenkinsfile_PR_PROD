@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '60'))
+    }
+
+    parameters {
+        string(name: 'DEPLOY_PROFILE_NAME', defaultValue: 'production', description: 'local, development, production')
+    }
+
+    environment {
+        MAVEN_HOME = 'Maven'
+    }
+
+    stages {
+//        stage('========== Checkout Repository ==========') {
+//            steps {
+//                script {
+//                    // GitLab 소스 코드 체크아웃
+//                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@gitlab.com:your_username/your_project.git']]])
+//                    ('========== Checkout Repository ==========') {
+//                        checkout scm
+//                    }
+//                }
+//            }
+//        }
+        stage('========== Checkout Repository ==========') {
+            checkout scm
+        }
+
+        stage('========== Build Application ==========') {
+            steps {
+                script {
+                    // Maven을 사용하여 프로젝트 빌드
+                    withMaven(
+                            maven: 'maven-3.6.3',
+                            mavenLocalRepo: '.repository',
+                            options: [
+                                    '-P' + env.DEPLOY_PROFILE_NAME,
+                                    '-Dmaven.test.skip=true'
+                            ]
+                    ) {
+                        sh 'mvn clean install'
+                    }
+                }
+            }
+        }
+
+        stage('========== Deploy Application ==========') {
+            steps {
+                script {
+                    // Maven을 사용하여 프로젝트 배포
+                    withMaven(
+                            maven: 'maven-3.6.3',
+                            mavenLocalRepo: '.repository',
+                            options: [
+                                    '-P' + env.DEPLOY_PROFILE_NAME,
+                                    '-Dmaven.test.skip=true',
+                                    'tomcat:deploy'
+                            ]
+                    ) {
+                        // Tomcat Manager에 배포 요청을 보내는 Curl 또는 HTTP 요청
+                        sh """
+                            curl --user admin:admin123\$ \
+                                --upload-file target/ITCENPR-1.0-RELEASE.war \
+                                http://121.138.156.44:8080/manager/text/deploy?path=/context-path&update=true
+                            """
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "${env.DEPLOY_PROFILE_NAME} - Deploy Success!"
+        }
+    }
+}

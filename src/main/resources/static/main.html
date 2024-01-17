@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway Config</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/apistyle.css">
+</head>
+<body>
+<div class="container">
+    <!-- 탭 메뉴 부분 -->
+    <div class="tabs-container">
+        <ul class="tabs">
+            <li class="active" onclick="showTabContent('register')">등록</li>
+            <li onclick="showTabContent('list')">목록</li>
+        </ul>
+    </div>
+
+    <!-- 등록 탭 내용 -->
+    <div class="tab-content active" id="register">
+        <form id="gatewayConfigForm">
+            <label for="domain">Domain:</label><br>
+            <select id="domain" name="domain">
+                <option value="cenerp">https://erp.cengroup.co.kr</option>
+            </select><br>
+            <label for="routeid">Route ID:</label><br>
+            <input type="text" id="routeid" name="routeid" placeholder="예시) baseinfo"><br>
+            <label for="routeuri">Route URI:</label><br>
+            <input type="text" id="routeuri" name="routeuri" placeholder="예시) /cenerp/openapi/baseInfo"><br>
+            <label for="circuitbreaker">CircuitBreaker:</label><br>
+            <input type="text" id="circuitbreaker" name="circuitbreaker" placeholder="예시) erpServiceBaseInfoCircuitBreaker"><br>
+            <label for="path">Path:</label><br>
+            <input type="text" id="path" name="path" placeholder="예시) /api2/openapi/baseInfo"><br><br>
+            HTTP Method:<br>
+            <input type="radio" id="GET" name="methods" value="GET">
+            <label for="GET">GET</label>
+            <input type="radio" id="POST" name="methods" value="POST">
+            <label for="POST">POST</label>
+            <input type="radio" id="PUT" name="methods" value="PUT">
+            <label for="PUT">PUT</label>
+            <input type="radio" id="PATCH" name="methods" value="PATCH">
+            <label for="PATCH">PATCH</label>
+
+            <input type="button" value="저장" onclick="saveData()">
+        </form>
+    </div>
+
+    <!-- 목록 탭 내용 (이 부분은 원하는 대로 내용을 추가/수정하시면 됩니다) -->
+    <div class="tab-content" id="list">
+        <form id="gatewayListForm">
+            <label for="domain">Domain:</label><br>
+            <select id="domain" name="domain">
+                <option value="cenerp">https://erp.cengroup.co.kr</option>
+            </select><br>
+            <label for="routeid">Route ID:</label><br>
+            <input type="text" id="routeid" name="routeid" placeholder="예시) baseinfo"><br>
+            <label for="routeuri">Route URI:</label><br>
+            <input type="text" id="routeuri" name="routeuri" placeholder="예시) /cenerp/openapi/baseInfo"><br>
+            <label for="circuitbreaker">CircuitBreaker:</label><br>
+            <input type="text" id="circuitbreaker" name="circuitbreaker" placeholder="예시) erpServiceBaseInfoCircuitBreaker"><br>
+            <label for="path">Path:</label><br>
+            <input type="text" id="path" name="path" placeholder="예시) /api2/openapi/baseInfo">
+            <input type="button" value="저장" onclick="saveData()">
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    function saveData() {
+        const method = $('input[name="methods"]:checked').val();
+
+        const postData = {
+            domain: $('#domain').val(),
+            routeid: $('#routeid').val(),
+            routeuri: $('#routeuri').val(),
+            circuitbreaker: $('#circuitbreaker').val(),
+            path: $('#path').val(),
+            method: method
+        };
+
+        $.ajax({
+            url: "/api/saveGatewayConfig",
+            type: "POST",
+            data: JSON.stringify(postData),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                alert('저장되었습니다!');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('An occured error: ' + errorThrown);
+            }
+        });
+    }
+
+    // 탭 내용을 보여주는 함수
+    function showTabContent(tabId) {
+        // tab hide
+        document.querySelectorAll('.tab-content').forEach(tabContent => {
+            tabContent.classList.remove('active');
+        });
+        // tab active
+        document.querySelectorAll('.tabs li').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        // chosen tab and information activition
+        document.getElementById(tabId).classList.add('active');
+        document.querySelector(`.tabs li[onclick="showTabContent('${tabId}')"]`).classList.add('active');
+    }
+</script>
+
+</body>
+</html>

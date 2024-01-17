@@ -1,0 +1,182 @@
+{
+  "groups": [
+    {
+      "name": "api.centerr",
+      "type": "com.devops.api2.gateway.service.definition.Api2CENTerrDefinition",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2CENTerrDefinition"
+    },
+    {
+      "name": "api.erp",
+      "type": "com.devops.api2.gateway.service.definition.Api2ErpDefinition",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "spring.cloud.gateway",
+      "type": "com.devops.api2.gateway.locator.definition.BaseGatewayProperties",
+      "sourceType": "com.devops.api2.gateway.locator.definition.BaseGatewayProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "api.centerr.base-url",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2CENTerrDefinition"
+    },
+    {
+      "name": "api.centerr.i-f-p-m-s-e-r-p01",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2CENTerrDefinition"
+    },
+    {
+      "name": "api.erp.acntinfo",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.acntsmap",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.arcollects",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.base-info",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.base-url",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.company",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.contusersdo",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.costprojectinfo",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.dept",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.deptacntinfo",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.deptpersexp",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.dirctpersexp",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.exchrateinfo",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.hometaxstatus",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.magaminfocenerp",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.magaminfocenpcs",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.magaminfofinalcenerp",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.magamplbonds",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.magamvendorbonds",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.orderdeptmove",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.projectamtinfo",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.reversetaxes",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.reversetaxespost",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.slipinfos",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.slipinfospost",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.taxes",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.vendorbonds",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.vendors",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "api.erp.vendorscharges",
+      "type": "java.lang.String",
+      "sourceType": "com.devops.api2.gateway.service.definition.Api2ErpDefinition"
+    },
+    {
+      "name": "spring.cloud.gateway.default-filters",
+      "type": "java.util.List<com.devops.api2.gateway.locator.definition.FilterDefinition>",
+      "sourceType": "com.devops.api2.gateway.locator.definition.BaseGatewayProperties"
+    }
+  ],
+  "hints": []
+}
