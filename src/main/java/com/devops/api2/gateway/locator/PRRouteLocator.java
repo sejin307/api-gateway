@@ -85,7 +85,7 @@ public class PRRouteLocator {
                         .uri(targetPRPath))
                 .route("getItemTaxonomyInfo-so", r -> r.path("/interface/getItemTaxonomyInfo.so")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
-                                getFilterConfig("prServiceItemTaxonomyInfoCircuitBreaker")).toArray(new GatewayFilter[0])))
+                                getFilterConfig("prServiceGetItemTaxonomyInfoCircuitBreaker")).toArray(new GatewayFilter[0])))
                         .uri(targetPRPath))
                 .route("getItemStandardInfo-so", r -> r.path("/interface/getItemStandardInfo.so")
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
