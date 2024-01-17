@@ -48,3 +48,7 @@ api:
     doBusinessIncomePayConfirm-so: /interface/doBusinessIncomePayConfirm.so #POST
 
     #CENTerr > PR
+    projectSave-so: /interface/projectSave.so #POST
+    getItemTaxonomyInfo-so: /interface/getItemTaxonomyInfo.so
+    getItemStandardInfo-so: /interface/getItemStandardInfo.so
+    #getContractInfo-so: /interface/centerr/getContractInfo.so

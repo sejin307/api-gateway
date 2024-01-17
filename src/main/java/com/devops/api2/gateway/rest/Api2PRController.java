@@ -55,6 +55,20 @@ public class Api2PRController {
         return doExecute(restRequestPRService::getDoBusinessIncomePayConfirmData, requestBody);
     }
 
+    @PostMapping("/interface/projectSave-so")
+    public Mono<String> projectSaveData(@RequestBody Map<String, Object> requestBody) {
+        return doExecute(restRequestPRService::projectSaveData, requestBody);
+    }
+
+    @GetMapping("/interface/getItemTaxonomyInfo-so")
+    public Mono<String> getItemTaxonomyInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestPRService::getItemTaxonomyInfoData,queryParams);
+    }
+
+    @GetMapping("/interface/getItemStandardInfo-so")
+    public Mono<String> getItemStandardInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestPRService::getItemStandardInfoData,queryParams);
+    }
 
     @FunctionalInterface
     public interface ServiceCallerMap {
