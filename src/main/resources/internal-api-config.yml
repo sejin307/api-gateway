@@ -4,7 +4,7 @@ definition:
   baseUrl: http://127.0.0.1:8080
 api:
   erp:
-    #CENTerr
+    #CENTerr > CenERP
     baseInfo: /cenerp/openapi/baseInfo
     dept: /cenerp/openapi/dept
     company: /cenerp/openapi/company
@@ -27,14 +27,24 @@ api:
     cost-project-info: /cenerp/openapi/cost-project-info
     dept_persexp: /cenerp/openapi/dept_persexp
     exchrate_info: /cenerp/openapi/exchrate_info
-    slipinfos-post: /cenerp/openapi/slipinfos-post
-    reverse-taxes-post: /cenerp/openapi/reverse-taxes-post
+    slipinfos-post: /cenerp/openapi/slipinfos-post #POST
+    reverse-taxes-post: /cenerp/openapi/reverse-taxes-post #POST
     contUsers-do: /api/contUsers.do
 
-    #구매포탈
+    #pr > CenERP
     magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs
     taxes: /cenerp/openapi/taxes
     reverse-taxes: /cenerp/openapi/reverse-taxes
-  centerr:
-    IFPMSERP01: /api/pms/inf/act-plan-activity-hnfs
 
+  pr:
+    #CenERP > PR
+    getVendorBuyerInfo-so: /interface/getVendorBuyerInfo.so
+    getVendorNomalInfo-so: /interface/getVendorNomalInfo.so
+    getVendorManagerInfo-so: /interface/getVendorManagerInfo.so
+    getContractInfo-so: /interface/getContractInfo.so
+    getContractMonthlyPayInfo-so: /interface/getContractMonthlyPayInfo.so
+    getFIPurchaseCost-so: /interface/getFIPurchaseCost.so
+    getBusinessIncomePayConfirmInfo-so: /interface/getBusinessIncomePayConfirmInfo.so
+    doBusinessIncomePayConfirm-so: /interface/doBusinessIncomePayConfirm.so #POST
+
+    #CENTerr > PR
