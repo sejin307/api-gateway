@@ -20,6 +20,9 @@ public class Api2PRDefinition {
     private String getFIPurchaseCost;
     private String getBusinessIncomePayConfirmInfo;
     private String doBusinessIncomePayConfirm;
+    private String projectSave;
+    private String getItemTaxonomyInfo;
+    private String getItemStandardInfo;
 
     public String getBaseUrl() {
         return baseUrl;
@@ -91,5 +94,29 @@ public class Api2PRDefinition {
 
     public void setDoBusinessIncomePayConfirm(String doBusinessIncomePayConfirm) {
         this.doBusinessIncomePayConfirm = doBusinessIncomePayConfirm;
+    }
+
+    public String getProjectSave() {
+        return projectSave;
+    }
+
+    public void setProjectSave(String projectSave) {
+        this.projectSave = projectSave;
+    }
+
+    public String getGetItemTaxonomyInfo() {
+        return getItemTaxonomyInfo;
+    }
+
+    public void setGetItemTaxonomyInfo(String getItemTaxonomyInfo) {
+        this.getItemTaxonomyInfo = getItemTaxonomyInfo;
+    }
+
+    public String getGetItemStandardInfo() {
+        return getItemStandardInfo;
+    }
+
+    public void setGetItemStandardInfo(String getItemStandardInfo) {
+        this.getItemStandardInfo = getItemStandardInfo;
     }
 }

@@ -76,6 +76,25 @@ public class RestRequestPRService {
         return fetchDataPost(api2PRDefinition.getDoBusinessIncomePayConfirm(), requestBody, jwtToken);
     }
 
+    @CircuitBreaker(name = "prServiceProjectSaveCircuitBreaker", fallbackMethod = "fallbackPostPR" )
+    public Mono<String> projectSaveData(Map<String, Object> requestBody, String jwtToken) {
+        return fetchDataPost(api2PRDefinition.getProjectSave(), requestBody, jwtToken);
+    }
+
+    @CircuitBreaker(name = "prServiceGetItemTaxonomyInfoCircuitBreaker", fallbackMethod = "fallbackPR" )
+    public Mono<String> getItemTaxonomyInfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2PRDefinition.getGetItemTaxonomyInfo(), queryParams, jwtToken);
+    }
+
+    @CircuitBreaker(name = "prServiceGetItemStandardInfoCircuitBreaker", fallbackMethod = "fallbackPR" )
+    public Mono<String> getItemStandardInfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2PRDefinition.getGetItemStandardInfo(), queryParams, jwtToken);
+    }
+
+
+
+
+
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);

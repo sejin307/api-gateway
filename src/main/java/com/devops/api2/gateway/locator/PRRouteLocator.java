@@ -79,6 +79,18 @@ public class PRRouteLocator {
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                 getFilterConfig("prServiceDoBusinessIncomePayConfirmCircuitBreaker")).toArray(new GatewayFilter[0])))
                         .uri(targetPRPath))
+                .route("projectSave-so", r -> r.path("/interface/projectSave.so")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                getFilterConfig("prServiceProjectSaveCircuitBreaker")).toArray(new GatewayFilter[0])))
+                        .uri(targetPRPath))
+                .route("getItemTaxonomyInfo-so", r -> r.path("/interface/getItemTaxonomyInfo.so")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                getFilterConfig("prServiceGetItemTaxonomyInfoCircuitBreaker")).toArray(new GatewayFilter[0])))
+                        .uri(targetPRPath))
+                .route("getItemStandardInfo-so", r -> r.path("/interface/getItemStandardInfo.so")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                getFilterConfig("prServiceGetItemStandardInfoCircuitBreaker")).toArray(new GatewayFilter[0])))
+                        .uri(targetPRPath))
                 .build();
     }
 
