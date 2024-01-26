@@ -13,7 +13,7 @@ node {
     }
 
     stage('========== Push Image ==========') {
-      docker.withRegistry('https://269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev', 'ecr:ap-northeast-2:api-gw-dev') {
+      docker.withRegistry('https://269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev', 'ecr:ap-northeast-2:api-gw') {
         app.push("${env.BUILD_NUMBER}")
         app.push("latest")
       }
