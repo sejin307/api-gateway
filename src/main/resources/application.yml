@@ -17,6 +17,7 @@ targetPath: http://121.138.156.45:8080
 #targetPath: http://192.168.63.71:8080
 #targetPath: https://erp.cengroup.co.kr
 #targetPRPath: https://pr.cengroup.co.kr
+targetPRPath: http://121.138.156.44:8080
 
 #SpringBoot 설정
 spring:
