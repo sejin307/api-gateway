@@ -9,11 +9,11 @@ node {
     }
 
     stage('========== Build Image ==========') {
-      app = docker.build("api-gw", ".")
+      app = docker.build("api-gw-dev", ".")
     }
 
     stage('========== Push Image ==========') {
-      docker.withRegistry('https://269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev', 'ecr:ap-northeast-2:api-gw') {
+      docker.withRegistry('https://269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev', 'ecr:ap-northeast-2:api-gw-dev') {
         app.push("${env.BUILD_NUMBER}")
         app.push("latest")
       }
