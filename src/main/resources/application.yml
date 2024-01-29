@@ -28,9 +28,12 @@ spring:
 #    url: jdbc:mysql://localhost:1031/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
 #    username: api2
 #    password: itcenapi202412#
-    url: jdbc:mysql://centerr-dev.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+#    url: jdbc:mysql://centerr-dev.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+#    username: api2
+#    password: itcengo3#apigw
+    url: jdbc:mysql://centerr-prod.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
     username: api2
-    password: itcengo3#apigw
+    password: itcenapi202412#
     #driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 5      #TODO: prod조정
