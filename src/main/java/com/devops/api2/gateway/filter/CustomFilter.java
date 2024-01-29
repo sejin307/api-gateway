@@ -69,11 +69,11 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                         //231018 Request param, body, method 추가 sejin
                         String requestQueryParam = exchange.getRequest().getQueryParams().toString();
 
-
                         String requestMethod = exchange.getRequest().getMethod().toString();
                         String requestHeader = exchange.getRequest().getHeaders().toString();
 
-                        saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam, requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
+                        //개발서버 로그 insert 안되도록
+                        //saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam, requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
                     }));
         };
     }
