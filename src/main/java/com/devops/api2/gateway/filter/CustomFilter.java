@@ -73,7 +73,7 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                         String requestHeader = exchange.getRequest().getHeaders().toString();
 
                         //개발서버 로그 insert 안되도록
-                        //saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam, requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
+                        saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam, requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
                     }));
         };
     }
