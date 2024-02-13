@@ -112,19 +112,20 @@ public class CryptoUtils {
             //String plainStr = "centerr/CENTerr!@#4"; //CENTerr   ex) xrSG7vApBIiKkG%2BXh6wvPBh0y4owT5RnD7asS%2FeIX00%3D%0D%0A
             //String plainStr = "purchase/Purchase!@#4"; //구매   ex) gpVJeolUkIAnRyIRgxQ%2Bnw3ZA8clEMVEqjp0YCvvbfQ%3D%0D%0A
             //String plainStr = "z37cVTlpXxbc+Pte+pzjwbMnSOQMtU5uuEO5cDb/kknAEXJsk/0esEm+jMXLdPX1";
-//            String plainStr = "groupware/GroupWare!@#4"; //Groupware ex)xrSG7vApBIiKkG%2BXh6wvPBh0y4owT5RnD7asS%2FeIX00%3D%0D%0A
-//
-//            String encryptedStr =  encrypt(plainStr);
-//            String urlEncodedStr = URLEncoder.encode(encryptedStr);
+            //String plainStr = "groupware/GroupWare!@#4"; //Groupware ex)xrSG7vApBIiKkG%2BXh6wvPBh0y4owT5RnD7asS%2FeIX00%3D%0D%0A
+            String plainStr = "secucen/SecucenIO!@#4"; //V9HNQAeAXTvH0OueWCChrn9xSEGnMHxyYVWlVFpjrDg%3D%0D%0A
+            String encryptedStr =  encrypt(plainStr);
+            String urlEncodedStr = URLEncoder.encode(encryptedStr);
             //String urlDecodedStr = URLDecoder.decode(urlEncodedStr);
-            String urlDecodedStr = URLDecoder.decode("KI3emM0sC8UILzgjtjxPcUog1KD1ItySOTf8enmBATWDndLk5UDKwOlqBLoZWHJF");
+//            String urlDecodedStr = URLDecoder.decode("KI3emM0sC8UILzgjtjxPcUog1KD1ItySOTf8enmBATWDndLk5UDKwOlqBLoZWHJF");
 
             //yguqGeglouCvlHurxAey4IdvqsRVlrGFtS9VJmdXTZ8%3D%0D%0A
-//            System.out.println("~~~~~~~~~~~~>urlEncodedStr : " + urlEncodedStr);
-//            System.out.println("~~~~~~~~~~~~>encryptedStr : " + encryptedStr);
+            System.out.println("~~~~~~~~~~~~>urlEncodedStr : " + urlEncodedStr);
+            System.out.println("~~~~~~~~~~~~>encryptedStr : " + encryptedStr);
              //String decryptedStr = decrypt(encryptedStr);
-            String decryptedStr = decrypt(urlDecodedStr);
-             System.out.println("~~~~~~~~~~~~> decryptedStr :" + decryptedStr);
+//            String decryptedStr = decrypt(urlDecodedStr);
+
+//             System.out.println("~~~~~~~~~~~~> decryptedStr :" + decryptedStr);
         }catch (Exception e) {
             // TODO: handle exception
         }
