@@ -9,7 +9,7 @@ node {
     }
 
     stage('========== Build Image ==========') {
-        app = docker.build("api-gw-dev", ".")
+        app = docker.build("dev-api-gw", ".")
     }
 
     stage('========== Push Image ==========') {
@@ -22,7 +22,7 @@ node {
     //Jenkins 플러그인 설치 필요.
     //AWS Steps (Jenkinsfile 에서 withAWS 사용), Pipeline Utility Steps (Jenkinsfile readJSON사용)
     stage('========== Update ECS Service ==========') {
-        withAWS(credentials: 'api-gw-dev') {
+        withAWS(credentials: 'dev-api-gw') {
             def executionRoleArn = "arn:aws:iam::269923429649:role/ecsTaskExecutionRole" //IAM 정책 명
             def cpu = "2048" //ECS vCPU
             def memory = "4096" //ECS Memory
