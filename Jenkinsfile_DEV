@@ -9,7 +9,7 @@ node {
     }
 
     stage('========== Build Image ==========') {
-        app = docker.build("dev-api-gw", ".")
+        app = docker.build("api-gw-dev", ".")
     }
 
     stage('========== Push Image ==========') {
