@@ -21,6 +21,7 @@ node {
 
     //Jenkins 플러그인 설치 필요.
     //AWS Steps (Jenkinsfile 에서 withAWS 사용), Pipeline Utility Steps (Jenkinsfile readJSON사용)
+    //운영TAG API_GW, 개발TAG dev-api-gw  / TAG에 따라서 Jenkins credential 을 바꿔줘야함.
     stage('========== Update ECS Service ==========') {
         withAWS(credentials: 'dev-api-gw') {
             def executionRoleArn = "arn:aws:iam::269923429649:role/ecsTaskExecutionRole" //IAM 정책 명
