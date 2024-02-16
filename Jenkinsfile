@@ -24,8 +24,8 @@ node {
      stage('========== Update ECS Service ==========') {
         withAWS(credentials: 'api-gw') {
             def executionRoleArn = "arn:aws:iam::269923429649:role/ecsTaskExecutionRole" //IAM 정책 명
-            def cpu = "2048" //ECS vCPU
-            def memory = "4096" //ECS Memory
+            def cpu = "4096" //ECS vCPU
+            def memory = "8192" //ECS Memory
             def containerName = "CEN-APIGW-Task" //태스크 명
             def containerDefName = "api-gw" //태스크의 컨테이너 명
             def image = "269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw:" + env.BUILD_NUMBER //ECR ID
