@@ -1,11 +1,10 @@
-pipeline {
+node {
     agent any
     
     tools {
         jdk 'amazoncorreto17'
     }
 
-    stages{
         stage('========== Checkout Repository ==========') {
             checkout scm
         }
@@ -59,7 +58,6 @@ pipeline {
 
                 sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\" --region \"${region}\""
 
-            }
         }
     }
 }
