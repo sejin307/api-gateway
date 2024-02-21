@@ -13,16 +13,6 @@ node {
         }
     }
   
-    stage('========== Setup JDK ==========') {
-        def javaHome = '/usr/lib/jvm/java-17-amazon-corretto'
-        withEnv(["JAVA_HOME=${javaHome}", "PATH+JAVA=${javaHome}/bin"]) {
-            stage('========== Build Application ==========') {
-                sh 'chmod +x ./gradlew'
-                sh './gradlew clean build'
-            }
-        }
-    }
-  
     /*stage('========== Build Application ==========') {
         sh 'chmod +x ./gradlew'
         sh './gradlew clean build'
