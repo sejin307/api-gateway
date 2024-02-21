@@ -161,6 +161,24 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getContUsersDoData, queryParams);
     }
 
+    /**
+     * 시큐센 인사정보연동
+     */
+    @GetMapping("/openapi/dept_secucen")
+    public Mono<String> getDeptSecucen(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getDeptSecucenData, queryParams);
+    }
+
+    @GetMapping("/openapi/baseinfo_secucen")
+    public Mono<String> getBaseinfoSecucen(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getBaseinfoSecucenData, queryParams);
+    }
+
+    @GetMapping("/openapi/order_mm")
+    public Mono<String> getOrderMM(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getOrderMMData, queryParams);
+    }
+
 
     @FunctionalInterface
     public interface ServiceCallerMap {

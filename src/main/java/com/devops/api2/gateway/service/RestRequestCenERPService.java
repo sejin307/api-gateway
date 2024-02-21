@@ -175,6 +175,20 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getContusersdo(), queryParams, jwtToken);
     }
 
+    @CircuitBreaker(name = "erpServiceDeptSecucenCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getDeptSecucenData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getDeptsecucen(), queryParams, jwtToken);
+    }
+
+    @CircuitBreaker(name = "erpServiceBaseinfoSecucenCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getBaseinfoSecucenData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getBaseinfosecucen(), queryParams, jwtToken);
+    }
+
+    @CircuitBreaker(name = "erpServiceOrderMMCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getOrderMMData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getOrdermm(), queryParams, jwtToken);
+    }
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);

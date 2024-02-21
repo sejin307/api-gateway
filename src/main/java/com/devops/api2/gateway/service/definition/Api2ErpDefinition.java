@@ -44,6 +44,10 @@ public class Api2ErpDefinition {
     private String slipinfospost;
     private String reversetaxespost;
     private String contusersdo;
+    private String deptsecucen;
+    private String baseinfosecucen;
+
+    private String ordermm;
 
 
     public String getBaseUrl() {
@@ -276,5 +280,29 @@ public class Api2ErpDefinition {
 
     public void setContusersdo(String contusersdo) {
         this.contusersdo = contusersdo;
+    }
+
+    public String getDeptsecucen() {
+        return deptsecucen;
+    }
+
+    public void setDeptsecucen(String deptsecucen) {
+        this.deptsecucen = deptsecucen;
+    }
+
+    public String getBaseinfosecucen() {
+        return baseinfosecucen;
+    }
+
+    public void setBaseinfosecucen(String baseinfosecucen) {
+        this.baseinfosecucen = baseinfosecucen;
+    }
+
+    public String getOrdermm() {
+        return ordermm;
+    }
+
+    public void setOrdermm(String ordermm) {
+        this.ordermm = ordermm;
     }
 }
