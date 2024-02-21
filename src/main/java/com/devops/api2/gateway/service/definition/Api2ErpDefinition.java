@@ -47,6 +47,8 @@ public class Api2ErpDefinition {
     private String deptsecucen;
     private String baseinfosecucen;
 
+    private String ordermm;
+
 
     public String getBaseUrl() {
         return baseUrl;
@@ -294,5 +296,13 @@ public class Api2ErpDefinition {
 
     public void setBaseinfosecucen(String baseinfosecucen) {
         this.baseinfosecucen = baseinfosecucen;
+    }
+
+    public String getOrdermm() {
+        return ordermm;
+    }
+
+    public void setOrdermm(String ordermm) {
+        this.ordermm = ordermm;
     }
 }
