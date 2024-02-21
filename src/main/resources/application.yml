@@ -13,11 +13,11 @@ CRYPTO_LEGACY_IV: cenGroupAPV20#@!
 #http://121.138.156.45:8080 (CENERP개발2 공인IP)
 #http://192.168.63.71:8080 (CENERP개발2 내부IP)
 #https://erp.cengroup.co.kr (CENERP 운영)
-targetPath: http://121.138.156.45:8080
+#targetPath: http://121.138.156.45:8080
 #targetPath: http://192.168.63.71:8080
-#targetPath: https://erp.cengroup.co.kr
-#targetPRPath: https://pr.cengroup.co.kr
-targetPRPath: http://121.138.156.44:8080
+targetPath: https://erp.cengroup.co.kr
+targetPRPath: https://pr.cengroup.co.kr
+#targetPRPath: http://121.138.156.44:8080
 
 
 #SpringBoot 설정
@@ -28,12 +28,12 @@ spring:
 #    url: jdbc:mysql://localhost:1031/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
 #    username: api2
 #    password: itcenapi202412#
-    url: jdbc:mysql://centerr-dev.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
-    username: api2
-    password: itcengo3#apigw
-#    url: jdbc:mysql://centerr-prod.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+#    url: jdbc:mysql://centerr-dev.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
 #    username: api2
-#    password: itcenapi202412#
+#    password: itcengo3#apigw
+    url: jdbc:mysql://centerr-prod.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    username: api2
+    password: itcenapi202412#
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 5      #TODO: prod조정
