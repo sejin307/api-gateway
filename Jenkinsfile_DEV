@@ -57,7 +57,7 @@ node {
             sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --tags key=Service,value=dev-api-gw --region \"${region}\" "
 
             def clusterName = "DEV-Cengroup-APIGW-Cluster" //ECS 클러스터명
-            def serviceName = "DEV-CEN_APIGW-Service" //ECS 서비스명
+            def serviceName = "DEV-CEN_APIGW_SVC" //ECS 서비스명
             def taskDefinition = "DEV-CEN-APIGW-Task:" + newRevision //ECS 태스크정의
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\" --region \"${region}\""
