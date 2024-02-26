@@ -1,6 +1,5 @@
 package com.devops.api2.gateway.service;
 
-import com.devops.api2.gateway.service.definition.Api2ErpDefinition;
 import com.devops.api2.gateway.service.definition.Api2PRDefinition;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

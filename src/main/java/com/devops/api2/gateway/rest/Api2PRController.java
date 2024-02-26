@@ -1,7 +1,5 @@
 package com.devops.api2.gateway.rest;
 
-
-import com.devops.api2.gateway.service.RestRequestCenERPService;
 import com.devops.api2.gateway.service.RestRequestPRService;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -20,52 +18,52 @@ public class Api2PRController {
         this.restRequestPRService = restRequestPRService;
     }
 
-    @GetMapping("/interface/getVendorBuyerInfo-so")
+    @GetMapping("/openapi/getVendorBuyerInfo")
     public Mono<String> getVendorBuyerInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getVendorBuyerInfoData,queryParams);
     }
 
-    @GetMapping("/interface/getVendorNomalInfo-so")
+    @GetMapping("/openapi/getVendorNomalInfo")
     public Mono<String> getVendorNomalInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getVendorNomalInfoData,queryParams);
     }
-    @GetMapping("/interface/getVendorManagerInfo-so")
+    @GetMapping("/openapi/getVendorManagerInfo")
     public Mono<String> getVendorManagerInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getVendorManagerInfoData,queryParams);
     }
-    @GetMapping("/interface/getContractInfo-so")
+    @GetMapping("/openapi/getContractInfo")
     public Mono<String> getContractInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getContractInfoData,queryParams);
     }
-    @GetMapping("/interface/getContractMonthlyPayInfo-so")
+    @GetMapping("/openapi/getContractMonthlyPayInfo")
     public Mono<String> getContractMonthlyPayInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getContractMonthlyPayInfoData,queryParams);
     }
-    @GetMapping("/interface/getFIPurchaseCost-so")
+    @GetMapping("/openapi/getFIPurchaseCost")
     public Mono<String> getFIPurchaseCostData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getFIPurchaseCostData,queryParams);
     }
-    @GetMapping("/interface/getBusinessIncomePayConfirmInfo-so")
+    @GetMapping("/openapi/getBusinessIncomePayConfirmInfo")
     public Mono<String> getBusinessIncomePayConfirmInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getBusinessIncomePayConfirmInfoData,queryParams);
     }
 
-    @PostMapping("/interface/doBusinessIncomePayConfirm")
+    @PostMapping("/openapi/doBusinessIncomePayConfirm")
     public Mono<String> getDoBusinessIncomePayConfirmData(@RequestBody Map<String, Object> requestBody) {
         return doExecute(restRequestPRService::getDoBusinessIncomePayConfirmData, requestBody);
     }
 
-    @PostMapping("/interface/projectSave-so")
+    @PostMapping("/openapi/projectSave")
     public Mono<String> projectSaveData(@RequestBody Map<String, Object> requestBody) {
         return doExecute(restRequestPRService::projectSaveData, requestBody);
     }
 
-    @GetMapping("/interface/getItemTaxonomyInfo-so")
+    @GetMapping("/openapi/getItemTaxonomyInfo")
     public Mono<String> getItemTaxonomyInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getItemTaxonomyInfoData,queryParams);
     }
 
-    @GetMapping("/interface/getItemStandardInfo-so")
+    @GetMapping("/openapi/getItemStandardInfo")
     public Mono<String> getItemStandardInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getItemStandardInfoData,queryParams);
     }
