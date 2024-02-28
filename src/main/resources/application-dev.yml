@@ -14,7 +14,7 @@ CRYPTO_LEGACY_IV: cenGroupAPV20#@!
 #http://192.168.63.71:8080 (CENERP개발2 내부IP)
 #https://erp.cengroup.co.kr (CENERP 운영)
 
-targetPath: http://192.168.63.71:8080
+targetPath: http://121.138.156.45:8080
 targetPRPath: http://121.138.156.44:8080
 
 
@@ -22,8 +22,8 @@ targetPRPath: http://121.138.156.44:8080
 spring:
   #데이터베이스 설정 과 커넥션풀 설정
   datasource:
-    #로컬
-    url: jdbc:mysql://localhost:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    #개발
+    url: jdbc:mysql://centerr-dev.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
     username: api2
     password: itcengo3#apigw
     driver-class-name: com.mysql.cj.jdbc.Driver
