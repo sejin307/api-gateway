@@ -38,7 +38,7 @@ node {
             def region = "ap-northeast-2" //리전
 
             def taskdef = sh(script: """
-                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --region "${region}" --tags key=Service,value=dev-api-gw --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerDefName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"environment\\": [{\\"name\\": \\"spring.profiles.active\\",\\"value\\": \\"dev\\"}],\\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"
+                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --region "${region}" --tags key=Service,value=dev-api-gw --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerDefName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"
             """, returnStdout: true)
 
 
