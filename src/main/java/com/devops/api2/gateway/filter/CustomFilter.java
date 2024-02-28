@@ -8,18 +8,12 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 라우팅 서비스에서 공통으로 활용하는 필터
@@ -64,7 +58,21 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                         String requestPath = exchange.getRequest().getPath().toString();
                         Integer responseStatus = exchange.getResponse().getStatusCode().value();
                         String remoteAddress = exchange.getRequest().getRemoteAddress().getAddress().toString();
-                        String requestBodyParam = (String) exchange.getAttributes().get("requestBodyParam");// TODO:이게안댐..
+                        AtomicReference<String> requestBodyParam = new AtomicReference<>((String) exchange.getAttributes().get("requestBodyParam"));// TODO:이게안댐..
+
+                        // 참조 : https://velog.io/@aaa6400/Spring-Webflux-%EB%A6%AC%ED%80%98%EC%8A%A4%ED%8A%B8%EB%B0%94%EB%94%94-%EC%BA%90%EC%8B%B1%ED%95%98%EA%B8%B0
+                        // 운영배포시 gateway_logs 테이블 request_bodyparam 컬럼 타입 mediumtext 변경 필수 !!!!!!
+                        exchange.getRequest()
+                                .getBody()
+                                .map(dataBuffer -> {
+                                    final byte[] bytes = new byte[dataBuffer.readableByteCount()];
+
+                                    DataBufferUtils.release(dataBuffer.read(bytes));
+
+                                    requestBodyParam.set(new String(bytes));
+
+                                    return new String(bytes);})
+                                .subscribe();
 
                         //231018 Request param, body, method 추가 sejin
                         String requestQueryParam = exchange.getRequest().getQueryParams().toString();
@@ -73,7 +81,7 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                         String requestHeader = exchange.getRequest().getHeaders().toString();
 
                         //개발서버 로그 insert 안되도록
-                        saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam, requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
+                        saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam.get(), requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
                     }));
         };
     }
