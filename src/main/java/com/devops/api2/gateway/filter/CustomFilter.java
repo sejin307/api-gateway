@@ -61,16 +61,13 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                         AtomicReference<String> requestBodyParam = new AtomicReference<>((String) exchange.getAttributes().get("requestBodyParam"));// TODO:이게안댐..
 
                         // 참조 : https://velog.io/@aaa6400/Spring-Webflux-%EB%A6%AC%ED%80%98%EC%8A%A4%ED%8A%B8%EB%B0%94%EB%94%94-%EC%BA%90%EC%8B%B1%ED%95%98%EA%B8%B0
-                        // 운영배포시 gateway_logs 테이블 request_bodyparam 컬럼 타입 mediumtext 변경 필수 !!!!!!
+                        // 운영배포시 gateway_logs 테이블 request_bodyparam 컬럼 타입 mediumtext 변경 필수 !!!!!! by jwchu
                         exchange.getRequest()
                                 .getBody()
                                 .map(dataBuffer -> {
                                     final byte[] bytes = new byte[dataBuffer.readableByteCount()];
-
                                     DataBufferUtils.release(dataBuffer.read(bytes));
-
                                     requestBodyParam.set(new String(bytes));
-
                                     return new String(bytes);})
                                 .subscribe();
 
