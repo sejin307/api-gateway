@@ -5,10 +5,9 @@ node {
 
     stage('========== Setup JDK and Build Application ==========') {
         def javaHome = '/usr/lib/jvm/java-17-amazon-corretto'
-        def executeProfile = env.ACTIVE_PROFILE == 'prd' ? 'prd' : 'dev'
         withEnv(["JAVA_HOME=${javaHome}", "PATH+JAVA=${javaHome}/bin"]) {
             sh 'chmod +x ./gradlew'
-            sh "./gradlew clean build -Pprofile=${executeProfile}"
+            sh './gradlew clean build'
         }
     }
 
