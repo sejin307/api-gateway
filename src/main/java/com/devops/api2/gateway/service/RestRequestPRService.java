@@ -90,10 +90,25 @@ public class RestRequestPRService {
         return fetchData(api2PRDefinition.getGetItemStandardInfo(), queryParams, jwtToken);
     }
 
+    @CircuitBreaker(name = "prServiceCpResultCircuitBreaker", fallbackMethod = "fallbackPostPR" )
+    public Mono<String> cpResultData(Map<String, Object> requestBody, String jwtToken) {
+        return fetchDataPost(api2PRDefinition.getCpResult(), requestBody, jwtToken);
+    }
 
+    @CircuitBreaker(name = "prServiceGiResultCircuitBreaker", fallbackMethod = "fallbackPostPR" )
+    public Mono<String> giResultData(Map<String, Object> requestBody, String jwtToken) {
+        return fetchDataPost(api2PRDefinition.getGiResult(), requestBody, jwtToken);
+    }
 
+    @CircuitBreaker(name = "prServiceGetContractInfoCENTerrCircuitBreaker", fallbackMethod = "fallbackPR" )
+    public Mono<String> getContractInfoCENTerr(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2PRDefinition.getGetContractInfoCENTerr(), queryParams, jwtToken);
+    }
 
-
+    @CircuitBreaker(name = "prServiceGetContractMonthlyPayPlanCircuitBreaker", fallbackMethod = "fallbackPR" )
+    public Mono<String> getContractMonthlyPayPlan(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2PRDefinition.getGetContractMonthlyPayPlan(), queryParams, jwtToken);
+    }
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);

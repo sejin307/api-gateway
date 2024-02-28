@@ -91,6 +91,23 @@ public class PRRouteLocator {
                         .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
                                 getFilterConfig("prServiceGetItemStandardInfoCircuitBreaker")).toArray(new GatewayFilter[0])))
                         .uri(targetPRPath))
+                /////////////////////////////////
+                .route("cpResult", r -> r.path("/interface/cpResult.so")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                getFilterConfig("prServiceCpResultCircuitBreaker")).toArray(new GatewayFilter[0])))
+                        .uri(targetPRPath))
+                .route("giResult", r -> r.path("/interface/giResult.so")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                getFilterConfig("prServiceGiResultCircuitBreaker")).toArray(new GatewayFilter[0])))
+                        .uri(targetPRPath))
+                .route("getContractInfoCENTerr", r -> r.path("/interface/centerr/getContractInfo.so")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                getFilterConfig("prServiceGetContractInfoCENTerrCircuitBreaker")).toArray(new GatewayFilter[0])))
+                        .uri(targetPRPath))
+                .route("getContractMonthlyPayPlan", r -> r.path("/interface/centerr/getContractMonthlyPayPlan.so")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                getFilterConfig("prServiceGetContractMonthlyPayPlanCircuitBreaker")).toArray(new GatewayFilter[0])))
+                        .uri(targetPRPath))
                 .build();
     }
 

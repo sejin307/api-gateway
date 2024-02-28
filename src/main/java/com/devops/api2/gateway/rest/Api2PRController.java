@@ -68,6 +68,28 @@ public class Api2PRController {
         return doExecute(restRequestPRService::getItemStandardInfoData,queryParams);
     }
 
+    @PostMapping("/openapi/cpResult")
+    public Mono<String> getCpResultData(@RequestBody Map<String, Object> requestBody) {
+        return doExecute(restRequestPRService::cpResultData, requestBody);
+    }
+
+    @PostMapping("/openapi/giResult")
+    public Mono<String> getGiResultData(@RequestBody Map<String, Object> requestBody) {
+        return doExecute(restRequestPRService::giResultData, requestBody);
+    }
+
+    @GetMapping("/openapi/getContractInfoCENTerr")
+    public Mono<String> getContractInfoCENTerrData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestPRService::getContractInfoCENTerr,queryParams);
+    }
+
+    @GetMapping("/openapi/getContractMonthlyPayPlan")
+    public Mono<String> getContractMonthlyPayPlanData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestPRService::getContractMonthlyPayPlan,queryParams);
+    }
+
+
+
     @FunctionalInterface
     public interface ServiceCallerMap {
         Mono<String> call(Map<String, Object> param, String jwtToken);
