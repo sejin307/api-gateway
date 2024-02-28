@@ -3,20 +3,14 @@ node {
         checkout scm
     }
 
-    stage('========== Setup JDK ==========') {
+    stage('========== Setup JDK and Build Application ==========') {
         def javaHome = '/usr/lib/jvm/java-17-amazon-corretto'
+        def executeProfile = env.ACTIVE_PROFILE == 'prd' ? 'prd' : 'dev'
         withEnv(["JAVA_HOME=${javaHome}", "PATH+JAVA=${javaHome}/bin"]) {
-            stage('========== Build Application ==========') {
-                sh 'chmod +x ./gradlew'
-                sh './gradlew clean build'
-            }
+            sh 'chmod +x ./gradlew'
+            sh "./gradlew clean build -Pprofile=${executeProfile}"
         }
     }
-
-    /*stage('========== Build Application ==========') {
-        sh 'chmod +x ./gradlew'
-        sh './gradlew clean build'
-    }*/
 
     stage('========== Build Image ==========') {
         app = docker.build("api-gw-dev", ".")
@@ -44,7 +38,7 @@ node {
             def region = "ap-northeast-2" //리전
 
             def taskdef = sh(script: """
-                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --region "${region}" --tags key=Service,value=dev-api-gw --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerDefName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"
+                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --region "${region}" --tags key=Service,value=dev-api-gw --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerDefName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"environment\\": [{\\"name\\": \\"spring.profiles.active\\",\\"value\\": \\"dev\\"}],\\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"
             """, returnStdout: true)
 
 
@@ -57,7 +51,7 @@ node {
             sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --tags key=Service,value=dev-api-gw --region \"${region}\" "
 
             def clusterName = "DEV-Cengroup-APIGW-Cluster" //ECS 클러스터명
-            def serviceName = "DEV-CEN_APIGW_SVC" //ECS 서비스명
+            def serviceName = "DEV-CEN_APIGW-Service" //ECS 서비스명
             def taskDefinition = "DEV-CEN-APIGW-Task:" + newRevision //ECS 태스크정의
 
             sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\" --region \"${region}\""
