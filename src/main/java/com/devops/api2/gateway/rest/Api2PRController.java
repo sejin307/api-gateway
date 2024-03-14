@@ -5,6 +5,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -49,7 +50,7 @@ public class Api2PRController {
     }
 
     @PostMapping("/openapi/doBusinessIncomePayConfirm")
-    public Mono<String> getDoBusinessIncomePayConfirmData(@RequestBody Map<String, Object> requestBody) {
+    public Mono<String> getDoBusinessIncomePayConfirmData(@RequestBody List<Map<String, Object>> requestBody) {
         return doExecute(restRequestPRService::getDoBusinessIncomePayConfirmData, requestBody);
     }
 
@@ -100,12 +101,22 @@ public class Api2PRController {
         Mono<String> call(MultiValueMap<String, String> param, String jwtToken);
     }
 
+    @FunctionalInterface
+    public interface ServiceCallerListMap {
+        Mono<String> call(List<Map<String, Object>> param, String jwtToken);
+    }
+
     private <T> Mono<String> doExecute(Api2PRController.ServiceCallerMap serviceCaller, Map<String, Object> param) {
         return extractJwtFromContext()
                 .flatMap(jwtToken -> serviceCaller.call(param, jwtToken));
     }
 
-    private <T> Mono<String> doExecute(Api2ErpController.ServiceCallerMultiValueMap serviceCaller, MultiValueMap<String, String> param) {
+    private <T> Mono<String> doExecute(Api2PRController.ServiceCallerListMap serviceCaller, List<Map<String, Object>> param) {
+        return extractJwtFromContext()
+                .flatMap(jwtToken -> serviceCaller.call(param, jwtToken));
+    }
+
+    private <T> Mono<String> doExecute(Api2PRController.ServiceCallerMultiValueMap serviceCaller, MultiValueMap<String, String> param) {
         return extractJwtFromContext()
                 .flatMap(jwtToken -> serviceCaller.call(param, jwtToken));
     }
