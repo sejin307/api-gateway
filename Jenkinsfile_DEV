@@ -27,7 +27,7 @@ node {
     }
 
     stage('========== Push Image ==========') {
-        docker.withRegistry("https://${globalConfig.ecrRepository}", 'ecr:${globalConfig.region}:${globalConfig.ecrRepository.split("/")[0]}') {
+        docker.withRegistry("https://${globalConfig.ecrRepository}", "ecr:${globalConfig.region}:${globalConfig.ecrRepository.split('/')[0]}") {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
