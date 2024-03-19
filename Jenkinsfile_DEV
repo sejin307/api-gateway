@@ -36,6 +36,13 @@ node {
     stage('========== Update ECS Service ==========') {
         withAWS(region: globalConfig.region, credentials: 'dev-api-gw') {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
+
+            def logOptions = [
+                    'awslogs-group': globalConfig.logGroup,
+                    'awslogs-region': globalConfig.region,
+                    'awslogs-stream-prefix': 'ecs'
+            ]
+
             def containerDefinitions = [
                     [
                             name: globalConfig.containerDefName,
@@ -43,9 +50,9 @@ node {
                             cpu: 2048,
                             memory: 4096,
                             essential: true,
-                            environment: [[name: "spring.profiles.active", value: "dev"]],
-                            portMappings: [[containerPort: 8080, protocol: "tcp"]],
-                            logConfiguration: [logDriver: "awslogs", options: [awslogs-group: globalConfig.logGroup, awslogs-region: globalConfig.region, awslogs-stream-prefix: "ecs"]]
+                            environment: [[name: 'spring.profiles.active', value: 'dev']],
+                            portMappings: [[containerPort: 8080, protocol: 'tcp']],
+                            logConfiguration: [logDriver: 'awslogs', options: logOptions]
                     ]
             ]
 
