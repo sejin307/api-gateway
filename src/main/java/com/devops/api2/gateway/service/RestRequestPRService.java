@@ -77,8 +77,8 @@ public class RestRequestPRService {
     }
 
     @CircuitBreaker(name = "prServiceProjectSaveCircuitBreaker", fallbackMethod = "fallbackPostPR" )
-    public Mono<String> projectSaveData(Map<String, Object> requestBody, String jwtToken) {
-        return fetchDataPost(api2PRDefinition.getProjectSave(), requestBody, jwtToken);
+    public Mono<String> projectSaveData(List<Map<String, Object>> requestBody, String jwtToken) {
+        return fetchDataPostArray(api2PRDefinition.getProjectSave(), requestBody, jwtToken);
     }
 
     @CircuitBreaker(name = "prServiceGetItemTaxonomyInfoCircuitBreaker", fallbackMethod = "fallbackPR" )
@@ -92,13 +92,13 @@ public class RestRequestPRService {
     }
 
     @CircuitBreaker(name = "prServiceCpResultCircuitBreaker", fallbackMethod = "fallbackPostPR" )
-    public Mono<String> cpResultData(Map<String, Object> requestBody, String jwtToken) {
-        return fetchDataPost(api2PRDefinition.getCpResult(), requestBody, jwtToken);
+    public Mono<String> cpResultData(List<Map<String, Object>> requestBody, String jwtToken) {
+        return fetchDataPostArray(api2PRDefinition.getCpResult(), requestBody, jwtToken);
     }
 
     @CircuitBreaker(name = "prServiceGiResultCircuitBreaker", fallbackMethod = "fallbackPostPR" )
-    public Mono<String> giResultData(Map<String, Object> requestBody, String jwtToken) {
-        return fetchDataPost(api2PRDefinition.getGiResult(), requestBody, jwtToken);
+    public Mono<String> giResultData(List<Map<String, Object>> requestBody, String jwtToken) {
+        return fetchDataPostArray(api2PRDefinition.getGiResult(), requestBody, jwtToken);
     }
 
     @CircuitBreaker(name = "prServiceGetContractInfoCENTerrCircuitBreaker", fallbackMethod = "fallbackPR" )

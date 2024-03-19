@@ -55,7 +55,7 @@ public class Api2PRController {
     }
 
     @PostMapping("/openapi/projectSave")
-    public Mono<String> projectSaveData(@RequestBody Map<String, Object> requestBody) {
+    public Mono<String> projectSaveData(@RequestBody List<Map<String, Object>> requestBody) {
         return doExecute(restRequestPRService::projectSaveData, requestBody);
     }
 
@@ -70,12 +70,12 @@ public class Api2PRController {
     }
 
     @PostMapping("/openapi/cpResult")
-    public Mono<String> getCpResultData(@RequestBody Map<String, Object> requestBody) {
+    public Mono<String> getCpResultData(@RequestBody List<Map<String, Object>> requestBody) {
         return doExecute(restRequestPRService::cpResultData, requestBody);
     }
 
     @PostMapping("/openapi/giResult")
-    public Mono<String> getGiResultData(@RequestBody Map<String, Object> requestBody) {
+    public Mono<String> getGiResultData(@RequestBody List<Map<String, Object>> requestBody) {
         return doExecute(restRequestPRService::giResultData, requestBody);
     }
 
