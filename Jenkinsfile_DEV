@@ -84,12 +84,12 @@ node {
             def taskDefinitionJson = """
         {
             "family": "${globalConfig.containerName}",
-            "network-mode": "awsvpc",
-            "requires-compatibilities": ["FARGATE"],
-            "execution-role-arn": "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
+            "networkMode": "awsvpc",
+            "requiresCompatibilities": ["FARGATE"],
+            "executionRoleArn": "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
             "cpu": "2048",
             "memory": "4096",
-            "container-definitions": [
+            "containerDefinitions": [
                 {
                     "name": "${globalConfig.containerDefName}",
                     "image": "${image}",
