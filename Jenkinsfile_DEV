@@ -80,7 +80,7 @@ node {
     }*/
 
     stage('========== Update ECS Service ==========') {
-        withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
+        withAWS(region: globalConfig.region, credentials: 'dev-api-gw') {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
             def taskDefinitionJson = """
         {
