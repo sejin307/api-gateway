@@ -35,7 +35,7 @@ node {
         }
     }
 
-    stage('========== Update ECS Service ==========') {
+    /*stage('========== Update ECS Service ==========') {
         withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
 
@@ -77,5 +77,57 @@ node {
             def taskDefinition = "${globalConfig.containerName}:${newRevision}"
             ecsUpdateService(cluster: globalConfig.ecsClusterName, service: globalConfig.ecsServiceName, taskDefinition: taskDefinition)
         }
+    }*/
+
+    stage('========== Update ECS Service ==========') {
+        withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
+            def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
+            def taskDefinitionJson = """
+        {
+            "family": "${globalConfig.containerName}",
+            "networkMode": "awsvpc",
+            "requiresCompatibilities": ["FARGATE"],
+            "executionRoleArn": "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
+            "cpu": "2048",
+            "memory": "4096",
+            "containerDefinitions": [
+                {
+                    "name": "${globalConfig.containerDefName}",
+                    "image": "${image}",
+                    "cpu": 2048,
+                    "memory": 4096,
+                    "essential": true,
+                    "environment": [
+                        {"name": "spring.profiles.active", "value": "dev"}
+                    ],
+                    "portMappings": [
+                        {"containerPort": 8080, "protocol": "tcp"}
+                    ],
+                    "logConfiguration": {
+                        "logDriver": "awslogs",
+                        "options": {
+                            "awslogs-group": "${globalConfig.logGroup}",
+                            "awslogs-region": "${globalConfig.region}",
+                            "awslogs-stream-prefix": "ecs"
+                        }
+                    }
+                }
+            ]
+        }
+        """.stripIndent()
+
+            def registerTaskDefCmd = "aws ecs register-task-definition --cli-input-json '${taskDefinitionJson.replace("'", "\\'")}'"
+            def taskDefOutput = sh(script: registerTaskDefCmd, returnStdout: true).trim()
+            def taskDefJson = readJSON text: taskDefOutput
+            def newRevision = taskDefJson.taskDefinition.revision
+            def taskDefinitionArn = taskDefJson.taskDefinition.taskDefinitionArn
+
+            // Task Definition 태그 등록
+            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --tags key=Service,value=dev-api-gw"
+
+            def taskDefinition = "${globalConfig.containerName}:${newRevision}"
+            sh "aws ecs update-service --cluster \"${globalConfig.ecsClusterName}\" --service \"${globalConfig.ecsServiceName}\" --task-definition \"${taskDefinition}\""
+        }
     }
+
 }
