@@ -1,60 +1,133 @@
+// 전역 변수 선언
+def globalConfig = [
+        javaHome: '/usr/lib/jvm/java-17-amazon-corretto',
+        ecrRepository: '269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev',
+        ecsClusterName: 'DEV-Cengroup-APIGW-Cluster',
+        ecsServiceName: 'DEV-CEN_APIGW_SVC',
+        containerName: 'DEV-CEN-APIGW-Task',
+        containerDefName: 'dev-api-gw',
+        logGroup: '/ecs/DEV-CEN-APIGW-Task',
+        region: 'ap-northeast-2',
+        ecrCredential: 'ecr:ap-northeast-2:api-gw-dev',
+        jenkinsCredentialId: 'dev-api-gw'
+]
+
 node {
     stage('========== Checkout Repository ==========') {
         checkout scm
     }
 
     stage('========== Setup JDK and Build Application ==========') {
-        def javaHome = '/usr/lib/jvm/java-17-amazon-corretto'
-        withEnv(["JAVA_HOME=${javaHome}", "PATH+JAVA=${javaHome}/bin"]) {
+        withEnv(["JAVA_HOME=${globalConfig.javaHome}", "PATH+JAVA=${globalConfig.javaHome}/bin"]) {
             sh 'chmod +x ./gradlew'
             sh './gradlew clean build'
         }
     }
 
     stage('========== Build Image ==========') {
-        app = docker.build("api-gw-dev", ".")
+        app = docker.build(globalConfig.ecrRepository, ".")
     }
 
     stage('========== Push Image ==========') {
-        docker.withRegistry('https://269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev', 'ecr:ap-northeast-2:api-gw-dev') {
+        docker.withRegistry("https://${globalConfig.ecrRepository}", globalConfig.ecrCredential) {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
     }
 
-    //Jenkins 플러그인 설치 필요.
-    //AWS Steps (Jenkinsfile 에서 withAWS 사용), Pipeline Utility Steps (Jenkinsfile readJSON사용)
-    //운영TAG API_GW, 개발TAG dev-api-gw  / TAG에 따라서 Jenkins credential 을 바꿔줘야함.
+    /*stage('========== Update ECS Service ==========') {
+        withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
+            def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
+
+            def logOptions = [
+                    'awslogs-group': globalConfig.logGroup,
+                    'awslogs-region': globalConfig.region,
+                    'awslogs-stream-prefix': 'ecs'
+            ]
+
+            def containerDefinitions = [
+                    [
+                            name: globalConfig.containerDefName,
+                            image: image,
+                            cpu: 2048,
+                            memory: 4096,
+                            essential: true,
+                            environment: [[name: 'spring.profiles.active', value: 'dev']],
+                            portMappings: [[containerPort: 8080, protocol: 'tcp']],
+                            logConfiguration: [logDriver: 'awslogs', options: logOptions]
+                    ]
+            ]
+
+            def taskDef = ecsRegisterTaskDefinition(
+                    family: globalConfig.containerName,
+                    networkMode: "awsvpc",
+                    requiresCompatibilities: ["FARGATE"],
+                    executionRoleArn: "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
+                    cpu: '2048',
+                    memory: '4096',
+                    containerDefinitions: containerDefinitions
+            )
+
+            def newRevision = taskDef.taskDefinition.revision
+            def taskDefinitionArn = taskDef.taskDefinition.taskDefinitionArn
+
+            // Task Definition 태그 등록
+            ecsTagResource(resourceArn: taskDefinitionArn, tags: [key: 'Service', value: 'dev-api-gw'])
+
+            def taskDefinition = "${globalConfig.containerName}:${newRevision}"
+            ecsUpdateService(cluster: globalConfig.ecsClusterName, service: globalConfig.ecsServiceName, taskDefinition: taskDefinition)
+        }
+    }*/
+
     stage('========== Update ECS Service ==========') {
-        withAWS(credentials: 'dev-api-gw') {
-            def executionRoleArn = "arn:aws:iam::269923429649:role/ecsTaskExecutionRole" //IAM 정책 명
-            def cpu = "2048" //ECS vCPU
-            def memory = "4096" //ECS Memory
-            def containerName = "DEV-CEN-APIGW-Task" //태스크 명
-            def containerDefName = "dev-api-gw" //태스크의 컨테이너 명
-            def image = "269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev:" + env.BUILD_NUMBER //ECR ID
-            def logGroup = "/ecs/DEV-CEN-APIGW-Task" //로그그룹
-            def region = "ap-northeast-2" //리전
+        withAWS(credentials: globalConfig.jenkinsCredentialId) {
+            def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
+            def taskDefinitionJson = """
+        {
+            "family": "${globalConfig.containerName}",
+            "networkMode": "awsvpc",
+            "requiresCompatibilities": ["FARGATE"],
+            "executionRoleArn": "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
+            "cpu": "2048",
+            "memory": "4096",
+            "containerDefinitions": [
+                {
+                    "name": "${globalConfig.containerDefName}",
+                    "image": "${image}",
+                    "cpu": 2048,
+                    "memory": 4096,
+                    "essential": true,
+                    "environment": [
+                        {"name": "spring.profiles.active", "value": "dev"}
+                    ],
+                    "portMappings": [
+                        {"containerPort": 8080, "protocol": "tcp"}
+                    ],
+                    "logConfiguration": {
+                        "logDriver": "awslogs",
+                        "options": {
+                            "awslogs-group": "${globalConfig.logGroup}",
+                            "awslogs-region": "ap-northeast-2",
+                            "awslogs-stream-prefix": "ecs"
+                        }
+                    }
+                }
+            ]
+        }
+        """.stripIndent()
 
-            def taskdef = sh(script: """
-                aws ecs register-task-definition --family "${containerName}" --network-mode "awsvpc" --requires-compatibilities "FARGATE" --execution-role-arn "${executionRoleArn}" --region "${region}" --tags key=Service,value=dev-api-gw --cpu "${cpu}" --memory "${memory}" --container-definitions "[{\\"name\\": \\"${containerDefName}\\",\\"image\\": \\"${image}\\",\\"cpu\\": ${cpu},\\"memory\\": ${memory},\\"essential\\": true, \\"environment\\": [{\\"name\\": \\"spring.profiles.active\\",\\"value\\": \\"dev\\"}],\\"portMappings\\": [{\\"containerPort\\": 8080, \\"protocol\\": \\"tcp\\"}], \\"logConfiguration\\": { \\"logDriver\\": \\"awslogs\\", \\"options\\": { \\"awslogs-group\\": \\"${logGroup}\\", \\"awslogs-region\\": \\"${region}\\", \\"awslogs-stream-prefix\\": \\"ecs\\"}}}]"
-            """, returnStdout: true)
+            def registerTaskDefCmd = "aws ecs register-task-definition --cli-input-json '${taskDefinitionJson.replace("'", "\\'")}'"
+            def taskDefOutput = sh(script: registerTaskDefCmd, returnStdout: true).trim()
+            def taskDefJson = readJSON text: taskDefOutput
+            def newRevision = taskDefJson.taskDefinition.revision
+            def taskDefinitionArn = taskDefJson.taskDefinition.taskDefinitionArn
 
+            // Task Definition 태그 등록
+            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --tags key=Service,value=dev-api-gw"
 
-            // taskdef 결과 JSON 파싱후 결과값 추출
-            def taskdefJson = readJSON text: taskdef
-            def newRevision = taskdefJson.taskDefinition.revision
-            def taskDefinitionArn = taskdefJson.taskDefinition.taskDefinitionArn
-
-            // task definition tag등록
-            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --tags key=Service,value=dev-api-gw --region \"${region}\" "
-
-            def clusterName = "DEV-Cengroup-APIGW-Cluster" //ECS 클러스터명
-            def serviceName = "DEV-CEN_APIGW_SVC" //ECS 서비스명
-            def taskDefinition = "DEV-CEN-APIGW-Task:" + newRevision //ECS 태스크정의
-
-            sh "aws ecs update-service --cluster \"${clusterName}\" --service \"${serviceName}\" --task-definition \"${taskDefinition}\" --region \"${region}\""
-
+            def taskDefinition = "${globalConfig.containerName}:${newRevision}"
+            sh "aws ecs update-service --cluster \"${globalConfig.ecsClusterName}\" --service \"${globalConfig.ecsServiceName}\" --task-definition \"${taskDefinition}\""
         }
     }
+
 }
