@@ -7,7 +7,9 @@ def globalConfig = [
         containerName: 'DEV-CEN-APIGW-Task',
         containerDefName: 'dev-api-gw',
         logGroup: '/ecs/DEV-CEN-APIGW-Task',
-        region: 'ap-northeast-2'
+        region: 'ap-northeast-2',
+        ecrCredential: 'ecr:ap-northeast-2:api-gw-dev',
+        jenkinsCredentialId: 'dev-api-gw'
 ]
 
 node {
@@ -27,14 +29,14 @@ node {
     }
 
     stage('========== Push Image ==========') {
-        docker.withRegistry("https://${globalConfig.ecrRepository}", "ecr:${globalConfig.region}:${globalConfig.ecrRepository.split('/')[0]}") {
+        docker.withRegistry("https://${globalConfig.ecrRepository}", ${globalConfig.ecrCredential}) {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
     }
 
     stage('========== Update ECS Service ==========') {
-        withAWS(region: globalConfig.region, credentials: 'dev-api-gw') {
+        withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
 
             def logOptions = [
