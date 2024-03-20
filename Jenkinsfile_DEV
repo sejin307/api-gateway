@@ -86,7 +86,7 @@ node {
         {
             "family": "${globalConfig.containerName}",
             "networkMode": "awsvpc",
-            "requiresCompatibilities": ["FARGATE"],
+            "requiresCompatibilities": "FARGATE",
             "executionRoleArn": "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
             "cpu": "2048",
             "memory": "4096",
