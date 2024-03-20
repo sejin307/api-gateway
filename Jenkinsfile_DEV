@@ -80,13 +80,13 @@ node {
     }*/
 
     stage('========== Update ECS Service ==========') {
-        withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
+        withAWS(credentials: globalConfig.jenkinsCredentialId) {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
             def taskDefinitionJson = """
         {
             "family": "${globalConfig.containerName}",
             "networkMode": "awsvpc",
-            "requiresCompatibilities": "FARGATE",
+            "requiresCompatibilities": ["FARGATE"],
             "executionRoleArn": "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
             "cpu": "2048",
             "memory": "4096",
