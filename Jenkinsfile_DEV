@@ -1,4 +1,3 @@
-// 전역 변수 선언
 def globalConfig = [
         javaHome: '/usr/lib/jvm/java-17-amazon-corretto',
         ecrRepository: '269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev',
@@ -80,7 +79,7 @@ node {
     }*/
 
     stage('========== Update ECS Service ==========') {
-        withAWS(region: globalConfig.region, credentials: 'arn:aws:iam::269923429649:role/ecsServiceRole') {
+        withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
             def taskDefinitionJson = """
         {
@@ -116,7 +115,7 @@ node {
         }
         """.stripIndent()
 
-            def registerTaskDefCmd = "aws ecs register-task-definition --cli-input-json '${taskDefinitionJson}'"
+            def registerTaskDefCmd = "aws ecs register-task-definition --cli-input-json ${taskDefinitionJson}"
             def taskDefOutput = sh(script: registerTaskDefCmd, returnStdout: true).trim()
             def taskDefJson = readJSON text: taskDefOutput
             def newRevision = taskDefJson.taskDefinition.revision
