@@ -79,7 +79,7 @@ node {
     }*/
 
     stage('========== Update ECS Service ==========') {
-        withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
+        withAWS(credentials: 'dev-api-gw') {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
             def taskDefinitionJson = """
         {
@@ -106,7 +106,7 @@ node {
                         "logDriver": "awslogs",
                         "options": {
                             "awslogs-group": "${globalConfig.logGroup}",
-                            "awslogs-region": "${globalConfig.region}",
+                            "awslogs-region": "ap-northeast-2",
                             "awslogs-stream-prefix": "ecs"
                         }
                     }
