@@ -34,50 +34,6 @@ node {
         }
     }
 
-    /*stage('========== Update ECS Service ==========') {
-        withAWS(region: globalConfig.region, credentials: globalConfig.jenkinsCredentialId) {
-            def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
-
-            def logOptions = [
-                    'awslogs-group': globalConfig.logGroup,
-                    'awslogs-region': globalConfig.region,
-                    'awslogs-stream-prefix': 'ecs'
-            ]
-
-            def containerDefinitions = [
-                    [
-                            name: globalConfig.containerDefName,
-                            image: image,
-                            cpu: 2048,
-                            memory: 4096,
-                            essential: true,
-                            environment: [[name: 'spring.profiles.active', value: 'dev']],
-                            portMappings: [[containerPort: 8080, protocol: 'tcp']],
-                            logConfiguration: [logDriver: 'awslogs', options: logOptions]
-                    ]
-            ]
-
-            def taskDef = ecsRegisterTaskDefinition(
-                    family: globalConfig.containerName,
-                    networkMode: "awsvpc",
-                    requiresCompatibilities: ["FARGATE"],
-                    executionRoleArn: "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
-                    cpu: '2048',
-                    memory: '4096',
-                    containerDefinitions: containerDefinitions
-            )
-
-            def newRevision = taskDef.taskDefinition.revision
-            def taskDefinitionArn = taskDef.taskDefinition.taskDefinitionArn
-
-            // Task Definition 태그 등록
-            ecsTagResource(resourceArn: taskDefinitionArn, tags: [key: 'Service', value: 'dev-api-gw'])
-
-            def taskDefinition = "${globalConfig.containerName}:${newRevision}"
-            ecsUpdateService(cluster: globalConfig.ecsClusterName, service: globalConfig.ecsServiceName, taskDefinition: taskDefinition)
-        }
-    }*/
-
     stage('========== Update ECS Service ==========') {
         withAWS(credentials: 'dev-api-gw') {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
@@ -115,7 +71,7 @@ node {
         }
         """.stripIndent()
 
-            def registerTaskDefCmd = "aws ecs register-task-definition --region ${globalConfig.region} --cli-input-json '${taskDefinitionJson}'"
+            def registerTaskDefCmd = "aws ecs register-task-definition --region '${globalConfig.region}' --cli-input-json '${taskDefinitionJson}'"
             def taskDefOutput = sh(script: registerTaskDefCmd, returnStdout: true).trim()
             def taskDefJson = readJSON text: taskDefOutput
             def newRevision = taskDefJson.taskDefinition.revision
