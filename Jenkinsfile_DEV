@@ -35,7 +35,7 @@ node {
     }
 
     stage('========== Update ECS Service ==========') {
-        withAWS(credentials: 'dev-api-gw') {
+        withAWS(credentials: globalConfig.jenkinsCredentialId) {
             def image = "${globalConfig.ecrRepository}:${env.BUILD_NUMBER}"
             def taskDefinitionJson = """
         {
