@@ -49,13 +49,13 @@ api:
     getContractMonthlyPayInfo: /interface/getContractMonthlyPayInfo.so
     getFIPurchaseCost: /interface/getFIPurchaseCost.so
     getBusinessIncomePayConfirmInfo: /interface/getBusinessIncomePayConfirmInfo.so
-    doBusinessIncomePayConfirm: /interface/doBusinessIncomePayConfirm.so #POST
+    doBusinessIncomePayConfirm: /interface/doBusinessIncomePayConfirm.so #POST Array BodyParam
 
     #CENTerr > PR
-    projectSave: /interface/projectSave.so #POST check
+    projectSave: /interface/projectSave.so #POST Array BodyParam
     getItemTaxonomyInfo: /interface/getItemTaxonomyInfo.so
     getItemStandardInfo: /interface/getItemStandardInfo.so
-    cpResult: /interface/cpResult.so #POST
-    giResult: /interface/giResult.so #POST
+    cpResult: /interface/cpResult.so #POST Array BodyParam
+    giResult: /interface/giResult.so #POST Array BodyParam
     getContractInfoCENTerr: /interface/centerr/getContractInfo.so
     getContractMonthlyPayPlan: /interface/centerr/getContractMonthlyPayPlan.so

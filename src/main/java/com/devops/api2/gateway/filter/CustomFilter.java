@@ -17,7 +17,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 라우팅 서비스에서 공통으로 활용하는 필터
- * TODO:Retry 설정 Cache에서 기존 요청정보를 가져와서 call하면 성능향상, 필요에따라 구현
  */
 @Component
 public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Config> {
@@ -54,13 +53,19 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                             hostName = authentication.getName();
                         }
 
+                        // 여기서 응답 데이터 로깅
+                        byte[] cachedResponseBytes = (byte[]) exchange.getAttribute("response");
+                        if (cachedResponseBytes != null) {
+                            String responseBody = new String(cachedResponseBytes);
+                            // 로깅 로직에 응답 본문 포함
+                        }
+
                         String requestId = exchange.getRequest().getId();
                         String requestPath = exchange.getRequest().getPath().toString();
                         Integer responseStatus = exchange.getResponse().getStatusCode().value();
                         String remoteAddress = exchange.getRequest().getRemoteAddress().getAddress().toString();
-                        AtomicReference<String> requestBodyParam = new AtomicReference<>((String) exchange.getAttributes().get("requestBodyParam"));// TODO:이게안댐..
+                        AtomicReference<String> requestBodyParam = new AtomicReference<>((String) exchange.getAttributes().get("requestBodyParam"));
 
-                        // 참조 : https://velog.io/@aaa6400/Spring-Webflux-%EB%A6%AC%ED%80%98%EC%8A%A4%ED%8A%B8%EB%B0%94%EB%94%94-%EC%BA%90%EC%8B%B1%ED%95%98%EA%B8%B0
                         // 운영배포시 gateway_logs 테이블 request_bodyparam 컬럼 타입 mediumtext 변경 필수 !!!!!! by jwchu
                         exchange.getRequest()
                                 .getBody()
