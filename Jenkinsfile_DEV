@@ -78,10 +78,10 @@ node {
             def taskDefinitionArn = taskDefJson.taskDefinition.taskDefinitionArn
 
             // Task Definition 태그 등록
-            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --tags key=Service,value=dev-api-gw"
+            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --region '${globalConfig.region}' --tags key=Service,value=dev-api-gw"
 
             def taskDefinition = "${globalConfig.containerName}:${newRevision}"
-            sh "aws ecs update-service --cluster \"${globalConfig.ecsClusterName}\" --service \"${globalConfig.ecsServiceName}\" --task-definition \"${taskDefinition}\""
+            sh "aws ecs update-service --cluster \"${globalConfig.ecsClusterName}\" --service \"${globalConfig.ecsServiceName}\" --task-definition \"${taskDefinition}\" --region \"${globalConfig.region}\""
         }
     }
 
