@@ -71,7 +71,7 @@ node {
         }
         """.stripIndent()
 
-            def registerTaskDefCmd = "aws ecs register-task-definition --region '${globalConfig.region}' --cli-input-json '${taskDefinitionJson}'"
+            def registerTaskDefCmd = "aws ecs register-task-definition --region '${globalConfig.region}' --tags key=Service,value=dev-api-gw --cli-input-json '${taskDefinitionJson}'"
             def taskDefOutput = sh(script: registerTaskDefCmd, returnStdout: true).trim()
             def taskDefJson = readJSON text: taskDefOutput
             def newRevision = taskDefJson.taskDefinition.revision
