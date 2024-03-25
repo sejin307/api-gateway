@@ -62,7 +62,7 @@ node {
                         "logDriver": "awslogs",
                         "options": {
                             "awslogs-group": "${globalConfig.logGroup}",
-                            "awslogs-region": "ap-northeast-2",
+                            "awslogs-region": "${globalConfig.region}",
                             "awslogs-stream-prefix": "ecs"
                         }
                     }
