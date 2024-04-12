@@ -30,6 +30,8 @@ api:
     slipinfos-post: /cenerp/openapi/slipinfos-post #POST
     reverse-taxes-post: /cenerp/openapi/reverse-taxes-post #POST
     contUsers-do: /api/contUsers.do
+    order_info: /cenerp/openapi/order_info
+
     #secucen HR연동
     dept_secucen: /cenerp/openapi/dept_secucen
     baseinfo_secucen: /cenerp/openapi/baseinfo_secucen

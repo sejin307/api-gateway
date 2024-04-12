@@ -49,6 +49,8 @@ public class Api2ErpDefinition {
 
     private String ordermm;
 
+    private String orderinfo;
+
 
     public String getBaseUrl() {
         return baseUrl;
@@ -304,5 +306,13 @@ public class Api2ErpDefinition {
 
     public void setOrdermm(String ordermm) {
         this.ordermm = ordermm;
+    }
+
+    public String getOrderinfo() {
+        return orderinfo;
+    }
+
+    public void setOrderinfo(String orderinfo) {
+        this.orderinfo = orderinfo;
     }
 }

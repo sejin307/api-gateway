@@ -190,6 +190,11 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getOrdermm(), queryParams, jwtToken);
     }
 
+    @CircuitBreaker(name = "erpServiceOrderInfoCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getOrderInfoData(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getOrderinfo(), queryParams, jwtToken);
+    }
+
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);
         Mono<String> responseMono = this.webClient.get()

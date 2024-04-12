@@ -202,6 +202,11 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceOrderMMCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
+                .route("order_info", r -> r.path("/cenerp/openapi/order_info")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceOrderInfoCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
                 .build();
     }
 
