@@ -34,6 +34,7 @@ api:
     dept_secucen: /cenerp/openapi/dept_secucen
     baseinfo_secucen: /cenerp/openapi/baseinfo_secucen
     order_mm: /cenerp/openapi/order_mm
+    order_info: /cenerp/openapi/order_info
 
     #pr > CenERP
     magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs
