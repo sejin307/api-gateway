@@ -161,6 +161,11 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getContUsersDoData, queryParams);
     }
 
+    @GetMapping("/openapi/order_info")
+    public Mono<String> getOrderInfo(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getOrderInfoData, queryParams);
+    }
+
     /**
      * 시큐센 인사정보연동
      */
