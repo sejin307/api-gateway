@@ -32,6 +32,11 @@ api:
     contUsers-do: /api/contUsers.do
     order_info: /cenerp/openapi/order_info
 
+    #Groupware 인사연동
+    dept_itcgw: /cenerp/openapi/dept_itcgw
+    user_itcgw: /cenerp/openapi/user_itcgw
+    title_itcgw: /cenerp/openapi/title_itcgw
+
     #secucen HR연동
     dept_secucen: /cenerp/openapi/dept_secucen
     baseinfo_secucen: /cenerp/openapi/baseinfo_secucen

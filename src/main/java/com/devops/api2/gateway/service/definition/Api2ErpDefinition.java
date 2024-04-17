@@ -51,6 +51,10 @@ public class Api2ErpDefinition {
 
     private String orderinfo;
 
+    private String deptitcgw;
+    private String useritcgw;
+    private String titleitcgw;
+
 
     public String getBaseUrl() {
         return baseUrl;
@@ -314,5 +318,29 @@ public class Api2ErpDefinition {
 
     public void setOrderinfo(String orderinfo) {
         this.orderinfo = orderinfo;
+    }
+
+    public String getDeptitcgw() {
+        return deptitcgw;
+    }
+
+    public void setDeptitcgw(String deptitcgw) {
+        this.deptitcgw = deptitcgw;
+    }
+
+    public String getUseritcgw() {
+        return useritcgw;
+    }
+
+    public void setUseritcgw(String useritcgw) {
+        this.useritcgw = useritcgw;
+    }
+
+    public String getTitleitcgw() {
+        return titleitcgw;
+    }
+
+    public void setTitleitcgw(String titleitcgw) {
+        this.titleitcgw = titleitcgw;
     }
 }
