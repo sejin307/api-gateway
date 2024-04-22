@@ -48,6 +48,7 @@ public class Api2ErpDefinition {
     private String baseinfosecucen;
 
     private String ordermm;
+    private String orderinfo;
 
     private String orderinfo;
 
