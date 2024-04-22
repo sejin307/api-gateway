@@ -1,0 +1,122 @@
+#ETC ENV setting
+server:
+  servlet:
+    context-path: /
+  port: 8080
+
+#파라미터 암호화 키,벡터 값
+
+CRYPTO_LEGACY_KEY: CengroupAPK20!@#
+CRYPTO_LEGACY_IV: cenGroupAPV20#@!
+
+#SCG Route Target URL Path
+#http://121.138.156.45:8080 (CENERP개발2 공인IP)
+#http://192.168.63.71:8080 (CENERP개발2 내부IP)
+#https://erp.cengroup.co.kr (CENERP 운영)
+
+#targetPath: http://121.138.156.45:8080
+targetPath: http://192.168.63.71:8080
+targetPRPath: http://192.168.63.47:8080
+
+
+#SpringBoot 설정
+spring:
+  #데이터베이스 설정 과 커넥션풀 설정
+  datasource:
+    #개발
+    url: jdbc:mysql://centerr-dev.cisryp9h2evy.ap-northeast-2.rds.amazonaws.com:13306/api2?allowMultiQueries=true&autoReconnection=true&useSSL=false&serverTimezone=Asia/Seoul
+    username: api2
+    password: itcengo3#apigw
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5      #TODO: prod조정
+      minimum-idle: 2           #TODO: prod조정
+      connection-timeout: 30000 #30초
+      idle-timeout: 600000      #10분
+      max-lifetime: 1800000     #30분
+
+  application:
+    name: api-gw
+
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  devtools:
+    restart:
+      enabled: true
+
+  cloud:
+    gateway:
+      default-filters:
+        - name: CustomFilter
+
+
+  #codec:
+  #  max-in-memory-size: 20MB
+
+#Resilience4J 설정
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10                               #서킷 상태가 CLOSED 일때 요청결과를 기록하기위한 SLIDING WINDOW 설정
+      permittedNumberOfCallsInHalfOpenState: 50            #서킷 상태가 HALF-OPEN 일때 받아들일 요청의 갯수
+      waitDurationInOpenState: 10000                      #서킷 이 OPEN 에서 HALF-OPEN으로 전환하기 전 대기 시간 (ms) 1000ms = 1초
+      automaticTransitionFromOpenToHalfOpenEnabled: true  #서킷 상태가 OPEN에서 HALF-OPEN으로 자동전환 설정
+      failureRateThreshold: 50                            #실패 비율 THRESHOLD 설정, 해당 값보다 같거나 클 경우 서킷을 OPEN함.
+      eventConsumerBufferSize: 3                          #이벤트가 발행되면, 해당 버퍼에 저장되는데 그 크기를 지정함.
+      registerHealthIndicator: true                       #엑츄에이터를 통해 서킷 상태를 확인하기 위해 설정
+  instances:
+    erpService:
+      baseConfig: default
+resilience4j.retry:
+  instances:
+    hydraService:
+      maxAttempts: 3
+      waitDuration: 15s
+
+
+#엑츄에이터 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"                    #모든 액츄에이터 엔드포인트를 노출
+    endpoint:
+      shutdown:
+        enabled: true                   #액츄에이터의 종료 엔드포인트 사용 가능
+      health:
+        show-details: always            #액츄에이터의 헬스 엔드포인트에서 항상 상세정보 표기
+      web:
+        base: "/api2/actuator"
+  health:
+    circuitbreakers:
+      enabled: true                     #헬스 엔드포인트에서 서킷 브레이커의 상태표기
+  metrics:
+    enable:
+      resilience4j.circuitbreaker: true #Resilience4J 서킷 에 대한 메트릭 활성화
+
+#JWT 설정
+jwt:
+  header: Authorization
+  # This token must be encoded using Base64 with mininum 88 Bits (you can type `echo 'secret-key'|base64` on your command line)
+  base64-secret: ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=
+  # token is valid 10Minute
+  token-validity-in-seconds: 3600
+
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+
+#시스템 패키지 로그레벨 설정
+logging:
+  level:
+    com.devops.api2: DEBUG
+    #root: TRACE
+    #io.netty: trace
+    #reactor.netty: trace

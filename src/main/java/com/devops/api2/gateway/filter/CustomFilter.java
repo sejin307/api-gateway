@@ -8,22 +8,15 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 라우팅 서비스에서 공통으로 활용하는 필터
- * TODO:Retry 설정 Cache에서 기존 요청정보를 가져와서 call하면 성능향상, 필요에따라 구현
  */
 @Component
 public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Config> {
@@ -60,11 +53,28 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                             hostName = authentication.getName();
                         }
 
+                        // 여기서 응답 데이터 로깅
+                        byte[] cachedResponseBytes = (byte[]) exchange.getAttribute("response");
+                        if (cachedResponseBytes != null) {
+                            String responseBody = new String(cachedResponseBytes);
+                            // 로깅 로직에 응답 본문 포함
+                        }
+
                         String requestId = exchange.getRequest().getId();
                         String requestPath = exchange.getRequest().getPath().toString();
                         Integer responseStatus = exchange.getResponse().getStatusCode().value();
                         String remoteAddress = exchange.getRequest().getRemoteAddress().getAddress().toString();
-                        String requestBodyParam = (String) exchange.getAttributes().get("requestBodyParam");// TODO:이게안댐..
+                        AtomicReference<String> requestBodyParam = new AtomicReference<>((String) exchange.getAttributes().get("requestBodyParam"));
+
+                        // 운영배포시 gateway_logs 테이블 request_bodyparam 컬럼 타입 mediumtext 변경 필수 !!!!!! by jwchu
+                        exchange.getRequest()
+                                .getBody()
+                                .map(dataBuffer -> {
+                                    final byte[] bytes = new byte[dataBuffer.readableByteCount()];
+                                    DataBufferUtils.release(dataBuffer.read(bytes));
+                                    requestBodyParam.set(new String(bytes));
+                                    return new String(bytes);})
+                                .subscribe();
 
                         //231018 Request param, body, method 추가 sejin
                         String requestQueryParam = exchange.getRequest().getQueryParams().toString();
@@ -73,7 +83,7 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
                         String requestHeader = exchange.getRequest().getHeaders().toString();
 
                         //개발서버 로그 insert 안되도록
-                        saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam, requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
+                        saveLogToDb(requestId, requestPath, requestQueryParam, requestBodyParam.get(), requestMethod, requestHeader, responseStatus, remoteAddress, hostName);
                     }));
         };
     }

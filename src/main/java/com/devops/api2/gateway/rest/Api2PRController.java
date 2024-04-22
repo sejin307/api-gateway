@@ -1,12 +1,12 @@
 package com.devops.api2.gateway.rest;
 
-
-import com.devops.api2.gateway.service.RestRequestCenERPService;
 import com.devops.api2.gateway.service.RestRequestPRService;
+import org.springframework.security.core.Authentication;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,55 +20,77 @@ public class Api2PRController {
         this.restRequestPRService = restRequestPRService;
     }
 
-    @GetMapping("/interface/getVendorBuyerInfo-so")
+    @GetMapping("/openapi/getVendorBuyerInfo")
     public Mono<String> getVendorBuyerInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getVendorBuyerInfoData,queryParams);
     }
 
-    @GetMapping("/interface/getVendorNomalInfo-so")
+    @GetMapping("/openapi/getVendorNomalInfo")
     public Mono<String> getVendorNomalInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getVendorNomalInfoData,queryParams);
     }
-    @GetMapping("/interface/getVendorManagerInfo-so")
+    @GetMapping("/openapi/getVendorManagerInfo")
     public Mono<String> getVendorManagerInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getVendorManagerInfoData,queryParams);
     }
-    @GetMapping("/interface/getContractInfo-so")
+    @GetMapping("/openapi/getContractInfo")
     public Mono<String> getContractInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getContractInfoData,queryParams);
     }
-    @GetMapping("/interface/getContractMonthlyPayInfo-so")
+    @GetMapping("/openapi/getContractMonthlyPayInfo")
     public Mono<String> getContractMonthlyPayInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getContractMonthlyPayInfoData,queryParams);
     }
-    @GetMapping("/interface/getFIPurchaseCost-so")
+    @GetMapping("/openapi/getFIPurchaseCost")
     public Mono<String> getFIPurchaseCostData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getFIPurchaseCostData,queryParams);
     }
-    @GetMapping("/interface/getBusinessIncomePayConfirmInfo-so")
+    @GetMapping("/openapi/getBusinessIncomePayConfirmInfo")
     public Mono<String> getBusinessIncomePayConfirmInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getBusinessIncomePayConfirmInfoData,queryParams);
     }
 
-    @PostMapping("/interface/doBusinessIncomePayConfirm")
-    public Mono<String> getDoBusinessIncomePayConfirmData(@RequestBody Map<String, Object> requestBody) {
+    @PostMapping("/openapi/doBusinessIncomePayConfirm")
+    public Mono<String> getDoBusinessIncomePayConfirmData(@RequestBody List<Map<String, Object>> requestBody) {
         return doExecute(restRequestPRService::getDoBusinessIncomePayConfirmData, requestBody);
     }
 
-    @PostMapping("/interface/projectSave-so")
+    @PostMapping("/openapi/projectSave")
     public Mono<String> projectSaveData(@RequestBody Map<String, Object> requestBody) {
         return doExecute(restRequestPRService::projectSaveData, requestBody);
     }
 
-    @GetMapping("/interface/getItemTaxonomyInfo-so")
+    @GetMapping("/openapi/getItemTaxonomyInfo")
     public Mono<String> getItemTaxonomyInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getItemTaxonomyInfoData,queryParams);
     }
 
-    @GetMapping("/interface/getItemStandardInfo-so")
+    @GetMapping("/openapi/getItemStandardInfo")
     public Mono<String> getItemStandardInfoData(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestPRService::getItemStandardInfoData,queryParams);
     }
+
+    @PostMapping("/openapi/cpResult")
+    public Mono<String> getCpResultData(@RequestBody Map<String, Object> requestBody) {
+        return doExecute(restRequestPRService::cpResultData, requestBody);
+    }
+
+    @PostMapping("/openapi/giResult")
+    public Mono<String> getGiResultData(@RequestBody Map<String, Object> requestBody) {
+        return doExecute(restRequestPRService::giResultData, requestBody);
+    }
+
+    @GetMapping("/openapi/getContractInfoCENTerr")
+    public Mono<String> getContractInfoCENTerrData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestPRService::getContractInfoCENTerr,queryParams);
+    }
+
+    @GetMapping("/openapi/getContractMonthlyPayPlan")
+    public Mono<String> getContractMonthlyPayPlanData(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestPRService::getContractMonthlyPayPlan,queryParams);
+    }
+
+
 
     @FunctionalInterface
     public interface ServiceCallerMap {
@@ -80,12 +102,22 @@ public class Api2PRController {
         Mono<String> call(MultiValueMap<String, String> param, String jwtToken);
     }
 
+    @FunctionalInterface
+    public interface ServiceCallerListMap {
+        Mono<String> call(List<Map<String, Object>> param, String jwtToken);
+    }
+
     private <T> Mono<String> doExecute(Api2PRController.ServiceCallerMap serviceCaller, Map<String, Object> param) {
         return extractJwtFromContext()
                 .flatMap(jwtToken -> serviceCaller.call(param, jwtToken));
     }
 
-    private <T> Mono<String> doExecute(Api2ErpController.ServiceCallerMultiValueMap serviceCaller, MultiValueMap<String, String> param) {
+    private <T> Mono<String> doExecute(Api2PRController.ServiceCallerListMap serviceCaller, List<Map<String, Object>> param) {
+        return extractJwtFromContext()
+                .flatMap(jwtToken -> serviceCaller.call(param, jwtToken));
+    }
+
+    private <T> Mono<String> doExecute(Api2PRController.ServiceCallerMultiValueMap serviceCaller, MultiValueMap<String, String> param) {
         return extractJwtFromContext()
                 .flatMap(jwtToken -> serviceCaller.call(param, jwtToken));
     }

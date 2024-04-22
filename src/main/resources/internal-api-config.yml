@@ -30,6 +30,13 @@ api:
     slipinfos-post: /cenerp/openapi/slipinfos-post #POST
     reverse-taxes-post: /cenerp/openapi/reverse-taxes-post #POST
     contUsers-do: /api/contUsers.do
+    order_info: /cenerp/openapi/order_info
+
+    #Groupware 인사연동
+    dept_itcgw: /cenerp/openapi/dept_itcgw
+    user_itcgw: /cenerp/openapi/user_itcgw
+    title_itcgw: /cenerp/openapi/title_itcgw
+
     #secucen HR연동
     dept_secucen: /cenerp/openapi/dept_secucen
     baseinfo_secucen: /cenerp/openapi/baseinfo_secucen
@@ -43,17 +50,20 @@ api:
 
   pr:
     #CenERP > PR
-    getVendorBuyerInfo-so: /interface/getVendorBuyerInfo.so
-    getVendorNomalInfo-so: /interface/getVendorNomalInfo.so
-    getVendorManagerInfo-so: /interface/getVendorManagerInfo.so
-    getContractInfo-so: /interface/getContractInfo.so
-    getContractMonthlyPayInfo-so: /interface/getContractMonthlyPayInfo.so
-    getFIPurchaseCost-so: /interface/getFIPurchaseCost.so
-    getBusinessIncomePayConfirmInfo-so: /interface/getBusinessIncomePayConfirmInfo.so
-    doBusinessIncomePayConfirm-so: /interface/doBusinessIncomePayConfirm.so #POST
+    getVendorBuyerInfo: /interface/getVendorBuyerInfo.so
+    getVendorNomalInfo: /interface/getVendorNomalInfo.so
+    getVendorManagerInfo: /interface/getVendorManagerInfo.so
+    getContractInfo: /interface/getContractInfo.so
+    getContractMonthlyPayInfo: /interface/getContractMonthlyPayInfo.so
+    getFIPurchaseCost: /interface/getFIPurchaseCost.so
+    getBusinessIncomePayConfirmInfo: /interface/getBusinessIncomePayConfirmInfo.so
+    doBusinessIncomePayConfirm: /interface/doBusinessIncomePayConfirm.so #POST Array BodyParam
 
     #CENTerr > PR
-    projectSave-so: /interface/projectSave.so #POST
-    getItemTaxonomyInfo-so: /interface/getItemTaxonomyInfo.so
-    getItemStandardInfo-so: /interface/getItemStandardInfo.so
-    #getContractInfo-so: /interface/centerr/getContractInfo.so
+    projectSave: /interface/projectSave.so #POST Array BodyParam
+    getItemTaxonomyInfo: /interface/getItemTaxonomyInfo.so
+    getItemStandardInfo: /interface/getItemStandardInfo.so
+    cpResult: /interface/cpResult.so #POST Array BodyParam
+    giResult: /interface/giResult.so #POST Array BodyParam
+    getContractInfoCENTerr: /interface/centerr/getContractInfo.so
+    getContractMonthlyPayPlan: /interface/centerr/getContractMonthlyPayPlan.so

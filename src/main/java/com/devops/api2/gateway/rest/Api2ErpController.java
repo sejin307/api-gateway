@@ -167,6 +167,26 @@ public class Api2ErpController {
     }
 
     /**
+     * Groupware 인사정보 api 연동
+     * @param queryParams
+     * @return
+     */
+    @GetMapping("/openapi/dept_itcgw")
+    public Mono<String> getDeptItcGW(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getDeptItcGW, queryParams);
+    }
+
+    @GetMapping("/openapi/user_itcgw")
+    public Mono<String> getUserItcGW(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getUserItcGW, queryParams);
+    }
+
+    @GetMapping("/openapi/title_itcgw")
+    public Mono<String> getTitleItcGW(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getTitleItcGW, queryParams);
+    }
+
+    /**
      * 시큐센 인사정보연동
      */
     @GetMapping("/openapi/dept_secucen")
@@ -179,6 +199,7 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getBaseinfoSecucenData, queryParams);
     }
 
+    //??
     @GetMapping("/openapi/order_mm")
     public Mono<String> getOrderMM(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestCenERPService::getOrderMMData, queryParams);
@@ -218,5 +239,3 @@ public class Api2ErpController {
     }
 
 }
-
-

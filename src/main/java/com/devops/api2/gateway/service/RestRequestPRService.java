@@ -1,6 +1,5 @@
 package com.devops.api2.gateway.service;
 
-import com.devops.api2.gateway.service.definition.Api2ErpDefinition;
 import com.devops.api2.gateway.service.definition.Api2PRDefinition;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -71,9 +71,9 @@ public class RestRequestPRService {
         return fetchData(api2PRDefinition.getGetBusinessIncomePayConfirmInfo(), queryParams, jwtToken);
     }
 
-    @CircuitBreaker(name = "prServiceDoBusinessIncomePayConfirmCircuitBreaker", fallbackMethod = "fallbackPostPR" )
-    public Mono<String> getDoBusinessIncomePayConfirmData(Map<String, Object> requestBody, String jwtToken) {
-        return fetchDataPost(api2PRDefinition.getDoBusinessIncomePayConfirm(), requestBody, jwtToken);
+    @CircuitBreaker(name = "prServiceDoBusinessIncomePayConfirmCircuitBreaker", fallbackMethod = "fallbackPostPRArray" )
+    public Mono<String> getDoBusinessIncomePayConfirmData(List<Map<String, Object>> requestBody, String jwtToken) {
+        return fetchDataPostArray(api2PRDefinition.getDoBusinessIncomePayConfirm(), requestBody, jwtToken);
     }
 
     @CircuitBreaker(name = "prServiceProjectSaveCircuitBreaker", fallbackMethod = "fallbackPostPR" )
@@ -91,10 +91,25 @@ public class RestRequestPRService {
         return fetchData(api2PRDefinition.getGetItemStandardInfo(), queryParams, jwtToken);
     }
 
+    @CircuitBreaker(name = "prServiceCpResultCircuitBreaker", fallbackMethod = "fallbackPostPR" )
+    public Mono<String> cpResultData(Map<String, Object> requestBody, String jwtToken) {
+        return fetchDataPost(api2PRDefinition.getCpResult(), requestBody, jwtToken);
+    }
 
+    @CircuitBreaker(name = "prServiceGiResultCircuitBreaker", fallbackMethod = "fallbackPostPR" )
+    public Mono<String> giResultData(Map<String, Object> requestBody, String jwtToken) {
+        return fetchDataPost(api2PRDefinition.getGiResult(), requestBody, jwtToken);
+    }
 
+    @CircuitBreaker(name = "prServiceGetContractInfoCENTerrCircuitBreaker", fallbackMethod = "fallbackPR" )
+    public Mono<String> getContractInfoCENTerr(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2PRDefinition.getGetContractInfoCENTerr(), queryParams, jwtToken);
+    }
 
-
+    @CircuitBreaker(name = "prServiceGetContractMonthlyPayPlanCircuitBreaker", fallbackMethod = "fallbackPR" )
+    public Mono<String> getContractMonthlyPayPlan(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2PRDefinition.getGetContractMonthlyPayPlan(), queryParams, jwtToken);
+    }
 
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);
@@ -114,6 +129,19 @@ public class RestRequestPRService {
      * @return
      */
     private Mono<String> fetchDataPost(String apiPath, Map<String, Object> requestBody, String jwtToken) {
+        UriComponentsBuilder uriBuilder = buildUri(apiPath, null);
+
+        Mono<String> responseMono = this.webClient.post()
+                .uri(uriBuilder.build().toUriString())
+                .header("Internal-Route-Request", "true")
+                .header("Authorization", "Bearer " + jwtToken)
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(String.class);
+        return processResponse(responseMono);
+    }
+
+    private Mono<String> fetchDataPostArray(String apiPath, List<Map<String, Object>> requestBody, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, null);
 
         Mono<String> responseMono = this.webClient.post()
@@ -172,10 +200,13 @@ public class RestRequestPRService {
      * @return
      */
     public Mono<String> fallbackPR(MultiValueMap<String, String> queryParams, String jwtToken, Throwable t) {
-        return Mono.just("Target Service PR Unavailable. Please try again later.");
+        return Mono.just("Target Service PR Unavailable.(fallbackPR) Please try again later.");
     }
 
     public Mono<String> fallbackPostPR(Map<String, Object> requestBody,String jwtToken, Throwable t) {
-        return Mono.just("Target Service PR Unavailable. Please try again later.");
+        return Mono.just("Target Service PR Unavailable.(fallbackPostPR) Please try again later.");
+    }
+    public Mono<String> fallbackPostPRArray(List<Map<String, Object>> requestBody,String jwtToken, Throwable t) {
+        return Mono.just("Target Service PR Unavailable.(fallbackPostPRArray) Please try again later.");
     }
 }

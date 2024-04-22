@@ -24,6 +24,11 @@ public class Api2PRDefinition {
     private String getItemTaxonomyInfo;
     private String getItemStandardInfo;
 
+    private String cpResult;
+    private String giResult;
+    private String getContractInfoCENTerr;
+    private String getContractMonthlyPayPlan;
+
     public String getBaseUrl() {
         return baseUrl;
     }
@@ -118,5 +123,37 @@ public class Api2PRDefinition {
 
     public void setGetItemStandardInfo(String getItemStandardInfo) {
         this.getItemStandardInfo = getItemStandardInfo;
+    }
+
+    public String getCpResult() {
+        return cpResult;
+    }
+
+    public void setCpResult(String cpResult) {
+        this.cpResult = cpResult;
+    }
+
+    public String getGiResult() {
+        return giResult;
+    }
+
+    public void setGiResult(String giResult) {
+        this.giResult = giResult;
+    }
+
+    public String getGetContractInfoCENTerr() {
+        return getContractInfoCENTerr;
+    }
+
+    public void setGetContractInfoCENTerr(String getContractInfoCENTerr) {
+        this.getContractInfoCENTerr = getContractInfoCENTerr;
+    }
+
+    public String getGetContractMonthlyPayPlan() {
+        return getContractMonthlyPayPlan;
+    }
+
+    public void setGetContractMonthlyPayPlan(String getContractMonthlyPayPlan) {
+        this.getContractMonthlyPayPlan = getContractMonthlyPayPlan;
     }
 }

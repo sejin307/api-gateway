@@ -1,14 +1,14 @@
 def globalConfig = [
         javaHome: '/usr/lib/jvm/java-17-amazon-corretto',
-        ecrRepository: '269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw-dev',
-        ecsClusterName: 'DEV-Cengroup-APIGW-Cluster',
-        ecsServiceName: 'DEV-CEN_APIGW_SVC',
-        containerName: 'DEV-CEN-APIGW-Task',
-        containerDefName: 'dev-api-gw',
-        logGroup: '/ecs/DEV-CEN-APIGW-Task',
+        ecrRepository: '269923429649.dkr.ecr.ap-northeast-2.amazonaws.com/api-gw',
+        ecsClusterName: 'Cengroup-APIGW-Cluster',
+        ecsServiceName: 'CEN_APIGW_Service',
+        containerName: 'CEN-APIGW-Task',
+        containerDefName: 'api-gw',
+        logGroup: '/ecs/CEN-APIGW-Task',
         region: 'ap-northeast-2',
-        ecrCredential: 'ecr:ap-northeast-2:api-gw-dev',
-        jenkinsCredentialId: 'dev-api-gw'
+        ecrCredential: 'ecr:ap-northeast-2:api-gw',
+        jenkinsCredentialId: 'api-gw'
 ]
 
 node {
@@ -43,17 +43,17 @@ node {
             "networkMode": "awsvpc",
             "requiresCompatibilities": ["FARGATE"],
             "executionRoleArn": "arn:aws:iam::269923429649:role/ecsTaskExecutionRole",
-            "cpu": "2048",
-            "memory": "4096",
+            "cpu": "4096",
+            "memory": "8192",
             "containerDefinitions": [
                 {
                     "name": "${globalConfig.containerDefName}",
                     "image": "${image}",
-                    "cpu": 2048,
-                    "memory": 4096,
+                    "cpu": 4096,
+                    "memory": 8192,
                     "essential": true,
                     "environment": [
-                        {"name": "spring.profiles.active", "value": "dev"}
+                        {"name": "spring.profiles.active", "value": "prd"}
                     ],
                     "portMappings": [
                         {"containerPort": 8080, "protocol": "tcp"}
@@ -71,18 +71,17 @@ node {
         }
         """.stripIndent()
 
-            def registerTaskDefCmd = "aws ecs register-task-definition --region '${globalConfig.region}' --tags key=Service,value=dev-api-gw --cli-input-json '${taskDefinitionJson}'"
+            def registerTaskDefCmd = "aws ecs register-task-definition --region '${globalConfig.region}' --tags key=Service,value=API_GW --cli-input-json '${taskDefinitionJson}'"
             def taskDefOutput = sh(script: registerTaskDefCmd, returnStdout: true).trim()
             def taskDefJson = readJSON text: taskDefOutput
             def newRevision = taskDefJson.taskDefinition.revision
             def taskDefinitionArn = taskDefJson.taskDefinition.taskDefinitionArn
 
             // Task Definition 태그 등록
-            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --region '${globalConfig.region}' --tags key=Service,value=dev-api-gw"
+            sh "aws ecs tag-resource --resource-arn \"${taskDefinitionArn}\" --region '${globalConfig.region}' --tags key=Service,value=API_GW"
 
             def taskDefinition = "${globalConfig.containerName}:${newRevision}"
             sh "aws ecs update-service --cluster \"${globalConfig.ecsClusterName}\" --service \"${globalConfig.ecsServiceName}\" --task-definition \"${taskDefinition}\" --region \"${globalConfig.region}\""
         }
     }
-
 }
