@@ -50,8 +50,6 @@ public class Api2ErpDefinition {
     private String ordermm;
     private String orderinfo;
 
-    private String orderinfo;
-
     private String deptitcgw;
     private String useritcgw;
     private String titleitcgw;
