@@ -222,6 +222,31 @@ public class CenERPRouteLocator {
                                         getFilterConfig("erpServiceTitleItcGWCircuitBreaker"))
                                 .toArray(new GatewayFilter[0])))
                         .uri(targetPath))
+                .route("consolidated_tb", r -> r.path("/cenerp/openapi/consolidated_tb")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceConsolidatedTbCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
+                .route("consolidated_bond_debt", r -> r.path("/cenerp/openapi/consolidated_bond_debt")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceConsolidatedBondDebtCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
+                .route("consolidated_sales_purchase", r -> r.path("/cenerp/openapi/consolidated_sales_purchase")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceConsolidatedSalesPurchaseCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
+                .route("consolidated_profit_cost", r -> r.path("/cenerp/openapi/consolidated_profit_cost")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceConsolidatedProfitCostCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
+                .route("consolidated_rent_borrow", r -> r.path("/cenerp/openapi/consolidated_rent_borrow")
+                        .filters(f -> f.filters(filterListProvider.getFilters(customCircuitBreakerFilterFactory, customFilter,
+                                        getFilterConfig("erpServiceConsolidatedRentBorrowCircuitBreaker"))
+                                .toArray(new GatewayFilter[0])))
+                        .uri(targetPath))
                 .build();
     }
 

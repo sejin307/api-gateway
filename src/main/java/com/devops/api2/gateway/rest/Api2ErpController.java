@@ -166,6 +166,8 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getOrderInfoData, queryParams);
     }
 
+
+
     /**
      * Groupware 인사정보 api 연동
      * @param queryParams
@@ -181,14 +183,15 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getUserItcGW, queryParams);
     }
 
+    /**
+     * 시큐센 인사정보연동
+     * title_itcgw / dept_secucen / baseinfo_secucen
+     */
     @GetMapping("/openapi/title_itcgw")
     public Mono<String> getTitleItcGW(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestCenERPService::getTitleItcGW, queryParams);
     }
 
-    /**
-     * 시큐센 인사정보연동
-     */
     @GetMapping("/openapi/dept_secucen")
     public Mono<String> getDeptSecucen(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestCenERPService::getDeptSecucenData, queryParams);
@@ -199,10 +202,40 @@ public class Api2ErpController {
         return doExecute(restRequestCenERPService::getBaseinfoSecucenData, queryParams);
     }
 
-    //??
     @GetMapping("/openapi/order_mm")
     public Mono<String> getOrderMM(@RequestParam MultiValueMap<String, String> queryParams) {
         return doExecute(restRequestCenERPService::getOrderMMData, queryParams);
+    }
+
+    /**
+     * 연결결산시스템 ERP인터페이스
+     * consolidated_tb / consolidated_bond_debt / consolidated_sales_purchase / consolidated_profit_cost / consolidated_rent_borrow
+     * @param queryParams
+     * @return
+     */
+    @GetMapping("/openapi/consolidated_tb")
+    public Mono<String> getConsolidatedTb(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getConsolidatedTb, queryParams);
+    }
+
+    @GetMapping("/openapi/consolidated_bond_debt")
+    public Mono<String> getConsolidatedBondDebt(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getConsolidatedBondDebt, queryParams);
+    }
+
+    @GetMapping("/openapi/consolidated_sales_purchase")
+    public Mono<String> getConsolidatedSalesPurchase(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getConsolidatedSalesPurchase, queryParams);
+    }
+
+    @GetMapping("/openapi/consolidated_profit_cost")
+    public Mono<String> getConsolidatedProfitCost(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getConsolidatedProfitCost, queryParams);
+    }
+
+    @GetMapping("/openapi/consolidated_rent_borrow")
+    public Mono<String> getConsolidatedRentBorrow(@RequestParam MultiValueMap<String, String> queryParams) {
+        return doExecute(restRequestCenERPService::getConsolidatedRentBorrow, queryParams);
     }
 
 

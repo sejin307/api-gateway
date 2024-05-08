@@ -54,6 +54,15 @@ public class Api2ErpDefinition {
     private String useritcgw;
     private String titleitcgw;
 
+    /**
+     * 연결결산시스템 ERP인터페이스
+     */
+    private String consolidatedtb;
+    private String consolidatedbonddebt;
+    private String consolidatedsalespurchase;
+    private String consolidatedprofitcost;
+    private String consolidatedrentborrow;
+
 
     public String getBaseUrl() {
         return baseUrl;
@@ -341,5 +350,45 @@ public class Api2ErpDefinition {
 
     public void setTitleitcgw(String titleitcgw) {
         this.titleitcgw = titleitcgw;
+    }
+
+    public String getConsolidatedtb() {
+        return consolidatedtb;
+    }
+
+    public void setConsolidatedtb(String consolidatedtb) {
+        this.consolidatedtb = consolidatedtb;
+    }
+
+    public String getConsolidatedbonddebt() {
+        return consolidatedbonddebt;
+    }
+
+    public void setConsolidatedbonddebt(String consolidatedbonddebt) {
+        this.consolidatedbonddebt = consolidatedbonddebt;
+    }
+
+    public String getConsolidatedsalespurchase() {
+        return consolidatedsalespurchase;
+    }
+
+    public void setConsolidatedsalespurchase(String consolidatedsalespurchase) {
+        this.consolidatedsalespurchase = consolidatedsalespurchase;
+    }
+
+    public String getConsolidatedprofitcost() {
+        return consolidatedprofitcost;
+    }
+
+    public void setConsolidatedprofitcost(String consolidatedprofitcost) {
+        this.consolidatedprofitcost = consolidatedprofitcost;
+    }
+
+    public String getConsolidatedrentborrow() {
+        return consolidatedrentborrow;
+    }
+
+    public void setConsolidatedrentborrow(String consolidatedrentborrow) {
+        this.consolidatedrentborrow = consolidatedrentborrow;
     }
 }

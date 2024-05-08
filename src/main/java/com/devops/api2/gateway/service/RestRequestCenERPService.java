@@ -210,6 +210,41 @@ public class RestRequestCenERPService {
         return fetchData(api2ErpDefinition.getTitleitcgw(), queryParams, jwtToken);
     }
 
+    /**
+     * 연결결산시스템 ERP인터페이스
+     * @param apiPath
+     * @param queryParams
+     * @param jwtToken
+     * @return
+     */
+    @CircuitBreaker(name = "erpServiceConsolidatedTbCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getConsolidatedTb(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getConsolidatedtb(), queryParams, jwtToken);
+    }
+
+    @CircuitBreaker(name = "erpServiceConsolidatedBondDebtCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getConsolidatedBondDebt(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getConsolidatedbonddebt(), queryParams, jwtToken);
+    }
+
+    @CircuitBreaker(name = "erpServiceConsolidatedSalesPurchaseCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getConsolidatedSalesPurchase(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getConsolidatedsalespurchase(), queryParams, jwtToken);
+    }
+
+    @CircuitBreaker(name = "erpServiceConsolidatedProfitCostCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getConsolidatedProfitCost(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getConsolidatedprofitcost(), queryParams, jwtToken);
+    }
+
+    @CircuitBreaker(name = "erpServiceConsolidatedRentBorrowCircuitBreaker", fallbackMethod = "fallbackERP" )
+    public Mono<String> getConsolidatedRentBorrow(MultiValueMap<String, String> queryParams, String jwtToken) {
+        return fetchData(api2ErpDefinition.getConsolidatedrentborrow(), queryParams, jwtToken);
+    }
+
+
+
+
     private Mono<String> fetchData(String apiPath, MultiValueMap<String, String> queryParams, String jwtToken) {
         UriComponentsBuilder uriBuilder = buildUri(apiPath, queryParams);
         Mono<String> responseMono = this.webClient.get()

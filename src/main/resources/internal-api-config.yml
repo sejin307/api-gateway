@@ -41,12 +41,18 @@ api:
     dept_secucen: /cenerp/openapi/dept_secucen
     baseinfo_secucen: /cenerp/openapi/baseinfo_secucen
     order_mm: /cenerp/openapi/order_mm
-    order_info: /cenerp/openapi/order_info
 
     #pr > CenERP
     magaminfo-cenpcs: /cenerp/openapi/magaminfo-cenpcs
     taxes: /cenerp/openapi/taxes
     reverse-taxes: /cenerp/openapi/reverse-taxes
+
+    #연결결산시스템 ERP인터페이스
+    consolidated_tb: /cenerp/openapi/consolidated_tb
+    consolidated_bond_debt: /cenerp/openapi/consolidated_bond_debt
+    consolidated_sales_purchase: /cenerp/openapi/consolidated_sales_purchase
+    consolidated_profit_cost: /cenerp/openapi/consolidated_profit_cost
+    consolidated_rent_borrow: /cenerp/openapi/consolidated_rent_borrow
 
   pr:
     #CenERP > PR
